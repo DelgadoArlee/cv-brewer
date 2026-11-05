@@ -14,8 +14,6 @@ The main application components are:
 
 - Database Adapter
 
-- LLM Provider
-
 - LLM Adapter
 
 The application also uses external resources:
@@ -30,7 +28,7 @@ The CLI and Core are logically separate components with distinct responsibilitie
 
 The Database Service and its selected Database Adapter are application components. They are included with the application and work together to access the selected database implementation. The database itself may be embedded in the application environment or provided by an independently running database service.
 
-The LLM Provider and selected LLM Adapter are also application components. They communicate with the user's separately installed or hosted LLM service.
+The LLM Adapter is also an application component. It communicates directly with the user's separately installed or hosted LLM service.
 
 ### System Overview
 
@@ -52,9 +50,7 @@ DBAdapter <--> DB["Database Implementation"]
 
 
 
-Core <--> LLMProvider["LLM Provider"]
-
-LLMProvider <--> LLMAdapter["LLM Adapter"]
+Core <--> LLMAdapter["LLM Adapter"]
 
 LLMAdapter <--> LLM["User's External LLM Service"]
 
@@ -104,7 +100,7 @@ The CLI is the user-facing component responsible for interacting with the user a
 
 ### 2.2. Core Processing Engine
 
-The Core is responsible for the application's primary processing logic and resume-related workflows. It coordinates processing tasks and uses the Database Service and LLM Provider when their capabilities are required.
+The Core is responsible for the application's primary processing logic and resume-related workflows. It coordinates processing tasks and uses the Database Service and LLM Adapter when their capabilities are required.
 
 **Responsibilities:**
 
@@ -130,7 +126,7 @@ The Core is responsible for the application's primary processing logic and resum
 
 - Request data storage and retrieval through the Database Service.
 
-- Communicate with the LLM through the LLM Provider.
+- Communicate with the LLM through the LLM Adapter.
 
 **Responsibility Boundaries:**
 
@@ -140,7 +136,7 @@ The Core is responsible for the application's primary processing logic and resum
 
 - The Core does not directly communicate with a specific LLM implementation.
 
-- The Core uses the Database Service for structured application data and the LLM Provider for language-processing tasks.
+- The Core uses the Database Service for structured application data and the LLM Adapter for language-processing tasks.
 
 **Deployment Note:** The Core is not independently deployable. It exists as part of the combined CLI/Core executable.
 
@@ -216,43 +212,9 @@ The Database Adapter connects the Database Service to the selected database impl
 
 - A different database implementation can be supported by providing another compatible adapter, without requiring changes to the Database Service's application-level logic.
 
-### 2.5. LLM Provider
+### 2.5. LLM Adapter
 
-The LLM Provider provides a consistent application-facing interface for language-processing tasks. It manages requests from the Core and communicates with the selected LLM Adapter.
-
-It does not include an LLM implementation. The actual language model runs in a separate service chosen and configured by the user.
-
-**Responsibilities:**
-
-- Provide a consistent interface for the Core to request language-processing tasks.
-
-- Manage the selected LLM configuration.
-
-- Coordinate requests and responses between the Core and the LLM Adapter.
-
-- Keep LLM-specific communication details separate from the Core.
-
-- Handle general request coordination and error reporting.
-
-- Manage prompt construction and context preparation required by application workflows.
-
-- Manage context-window considerations when preparing requests.
-
-**Responsibility Boundaries:**
-
-- The LLM Provider manages application-facing LLM requests.
-
-- The LLM Provider does not perform model inference itself.
-
-- Communication with a specific LLM service is handled by the selected LLM Adapter.
-
-- The LLM Provider should not need to change when another compatible LLM adapter is selected.
-
-**Deployment Note:** The LLM Provider is application code bundled with the CLI/Core executable. It does not bundle an LLM.
-
-### 2.6. LLM Adapter
-
-The LLM Adapter connects the LLM Provider to the user's selected external LLM service. It handles the communication requirements of the specific LLM service.
+The LLM Adapter connects the Core directly to the user's selected external LLM service. It handles the communication requirements of the specific LLM service.
 
 **Responsibilities:**
 
@@ -260,9 +222,9 @@ The LLM Adapter connects the LLM Provider to the user's selected external LLM se
 
 - Manage connections and communication with the external LLM service.
 
-- Translate generic requests from the LLM Provider into service-specific API calls or inference requests.
+- Translate generic requests from the Core into service-specific API calls or inference requests.
 
-- Convert service responses into the format expected by the LLM Provider.
+- Convert service responses into the format expected by the Core.
 
 - Handle service-specific error translation and reporting.
 
@@ -282,7 +244,7 @@ The LLM Adapter connects the LLM Provider to the user's selected external LLM se
 
 **Deployment Note:** The LLM Adapter is application code bundled with the CLI/Core executable. The external LLM service is installed, hosted, and configured separately by the user.
 
-### 2.7. Large Language Model (LLM)
+### 2.6. Large Language Model (LLM)
 
 The LLM is an **external service** that the user must install, host, or access through a provider and configure themselves. It performs language-processing tasks that require natural language understanding, interpretation, or generation.
 
@@ -310,7 +272,7 @@ The LLM is an **external service** that the user must install, host, or access t
 
 The application supports a locally served LLM and may also support external hosted LLM services. Using a hosted LLM is optional and depends on the user's configuration.
 
-### 2.8. Local File System
+### 2.7. Local File System
 
 The Local File System stores files required by the application. It is accessed and managed by the CLI.
 
@@ -352,11 +314,9 @@ The Local File System stores files required by the application. It is accessed a
 
 - When an external database is used, the database server is deployed and operated separately from the application executable.
 
-- The LLM Provider and LLM Adapter shall be included as application components.
+- The LLM Adapter shall be included as an application component.
 
-- The LLM Provider manages application-facing language-processing requests.
-
-- The selected LLM Adapter communicates with the user's chosen LLM service.
+- The LLM Adapter communicates directly with the user's chosen LLM service.
 
 - The LLM itself is not included in the application executable.
 
@@ -376,7 +336,7 @@ The Local File System stores files required by the application. It is accessed a
 
 - The Database Service and Database Adapter implementations shall be maintained within the monorepo.
 
-- The LLM Provider and LLM Adapter implementations shall be maintained within the monorepo.
+- The LLM Adapter implementation shall be maintained within the monorepo.
 
 - Architecture and project documentation shall be maintained alongside the source code.
 
