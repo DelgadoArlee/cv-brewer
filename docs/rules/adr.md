@@ -131,13 +131,13 @@ The ADL must:
 The ADL must be maintained in a single Markdown file.
 
 **Path:**  
-`docs/deployment/ADL.md`
+`docs/adr/ADL.md`
 
 All individual ADRs must be linked from this file.
 
 ## 4. General Rules
 
-- ADRs and the ADL must remain focused on high-level project decisions.
+- Root-level ADRs and the ADL must remain focused on high-level project decisions, release decisions or repository decisions.
     
 - Decisions must reflect agreements made during planning discussions, not assumptions made by the AI.
     
