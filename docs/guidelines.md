@@ -2,7 +2,7 @@ Documentation Guidelines
 
 1. Purpose
 
-This document defines the purpose, structure, and documentation standards of the docs/ directory within CVBrewery.
+This document defines the purpose, structure, and documentation standards of the docs/ directory within CVBrewer.
 
 The docs/ directory serves as the central repository for high-level project documentation. It provides a shared source of context and reference for both developers and AI agents throughout the planning, design, and development of the project.
 
@@ -87,7 +87,7 @@ Rules must be followed when creating or modifying documents of their correspondi
 
 3.3 Features
 
-Purpose: Stores high-level documentation describing the features of CVBrewery.
+Purpose: Stores high-level documentation describing the features of CVbrewer.
 
 Feature documentation describes what a feature does, its objectives, user journey, and the systems involved in delivering it.
 
@@ -117,7 +117,7 @@ Each system must have its own directory containing its corresponding documentati
 
 Purpose: Stores high-level documentation describing the data models used by project systems.
 
-Data documentation describes the purpose, structure, properties, and relationships of the data models used throughout CVBrewery.
+Data documentation describes the purpose, structure, properties, and relationships of the data models used throughout CVbrewer.
 
 These documents establish a shared understanding of the information represented and used by the systems.
 
@@ -202,7 +202,7 @@ Component documentation must remain separate from the root docs/ directory to pr
 
 5. Documentation-Driven Development
 
-CVBrewery follows a Documentation-Driven Development approach.
+CVbrewer follows a Documentation-Driven Development approach.
 
 Documentation is an integral part of the development process, not an optional activity performed after implementation.
 
