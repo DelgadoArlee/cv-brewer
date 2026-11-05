@@ -53,7 +53,7 @@ flowchart TD
 - PDFs must contain sufficient readable content to support reliable parsing
 - Parsed resume data must conform to the Resume JSON schema before storage
 - The Core Processing Engine remains independent of any specific storage technology or database implementation
-- Original PDF files in the input folder are never deleted during parsing or retention cleanup
+- Original PDF files in the input folder are never deleted during parsing
 - LLM operations must go through the configured Provider and Adapter layers without direct external calls
 - Storage is managed exclusively through the Database Service abstraction layer
 - File type validation uses signature verification rather than file extension checking

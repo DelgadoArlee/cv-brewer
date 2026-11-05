@@ -64,7 +64,7 @@ The resume processing workflow follows these steps:
 - The Core remains independent of any specific storage technology or database implementation
 - Storage is managed through the Database Service and Database Adapter
 - Duplicate resumes are identified and filtered out during processing
-- Original PDF files in the input folder are never deleted during parsing or retention cleanup
+- Original PDF files in the input folder are never deleted during parsing
 - LLM operations go through the LLM Provider and LLM Adapter layers
 
 ## 6. Rules
@@ -76,7 +76,6 @@ The resume processing workflow follows these steps:
 - LLM extraction is always invoked after deterministic extraction, not only on failure
 - LLM handles information that cannot be reliably extracted through deterministic methods
 - Parsed resume data must not be fabricated or altered beyond what exists in the original document
-- Stored parsed resume data is retained for a maximum of 60 days per retention policy
 - All database operations go through the Database Service and Database Adapter
 - LLM communication goes through the LLM Provider and LLM Adapter
 

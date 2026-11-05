@@ -41,9 +41,9 @@ flowchart TD
 
 ## 4. Systems
 
-|System|Description|
-|---|---|
-|[Resume Generation System](../system/resume-generation/overview.md)|Handles the complete resume generation workflow including input validation, LLM integration, and output rendering|
+| System                                                              | Description                                                                                                       |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| [Resume Generation System](../system/resume-generation/overview.md) | Handles the complete resume generation workflow including input validation, LLM integration, and output rendering |
 
 ## 5. References
 

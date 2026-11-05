@@ -89,7 +89,7 @@ This document defines the data model for user-uploaded resumes in the CVBrewer s
 | validation_status  | object   | Yes      | Results of all validation checks                    |
 | processing_history | array    | Yes      | Log of processing steps and outcomes                |
 | created_at         | datetime | Yes      | Timestamp when resume was uploaded                  |
-| deleted_at         | datetime | No      | Timestamp when user manually deletes the resume record (no automatic retention policy) |
+| deleted_at         | datetime | No      | Timestamp when user manually deletes the resume record |
 
 ### Metadata Object
 
@@ -186,7 +186,7 @@ This document defines the data model for user-uploaded resumes in the CVBrewer s
 - **parsed_data.certifications**: Optional array, may be empty
 - **validation_status.file_type_valid**: Must be true to proceed with processing
 - **validation_status.schema_validation_passed**: Must be true for storage
-- **deleted_at**: Timestamp when user manually deletes the resume record (no automatic retention policy)
+- **deleted_at**: Timestamp when user manually deletes the resume record
 
 ## 5. References
 

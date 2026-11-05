@@ -13,8 +13,18 @@ cvbrewery/
 ├── cli/
 ├── core/
 ├── database/
-│   ├── database-service/
-│   └── adapters/
+│   ├── pyproject.toml
+│   ├── README.md
+│   ├── .python-version
+│   ├── docs/
+│   │   └── technical-specification.md
+│   └── src/
+│       └── database/
+│           ├── __init__.py
+│           ├── database_service/
+│           │   └── __init__.py
+│           └── adapters/
+│               └── __init__.py
 ├── llm/
 │   └── adapters/
 ├── docs/
@@ -29,9 +39,10 @@ cvbrewery/
 |---|---|
 |`cli/`|Contains the Command-Line Interface component.|
 |`core/`|Contains the Core Processing Engine component.|
-|`database/`|Contains database-related components.|
-|`database/database-service/`|Contains the Database Service.|
-|`database/adapters/`|Contains database adapter implementations.|
+|`database/`|Contains the database component as a single Python project.|
+|`database/docs/`|Contains database component technical documentation.|
+|`database/src/database/database_service/`|Contains the Database Service package.|
+|`database/src/database/adapters/`|Contains database adapter implementations.|
 |`llm/`|Contains LLM integration components.|
 |`llm/adapters/`|Contains LLM adapter implementations.|
 |`docs/`|Contains project-wide documentation.|

@@ -33,7 +33,6 @@ flowchart TD
 
 - Metadata extraction must not expose sensitive personal information beyond what is necessary for deduplication
 - Extraction must be performed within reasonable time limits to avoid performance degradation
-- Metadata records are retained only as long as needed for deduplication checks
 - Files failing metadata extraction are skipped and logged as failures
 - Extraction failures do not prevent the file from proceeding to validation if metadata is optional
 

@@ -150,8 +150,6 @@ The Database Service manages application-level data operations and persistence l
 
 - Apply application-level rules related to data management.
 
-- Enforce retention policies on stored parsed resume data.
-
 - Provide data retrieval and query capabilities required by the application.
 
 - Coordinate data operations through the selected Database Adapter.

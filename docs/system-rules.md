@@ -19,8 +19,6 @@ This document defines the general rules and constraints that govern the system's
 
 - Persistent data must be managed consistently.
     
-- Data must follow its defined retention and lifecycle policies.
-    
 - Data access and modification must follow established rules.
     
 
