@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-This document defines the format and documentation standards for Technical System Documents within CVBrewery.
+This document defines the format and documentation standards for Technical System Documents within CVBrewer.
 
 A Technical System Document describes the technical design, requirements, constraints, and organization of an individual system within a component.
 
@@ -130,7 +130,21 @@ Use the following format:
 
 The ADL serves as a reference to the decisions that influence the system's technical design.
 
-### 2.10 References
+### 2.10 Data (Optional)
+
+Provide a brief overview of schemas and data models being used by the system.
+
+This section should only be included if the system uses schemas or manages data structures.
+
+Include:
+
+- Schema definitions and their purposes.
+- API response/request structures.
+- File formats for data exchange.
+
+Omit this section when no schema or structured data is used by the system.
+
+### 2.11 References
 
 List related documentation and external technical references.
 
