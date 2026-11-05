@@ -16,17 +16,19 @@ An ADR documents an individual decision made during project planning.
 
 Each ADR must contain the following sections:
 
-1. **Title** - A short description of the decision.
+1. **Title** - A short description of the decision.
     
-2. **Date** - The date the decision was made.
+2. **Date** - The date the decision was made.
     
-3. **Status** - The current status of the decision (Proposed, Accepted, Rejected, or Superseded).
+3. **Status** - The current status of the decision (Proposed, Accepted, Rejected, or Superseded).
     
-4. **Context** - A brief explanation of the problem, discussion, or circumstances that led to the decision.
+4. **Category** - One of four categories: `release`, `architecture`, `feature`, or `repositories`.
     
-5. **Decision** - The agreed-upon decision.
+5. **Context** - A brief explanation of the problem, discussion, or circumstances that led to the decision.
     
-6. **Consequences** - The expected impact and implications of the decision on the project.
+6. **Decision** - The agreed-upon decision.
+    
+7. **Consequences** - The expected impact and implications of the decision on the project.
     
 
 ### 2.2 Documentation Scope
@@ -44,26 +46,42 @@ Each ADR must contain the following sections:
 - Do not document every discussion. Only record discussions that result in a meaningful decision.
     
 - Implementation specifications, detailed technical procedures, and code-level decisions should be documented separately when necessary.
-    
 
-### 2.3 File Organization
+### 2.3 Categorization Guidelines
+
+ADR decisions must be classified into one of four categories:
+
+1. **release** - Decisions related to deployment, releases, versioning, and packaging
+    
+2. **architecture** - Decisions about system architecture, technology stack, data models, and infrastructure
+    
+3. **feature** - Decisions about specific features, functionality, and user-facing capabilities
+    
+4. **repositories** - Decisions about repository structure, storage, and data management
+
+### 2.4 File Organization
 
 Each ADR must have its own Markdown file.
 
 **Path:**  
-`docs/adr/<YYYY-MM-DD>/<topic>.md`
+`docs/<category>/<yy-mm-dd>/<topic>.md`
 
 **Example:**
 
 ```
 docs/
-└── adr/
-    ├── 2026-11-04/
-    │   ├── monorepo-structure.md
-    │   ├── database-responsibilities.md
-    │   └── llm-integration.md
-    └── 2026-11-05/
-        └── resume-storage.md
+├── release/
+│   ├── 2026-11-04/
+│   │   ├── monorepo-structure.md
+│   │   ├── database-responsibilities.md
+│   │   └── llm-integration.md
+├── architecture/
+│   ├── 2026-11-05/
+│   │   └── resume-storage.md
+├── feature/
+│   └── ...
+└── repositories/
+    └── ...
 ```
 
 - Use the decision date as the directory name.
@@ -75,7 +93,6 @@ docs/
 - If a decision is revised, update its existing ADR status and create a new ADR documenting the replacement decision when appropriate.
     
 - A superseded ADR must remain available for historical reference.
-    
 
 ## 3. Architecture Decision Log (ADL)
 
@@ -93,10 +110,11 @@ The ADL must:
     
 - Display the current decision status.
     
+- Display the category (release, architecture, feature, or repositories).
+    
 - Organize entries chronologically, with the newest decisions first.
     
 - Reflect changes to ADR statuses when decisions are updated or superseded.
-    
 
 ### 3.2 Documentation Scope
 
@@ -107,14 +125,13 @@ The ADL must:
 - Do not introduce new decisions within the ADL.
     
 - Keep the log concise and easy to navigate.
-    
 
 ### 3.3 File Organization
 
 The ADL must be maintained in a single Markdown file.
 
 **Path:**  
-`docs/adr/ADL.md`
+`docs/deployment/ADL.md`
 
 All individual ADRs must be linked from this file.
 
@@ -130,4 +147,4 @@ All individual ADRs must be linked from this file.
     
 - Keep the documentation simple, concise, and understandable without requiring knowledge of specific architectural patterns.
     
-- Use ADRs as planning references, not as replacements for feature, system, architecture, or implementation documentation.
+- Use ADRs as planning references, not as replacements for feature, system, architecture, or implementation documentation.````
