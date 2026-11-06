@@ -53,19 +53,19 @@ Include:
 
 Rules should be clear, specific, and verifiable whenever possible.
 
-### 2.5 Modules
+### 2.5 Process
 
-List the modules that make up the system.
+List the processes that make up the system.
 
-Each module must link to its corresponding Module Specification Document.
+Each process must link to its corresponding Process Specification Document.
 
 Use the following format:
 
-| Module      | Description                              | Specification                |
-| ----------- | ---------------------------------------- | ---------------------------- |
-| Module Name | Brief description of its responsibility. | [Module Specification](link) |
+| Process      | Description                              | Specification                |
+| ------------- | ---------------------------------------- | ---------------------------- |
+| Process Name | Brief description of its responsibility. | [Process Specification](link) |
 
-Only include modules that belong to the documented system.
+Only include processes that belong to the documented system.
 
 ### 2.6 Dependencies (Optional)
 
@@ -152,7 +152,7 @@ Examples:
 
 - High-level System Document.
 - Component documentation.
-- Module Specification Documents.
+- Process Specification Documents.
 - Data model documentation.
 - API documentation.
 - Official library or framework documentation.
@@ -164,7 +164,7 @@ Examples:
 3. Technical details must remain consistent with approved high-level architecture and ADR decisions.
 4. Do not duplicate information from other documentation. Use direct links to relevant documents instead.
 5. Keep rules and constraints specific, clear, and verifiable.
-6. Module entries must link to their corresponding Module Specification Documents.
+6. Process entries must link to their corresponding Process Specification Documents.
 7. Test cases must correspond to the documented rules and technical requirements.
 8. Optional sections may be omitted when they are not applicable.
 9. Update the document when changes affect the system's technical design, responsibilities, rules, or constraints.

@@ -13,6 +13,25 @@
 - Read applicable documentation rules before creating or modifying documentation.
 - Preserve existing document structures unless a change is necessary and approved.
 
+### Architecture Organization
+
+CVBrewery uses four conceptual levels:
+
+- Feature: Defines what the application should accomplish.
+- System: Defines the technical responsibilities that support features.
+- Process: Defines workflows that accomplish specific tasks within systems.
+- Module: Defines encapsulated implementation units that can be shared or replaced.
+
+### Architecture Organization Rules
+
+- Follow the Feature → System → Process → Module model when organizing documentation.
+- Features can involve multiple systems.
+- Systems can support multiple features.
+- Processes can coordinate multiple modules or systems.
+- Modules can be shared across systems and processes.
+- These levels represent logical responsibilities, not mandatory folder or package boundaries.
+- Do not create unnecessary systems, processes, or modules.
+
 ## General Documentation Rules & Conventions
 
 - Must read `docs/rules/general-rules.md` before writing or editing any type of document
@@ -22,14 +41,15 @@
 ## Implementation Rules
 
 - Components require a Technical Specification Document.
-- Components must be documented in the high-level architecture and repository architecture.
 - Systems require High-Level System and Technical System Documents before implementation.
+- Process require High-level Process and Technical Process Documents before implementation
 - Modules require Technical Module Documents before implementation.
 - Database tables require Data Model and Technical Schema Documents before implementation.
 - System and Module documentation requirements apply only to non-database components.
 - Only modify files relevant to the requested task.
 - Use `uv` as the package manager for all Python projects and dependency management.
 - Do not use pip, poetry, or other package managers unless explicitly approved by the developer.
+- must conform with component architectural & design approaches stated in each components technical-specifcation.md
 
 ### Application Components
 
@@ -55,11 +75,13 @@
         - Data models: `docs/data/`
         - High-level Feature documentation: `docs/features/`
         - High-level System documentation: `docs/system/`
+        - High-level Process documentation: `docs/system/`
         - Repository Architecture: `docs/repository/architecture.md`
 
     ### Low-level Component Documentation (Technical & Implementation):
         - Technical Specification Document: `<component>/docs/technical-specification.md`
-        - Technical System Documentation: `<component>/docs/systems/<system-name>.md`
+        - Technical System Documentation: `<component>/docs/systems/<system-name>/`
+        - Technical Process Documentation: `<component>/docs/systems/<system-name>/processes/<process-name>.md
         - Technical Module Documentation: `<component>/docs/modules/<module-name>.md`
         - Technical Schema Documentation: `<component>/docs/schemas/<schema-name>.md`
 
