@@ -63,7 +63,12 @@ CVBrewery uses four conceptual levels:
 4. Ask for clarification or approval when necessary.
 5. Implement the approved task.
 6. Update relevant documentation.
-7. Manually verify the changes.
+7. Run tests if applicable
+8. Manually verify the changes.
+
+## Testing Strategy
+
+- Testing Strategy: `docs/testing-strategy.md`
 
 ## Authoritative Documentation
 

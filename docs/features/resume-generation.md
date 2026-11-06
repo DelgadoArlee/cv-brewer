@@ -55,3 +55,43 @@ flowchart TD
 - [Job Description Schema](../schema/job-description-schema.md)
 - [Generated Resume Schema](../schema/generated-resume-schema.md)
 - [Resume Data Model](user-resume.md)
+
+## 6. Acceptance Criteria
+
+### Success Scenarios
+
+**Given:** User has stored parsed resume data in the database  
+**When:** User provides a valid job description and selects generate resume  
+**Then:** System generates a tailored resume using LLM  
+**And:** Generated resume is validated against the Generated Resume JSON schema  
+**And:** Final resume is rendered as Markdown in the output folder  
+**And:** User receives confirmation of successful generation  
+
+**Given:** Output folder does not exist  
+**When:** User initiates resume generation  
+**Then:** System creates the output folder according to application rules  
+**And:** Generation process proceeds normally  
+
+### Failure Scenarios
+
+**Given:** Job description is invalid or missing required fields  
+**When:** User attempts to generate a resume  
+**Then:** System displays an error message about invalid job description  
+**And:** Resume generation does not proceed  
+
+**Given:** No reference resumes are available for selection  
+**When:** User attempts to generate a resume  
+**Then:** System informs user that no resumes are available  
+**And:** Generation process stops until resumes are uploaded  
+
+**Given:** LLM integration fails during content generation  
+**When:** Resume generation is initiated  
+**Then:** System displays an error message about generation failure  
+**And:** No resume data is saved to the output folder  
+**And:** User can retry the operation later  
+
+**Given:** Generated resume fails schema validation  
+**When:** Resume generation completes  
+**Then:** System displays validation error with details  
+**And:** Resume is not saved to the output folder  
+**And:** User can review and correct the job description

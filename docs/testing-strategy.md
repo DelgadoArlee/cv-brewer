@@ -1,0 +1,79 @@
+# Testing Strategy
+
+## 1. Purpose
+
+Define the testing approach for CVBrewery to ensure application behavior meets its requirements and architectural responsibilities.
+
+## 2. Testing Approach
+
+CVBrewery uses a **layered, behavior-oriented testing strategy**.
+
+Tests are organized around the application's architecture:
+
+- **Feature:** Tests whether the feature achieves its intended objective.
+- **System:** Tests whether the system fulfills its technical responsibilities.
+- **Process:** Tests whether an individual process follows its expected behavior and rules.
+- **Module:** Tested independently only when its complexity or behavior justifies it.
+
+## 3. Testing Levels
+
+| Level   | Test Type              | Testing Scope                                                       |
+| ------- | ---------------------- | ------------------------------------------------------------------- |
+| Feature | Acceptance / E2E       | Connected systems working together to achieve the feature objective |
+| System  | Integration / Behavior | System responsibilities and interactions                            |
+| Process | Behavior               | Individual process workflows, rules, and expected outcomes          |
+| Module  | Optional Unit          | Isolated logic when independently testing it provides value         |
+
+## 4. Testing Rules
+
+1. Tests must verify observable behavior, not implementation details.
+2. Every feature must have tests covering its intended objective.
+3. Every system should have tests covering its technical responsibilities.
+4. Processes should be tested independently when they contain meaningful behavior or rules.
+5. Modules do not require tests by default.
+6. Avoid duplicating test scenarios across testing levels. Each level must verify its own scope.
+7. Prefer real internal components over mocks.
+8. Use test doubles for external dependencies when necessary.
+9. Use temporary resources for filesystem and database testing.
+10. Maintain a small set of full-application end-to-end tests through the CLI.
+
+## 5. Test Organization
+
+All tests must reside in the repository-level `tests/` directory.
+
+```text
+tests/
+├── conftest.py
+├── fixtures/
+├── features/
+├── systems/
+│   └── <system-name>/
+│       └── processes/
+└── e2e/
+```
+
+- `features/`: Feature acceptance tests.
+- `systems/`: System integration and behavior tests.
+- `processes/`: Individual process behavior tests.
+- `e2e/`: Full-application CLI tests.
+- `fixtures/`: Shared test data and resources.
+
+## 6. Test Scenario Format
+
+Use the **Given–When–Then** pattern to describe test scenarios.
+
+- **Given:** Initial conditions and prerequisites.
+- **When:** The action being performed.
+- **Then:** Expected behavior and outcomes.
+
+## 7. Testing Principles
+
+- Prioritize important requirements and failure scenarios.
+- Avoid unnecessary unit tests and excessive mocking.
+- Do not enforce arbitrary code coverage targets.
+- Keep tests simple, independent, and maintainable.
+- Test according to responsibility and scope, not implementation structure.
+
+## 8. Testing Documentation
+
+The testing component does not have separate documentation. The tests themselves are the documentation for the testing component.

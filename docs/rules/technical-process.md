@@ -51,8 +51,75 @@ List the schemas used or produced by the process.
 
 Only include this section when the process uses or produces structured data with a documented schema.
 
-## 8. References
+## 8. Testing
+
+### 8.1 Test Level
+
+This process should be tested at the **Process** level according to the testing strategy.
+
+Process-level tests verify:
+- Individual process workflows follow expected behavior and rules
+- Each step executes correctly in sequence
+- Error handling works as specified
+- Boundary conditions are handled properly
+
+### 8.2 Test Scenarios
+
+Document test scenarios using the **Given–When–Then** pattern:
+
+| Scenario ID | Given | When | Then |
+|-------------|-------|------|------|
+| Process-001 | [Initial conditions] | [Action performed] | [Expected outcome] |
+
+### 8.3 Test Coverage
+
+- Prioritize important requirements and failure scenarios
+- Avoid unnecessary unit tests and excessive mocking
+- Do not enforce arbitrary code coverage targets
+- Keep tests simple, independent, and maintainable
+- Test according to responsibility and scope, not implementation structure
+
+### 8.4 Test Organization
+
+Tests for this process should reside in the repository-level `tests/` directory:
+
+```text
+tests/
+├── processes/
+│   └── <process-name>/
+│       ├── test_<process>.py
+│       └── fixtures/
+```
+
+### 8.5 Test Dependencies
+
+- Use temporary resources for filesystem and database testing
+- Use test doubles for external dependencies when necessary
+- Prefer real internal components over mocks where possible
+
+### 8.6 Testing Rules Compliance
+
+This process must follow these testing rules from the testing strategy:
+
+1. Tests must verify observable behavior, not implementation details
+2. Every feature must have tests covering its intended objective
+3. Processes should be tested independently when they contain meaningful behavior or rules
+4. Modules do not require tests by default
+5. Avoid duplicating test scenarios across testing levels
+6. Prefer real internal components over mocks
+7. Use test doubles for external dependencies when necessary
+8. Use temporary resources for filesystem and database testing
+
+## 9. References
 
 List related documentation, dependencies, and external references.
 
 - [Reference Name](path/to/reference.md)
+
+## 10. Data _(Optional)_
+
+List the schemas used or produced by the process.
+
+- [Schema Name](path/to/schema.md) — Brief description.
+
+Only include this section when the process uses or produces structured data with a documented schema.

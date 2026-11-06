@@ -81,8 +81,6 @@ Possible sections include:
     
 - **Error Handling:** Summarize how the system handles unsuccessful outcomes.
     
-- **Completion Criteria:** Describe the expected outcomes that indicate the system has completed its responsibilities.
-    
 - **Implementation Overview:** Identify the main architectural components and external dependencies involved.
     
 - **References:** List relevant diagrams and supporting documents.
@@ -117,57 +115,6 @@ Possible sections include:
 Example:
 
 `[File Metadata Model](../data/file-metadata-model.md)`
-
-## 6. Implementation Overview
-
-Include this section only when it helps readers understand the system's high-level architectural composition.
-
-This section is informational. It must not prescribe implementation decisions or document internal implementation procedures.
-
-### 6.1 Services
-
-Use a table with these columns:
-
-|Service|Responsibility|Architecture Location|Repository Link|
-|---|---|---|---|
-
-Rules:
-
-- Combine the service name and its technical documentation reference into one column.
-    
-- Format the service name as a link to its technical documentation: `[Upload Service](path/to/upload-service.md)`.
-    
-- Briefly describe the service's responsibility within the system.
-    
-- Identify its architectural location, such as CLI or Core.
-    
-- Link to the relevant source repository or source location when available.
-    
-- Include only services relevant to the system.
-    
-- Do not include class names, function names, internal logic, or detailed implementation procedures.
-    
-
-### 6.2 Libraries and External Dependencies
-
-Use a table with these columns:
-
-|Dependency|Purpose|Used By|Documentation Link|
-|---|---|---|---|
-
-Rules:
-
-- Include only relevant libraries and external dependencies.
-    
-- Briefly describe their general purpose.
-    
-- Identify the service or component that uses each dependency.
-    
-- Link to official documentation when the correct URL is known.
-    
-- Do not include installation instructions, configuration details, or code examples.
-    
-
 ## 7. Final Checks
 
 Before completing a system overview, verify that:

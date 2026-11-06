@@ -52,3 +52,8 @@ Documentation Rules and Conventions
 - Technical Process rules: `docs/rules/technical-process.md`
 - Technical Module rules: `docs/rules/technical-spec.md`
 - Database Documentation rules: `docs/rules/database`
+
+7. Testing Documentation
+
+- The testing component must not have component documentation.
+- The tests themselves are the documentation for the testing component.
