@@ -6,7 +6,7 @@ This document defines the directory and file structure of the CVBrewery monorepo
 
 ## 2. Repository Structure
 
-The project follows a **monorepo** structure. All application components and project documentation are maintained within a single repository.
+The project follows a **monorepo** structure. All application components and project documentation are maintained within a single repository.
 
 ```
 cvbrewery/
@@ -27,7 +27,17 @@ cvbrewery/
 │               └── __init__.py
 ├── llm/
 │   └── adapters/
+├── tests/
+│   ├── conftest.py
+│   ├── fixtures/
+│   ├── features/
+│   ├── systems/
+│   ├── processes/
+│   └── e2e/
 ├── docs/
+├── pyproject.toml
+├── uv.lock
+├── .python-version
 ├── README.md
 ├── AGENTS.md
 └── .gitignore
@@ -45,11 +55,15 @@ cvbrewery/
 |`database/src/database/adapters/`|Contains database adapter implementations.|
 |`llm/`|Contains LLM integration components.|
 |`llm/adapters/`|Contains LLM adapter implementations.|
+|`tests/`|Contains all test code organized by testing level (features, systems, processes, e2e).|
 |`docs/`|Contains project-wide documentation.|
+|`pyproject.toml`|Defines the root uv workspace, test tooling, and pytest configuration.|
+|`uv.lock`|Locks dependencies for the root workspace.|
+|`.python-version`|Selects Python 3.12 for the root workspace.|
 |`README.md`|Provides the repository overview and entry point.|
 |`AGENTS.md`|Contains instructions for AI agents working in the repository.|
 |`.gitignore`|Defines files and directories excluded from version control.|
 
 ## 4. References
 
-- [System Architecture](docs/architecture/system-architecture.md)
+- [System Architecture](docs/architecture/system-architecture.md)````

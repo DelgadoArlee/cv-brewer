@@ -8,7 +8,7 @@ Follow these rules when creating or updating a feature overview document.
 
 ## Required Sections
 
-Every feature overview document must contain sections 1–5 in the specified order.
+Every feature overview document must contain sections 1–6 in the specified order.
 
 ### 1. Purpose / Summary
 
@@ -92,6 +92,22 @@ List relevant documentation and external references related to the feature.
 - Include only relevant references.
     
 
+### 6. Acceptance Criteria
+
+Define the conditions that must be met for the feature to be considered complete and working correctly.
+
+- List specific, measurable criteria that validate the feature's intended behavior.
+    
+- Each criterion should correspond to a testable scenario.
+    
+- Align with the testing strategy: tests must verify observable behavior, not implementation details.
+    
+- Use Given–When–Then format for each acceptance criterion where applicable.
+    
+- Include both success and failure scenarios when relevant.
+    
+- Keep criteria concise and focused on user-facing outcomes.
+
 ## General Rules
 
 - Follow the required section order.
@@ -102,4 +118,4 @@ List relevant documentation and external references related to the feature.
     
 - Avoid implementation-specific details.
     
-- Refer to dedicated system, process, and technical documentation for lower-level details.
+- Refer to dedicated system, process, and technical documentation for lower-level details.````

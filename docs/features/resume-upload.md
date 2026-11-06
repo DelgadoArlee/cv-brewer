@@ -48,3 +48,41 @@ flowchart TD
 - [File Type Validation Rules](docs/validation/file-type-validation.md)
 - [PDF Validation Rules](docs/validation/pdf-validation.md)
 - [Content Extraction Rules](docs/validation/content-extraction-rules.md)
+
+## 6. Acceptance Criteria
+
+### Success Scenarios
+
+**Given:** The input folder does not exist  
+**When:** User initiates resume upload  
+**Then:** System creates the input folder according to application rules  
+**And:** User is prompted to add resume files  
+
+**Given:** The input folder exists and contains PDF files  
+**When:** User initiates resume upload  
+**Then:** System discovers all eligible PDF files in the input folder  
+**And:** System coordinates with Core Processing Engine for processing  
+**And:** Successfully parsed resumes are stored in the database  
+
+**Given:** Some files fail to process during upload  
+**When:** Upload operation completes  
+**Then:** Successfully processed files are stored  
+**And:** Failed files do not interrupt other file processing  
+**And:** User receives feedback on which files succeeded and which failed  
+
+### Failure Scenarios
+
+**Given:** The input folder is inaccessible or cannot be created  
+**When:** User initiates resume upload  
+**Then:** System displays an error message about folder access  
+**And:** Upload operation does not proceed  
+
+**Given:** No PDF files are found in the input folder  
+**When:** User initiates resume upload  
+**Then:** System prompts user to add resume files  
+**And:** No processing occurs until files are added  
+
+**Given:** All files fail validation or parsing  
+**When:** Upload operation completes  
+**Then:** System displays error messages for each failed file  
+**And:** No resume data is stored in the database

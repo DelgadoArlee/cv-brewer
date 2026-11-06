@@ -53,19 +53,19 @@ Include:
 
 Rules should be clear, specific, and verifiable whenever possible.
 
-### 2.5 Modules
+### 2.5 Process
 
-List the modules that make up the system.
+List the processes that make up the system.
 
-Each module must link to its corresponding Module Specification Document.
+Each process must link to its corresponding Process Specification Document.
 
 Use the following format:
 
-| Module      | Description                              | Specification                |
-| ----------- | ---------------------------------------- | ---------------------------- |
-| Module Name | Brief description of its responsibility. | [Module Specification](link) |
+| Process      | Description                              | Specification                |
+| ------------- | ---------------------------------------- | ---------------------------- |
+| Process Name | Brief description of its responsibility. | [Process Specification](link) |
 
-Only include modules that belong to the documented system.
+Only include processes that belong to the documented system.
 
 ### 2.6 Dependencies (Optional)
 
@@ -152,7 +152,7 @@ Examples:
 
 - High-level System Document.
 - Component documentation.
-- Module Specification Documents.
+- Process Specification Documents.
 - Data model documentation.
 - API documentation.
 - Official library or framework documentation.
@@ -164,7 +164,82 @@ Examples:
 3. Technical details must remain consistent with approved high-level architecture and ADR decisions.
 4. Do not duplicate information from other documentation. Use direct links to relevant documents instead.
 5. Keep rules and constraints specific, clear, and verifiable.
-6. Module entries must link to their corresponding Module Specification Documents.
+6. Process entries must link to their corresponding Process Specification Documents.
 7. Test cases must correspond to the documented rules and technical requirements.
 8. Optional sections may be omitted when they are not applicable.
 9. Update the document when changes affect the system's technical design, responsibilities, rules, or constraints.
+
+## 4. Testing
+
+### 4.1 Test Level
+
+This system should be tested at the **System** level according to the testing strategy.
+
+System-level tests verify:
+- System responsibilities and interactions with other components
+- Integration between processes within the system
+- Technical requirements are met
+- System boundaries are respected
+
+### 4.2 Test Scenarios
+
+Document test scenarios using the **Given–When–Then** pattern:
+
+| Scenario ID | Given | When | Then |
+|-------------|-------|------|------|
+| System-001 | [Initial conditions] | [Action performed] | [Expected outcome] |
+
+### 4.3 Test Coverage
+
+- Prioritize important requirements and failure scenarios
+- Avoid unnecessary unit tests and excessive mocking
+- Do not enforce arbitrary code coverage targets
+- Keep tests simple, independent, and maintainable
+- Test according to responsibility and scope, not implementation structure
+
+### 4.4 Test Organization
+
+Tests for this system should reside in the repository-level `tests/` directory:
+
+```text
+tests/
+├── systems/
+│   └── <system-name>/
+│       ├── test_<system>.py
+│       └── processes/
+│           └── <process-name>/
+│               ├── test_<process>.py
+│               └── fixtures/
+```
+
+### 4.5 Test Dependencies
+
+- Use temporary resources for filesystem and database testing
+- Use test doubles for external dependencies when necessary
+- Prefer real internal components over mocks where possible
+
+### 4.6 Testing Rules Compliance
+
+This system must follow these testing rules from the testing strategy:
+
+1. Tests must verify observable behavior, not implementation details
+2. Every feature must have tests covering its intended objective
+3. System responsibilities should be tested independently when they contain meaningful behavior or rules
+4. Modules do not require tests by default
+5. Avoid duplicating test scenarios across testing levels
+6. Prefer real internal components over mocks
+7. Use test doubles for external dependencies when necessary
+8. Use temporary resources for filesystem and database testing
+
+## 5. References
+
+List related documentation and external technical references.
+
+Examples:
+
+- High-level System Document.
+- Component documentation.
+- Process Specification Documents.
+- Data model documentation.
+- API documentation.
+- Official library or framework documentation.

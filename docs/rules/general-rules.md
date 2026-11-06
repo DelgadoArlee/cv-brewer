@@ -8,7 +8,7 @@ Documentation Rules and Conventions
 - Keep documentation simple, concise, and consistent.
 - Always use quadruple backticks for Markdown code blocks.
 
-3. Documentation Structure
+2. Documentation Structure
 
 - docs/ contains high-level documentation:
   - Features and systems.
@@ -17,20 +17,20 @@ Documentation Rules and Conventions
   - Repository and release documentation.
 - <component>/docs/ contains implementation-specific and technical documentation for the component.
 
-4. System Documentation
+3. System Documentation
 
 - docs/system/ contains high-level system documentation.
 - <component>/docs/system/ contains low-level, technical, and component-specific system documentation.
 - Technical System Documents must reference their corresponding High-Level System Documents.
 
-5. Data Schema Documentation
+4. Data Schema Documentation
 
 - Data schemas must have separate documentation.
 - Non-database schemas → component documentation. `<component>/docs/schemas/<data-name>.md`
 - Database schemas → responsible database service documentation. `database/docs/<name-of-db-service>/schemas/<data-name>`.md:
 - Database schema documentation must be maintained within the documentation of the database service responsible for storing the data.
 
-## Database Documentation Rules
+5. Database Documentation Rules
 
 - Each database service must have its own documentation directory.
 - Each database service must have its own documentation directory:
@@ -39,14 +39,21 @@ Documentation Rules and Conventions
   - `database/docs/<database-service-name>/schemas/<schema-name>.md`
 - Database schema documentation must follow the Database Schema Documentation Rules.
 
-## Documentation rules & conventions
+6. Documentation rules & conventions
 
 - Process Documentation rules: `docs/rules/process.md`
 - High-Level ADR rules: `docs/rules/adr.md`
 - Component ADR rules: `docs/rules/component-adr.md`
-- High-Level System Documentation rules: `docs/rules/system.md`
 - High-Level Feature Documentation rule: `docs/rules/feature.md`
+- High-Level System Documentation rules: `docs/rules/system.md`
+- High-level Process Documentation rules: `docs/rules/process.md`
 - High-Level Data Model Documentation rules: `docs/rules/data.md`
 - Technical System rules: `docs/rules/technical-system.md`
+- Technical Process rules: `docs/rules/technical-process.md`
 - Technical Module rules: `docs/rules/technical-spec.md`
-- Database Documentation rules: `docs/rules/database
+- Database Documentation rules: `docs/rules/database`
+
+7. Testing Documentation
+
+- The testing component must not have component documentation.
+- The tests themselves are the documentation for the testing component.

@@ -208,24 +208,3 @@ Examples include:
 When an individual file fails, the feature must report or record the outcome as appropriate and continue processing the remaining files unless a system-level failure prevents further execution.
 
 An empty input folder is a normal outcome, not an error.
-
-## 10. Completion Criteria
-
-The Resume Upload feature is considered complete when:
-
-- The input folder has been checked.
-    
-- All discovered files have reached a final outcome.
-    
-- Non-PDF files have been rejected by the Core Processing Engine and have not created resume records.
-    
-- Duplicate files have not created new resume records through the Core Processing Engine.
-    
-- Successfully parsed resume data has been stored only when the required conditions are satisfied through the Core Processing Engine.
-    
-- Individual file failures have not unnecessarily interrupted the processing of other files.
-    
-- The feature receives processing confirmation from the Core Processing Engine for each file.
-    
-
-If the input folder is empty, the feature completes without processing any files.
