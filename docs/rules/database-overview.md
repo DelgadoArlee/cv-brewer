@@ -1,4 +1,6 @@
-# Database Schema Overview
+# Database Overview
+
+**File location:** `database/docs/<name-of-database-service>/overview.md`
 
 ## 1. Purpose
 

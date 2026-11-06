@@ -6,7 +6,7 @@ Documentation Rules and Conventions
 - Use kebab-case for file and folder naming.
 - Follow the appropriate formatting rules defined in docs/rules/.
 - Keep documentation simple, concise, and consistent.
-- code block must always be in quadruple backticks (````).
+- Always use quadruple backticks for Markdown code blocks.
 
 3. Documentation Structure
 
@@ -26,8 +26,27 @@ Documentation Rules and Conventions
 5. Data Schema Documentation
 
 - Data schemas must have separate documentation.
-- Schemas that are not stored in a database must be documented in:
-  - <component>/docs/schemas/<data-name>.md
-- Schemas that are stored in a database must be documented in:
-  - database/docs/<name-of-db-service>/schemas/<data-name>.md
+- Non-database schemas → component documentation. `<component>/docs/schemas/<data-name>.md`
+- Database schemas → responsible database service documentation. `database/docs/<name-of-db-service>/schemas/<data-name>`.md:
 - Database schema documentation must be maintained within the documentation of the database service responsible for storing the data.
+
+## Database Documentation Rules
+
+- Each database service must have its own documentation directory.
+- Each database service must have its own documentation directory:
+  - `database/docs/<database-service-name>/`
+- Database-specific schemas must be documented under their corresponding database:
+  - `database/docs/<database-service-name>/schemas/<schema-name>.md`
+- Database schema documentation must follow the Database Schema Documentation Rules.
+
+## Documentation rules & conventions
+
+- Process Documentation rules: `docs/rules/process.md`
+- High-Level ADR rules: `docs/rules/adr.md`
+- Component ADR rules: `docs/rules/component-adr.md`
+- High-Level System Documentation rules: `docs/rules/system.md`
+- High-Level Feature Documentation rule: `docs/rules/feature.md`
+- High-Level Data Model Documentation rules: `docs/rules/data.md`
+- Technical System rules: `docs/rules/technical-system.md`
+- Technical Module rules: `docs/rules/technical-spec.md`
+- Database Documentation rules: `docs/rules/database

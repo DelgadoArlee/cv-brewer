@@ -148,3 +148,63 @@ Use descriptive links instead of raw URLs.
 - Maintain consistency with the project's documentation standards.
 - Clearly distinguish approved decisions from AI recommendations and proposed approaches.
 - Do not assume missing technical decisions. Ask the user or present recommendations for approval.
+
+## 5. File Naming and Pathing Rules
+
+### 5.1. File Path Convention
+
+All Technical Specification documents must be located at:
+
+```
+<component>/docs/technical-specification.md
+```
+
+Where `<component>` is the name of the component directory (e.g., `database`, `resume-generation`, etc.).
+
+### 5.2. Document Name
+
+The filename must be exactly:
+
+- `technical-specification.md`
+
+No variations, prefixes, or suffixes are allowed.
+
+### 5.3. One Specification Per Component
+
+Each component must have exactly one Technical Specification document.
+
+Rules:
+
+- Do not create multiple technical specification documents for a single component.
+- If updating an existing specification, modify the existing file rather than creating a new one.
+- When refactoring or restructuring a component, update the path accordingly while maintaining the naming convention.
+
+## 6. Component Specification Path Rules
+
+### 6.1. Required Path Format
+
+All Technical Specification documents must follow this exact path format:
+
+```
+<component>/docs/technical-specification.md
+```
+
+Where `<component>` is the name of the component directory (e.g., `database`, `resume-generation`, etc.).
+
+### 6.2. Required Document Name
+
+The filename must be exactly:
+
+- `technical-specification.md`
+
+No variations, prefixes, or suffixes are allowed.
+
+### 6.3. Single Specification Per Component
+
+Each component must have exactly one Technical Specification document.
+
+Rules:
+
+- Do not create multiple technical specification documents for a single component.
+- If updating an existing specification, modify the existing file rather than creating a new one.
+- When refactoring or restructuring a component, update the path accordingly while maintaining the naming convention.
