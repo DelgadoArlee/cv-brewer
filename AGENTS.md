@@ -33,6 +33,7 @@
 
 ### Application Components
 
+- Core: `/core`
 - Database: `/database`
 
 ## Implementation Workflow
