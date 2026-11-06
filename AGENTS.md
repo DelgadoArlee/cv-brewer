@@ -33,6 +33,7 @@
 
 ### Application Components
 
+- CLI: `/cli`
 - Core: `/core`
 - Database: `/database`
 
