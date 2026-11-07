@@ -79,14 +79,31 @@ database/
 ├── README.md               Package README file.
 ├── .python-version         Python version selection.
 ├── docs/
-│   └── technical-specification.md
+│   ├── technical-specification.md
+│   ├── adr/
+│   │   ├── ADL.md
+│   │   └── 11-06-26/
+│   │       └── sqlite-adapter-foundation.md
+│   └── modules/
+│       └── sqlite-adapter.md
 └── src/
     └── database/
         ├── __init__.py
         ├── database_service/
         │   └── __init__.py
         └── adapters/
-            └── __init__.py
+            ├── __init__.py
+            └── sqlite/
+                ├── __init__.py
+                ├── alembic.ini
+                ├── config.py
+                ├── engine.py
+                ├── errors.py
+                ├── migrations.py
+                └── migrations/
+                    ├── env.py
+                    ├── script.py.mako
+                    └── versions/
 ````
 
 ## 8. Deployment

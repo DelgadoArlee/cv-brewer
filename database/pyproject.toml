@@ -7,7 +7,10 @@ authors = [
     { name = "delgadoarlee", email = "delgadoarlee@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "alembic>=1.20.1",
+    "sqlalchemy>=2.0,<2.1",
+]
 
 [build-system]
 requires = ["uv_build>=0.13.6,<0.14.0"]

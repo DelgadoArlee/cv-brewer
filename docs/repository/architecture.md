@@ -17,14 +17,24 @@ cvbrewery/
 │   ├── README.md
 │   ├── .python-version
 │   ├── docs/
-│   │   └── technical-specification.md
+│   │   ├── technical-specification.md
+│   │   ├── adr/
+│   │   └── modules/
 │   └── src/
 │       └── database/
 │           ├── __init__.py
 │           ├── database_service/
 │           │   └── __init__.py
 │           └── adapters/
-│               └── __init__.py
+│               ├── __init__.py
+│               └── sqlite/
+│                   ├── __init__.py
+│                   ├── alembic.ini
+│                   ├── config.py
+│                   ├── engine.py
+│                   ├── errors.py
+│                   ├── migrations.py
+│                   └── migrations/
 ├── llm/
 │   └── adapters/
 ├── tests/
@@ -51,8 +61,11 @@ cvbrewery/
 |`core/`|Contains the Core Processing Engine component.|
 |`database/`|Contains the database component as a single Python project.|
 |`database/docs/`|Contains database component technical documentation.|
+|`database/docs/adr/`|Contains database component-level architecture decisions.|
+|`database/docs/modules/`|Contains database component module documentation.|
 |`database/src/database/database_service/`|Contains the Database Service package.|
 |`database/src/database/adapters/`|Contains database adapter implementations.|
+|`database/src/database/adapters/sqlite/`|Contains the SQLite adapter implementation and migrations.|
 |`llm/`|Contains LLM integration components.|
 |`llm/adapters/`|Contains LLM adapter implementations.|
 |`tests/`|Contains all test code organized by testing level (features, systems, processes, e2e).|
