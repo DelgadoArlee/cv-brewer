@@ -17,9 +17,10 @@
 
 CVBrewery uses four conceptual levels:
 
+- Component: Groups related Systems and Processes that share a common responsibility within the applicatio
 - Feature: Defines what the application should accomplish.
 - System: Defines the technical responsibilities that support features.
-- Process: Defines workflows that accomplish specific tasks within systems.
+- Process: Defines workflows that accomplish specific tasks within systems or components.
 - Module: Defines encapsulated implementation units that can be shared or replaced.
 
 ### Architecture Organization Rules
@@ -31,6 +32,10 @@ CVBrewery uses four conceptual levels:
 - Modules can be shared across systems and processes.
 - These levels represent logical responsibilities, not mandatory folder or package boundaries.
 - Do not create unnecessary systems, processes, or modules.
+- Application-level processes are workflows that support the overall application rather than a specific Feature or System.
+- Examples include startup, shutdown, and environment initialization.
+- They may coordinate multiple Components when necessary.
+- Do not assign application-level processes to a System or Feature just to fit the documentation structure.
 
 ## General Documentation Rules & Conventions
 
@@ -42,7 +47,7 @@ CVBrewery uses four conceptual levels:
 
 - Components require a Technical Specification Document.
 - Systems require High-Level System and Technical System Documents before implementation.
-- Process require High-level Process and Technical Process Documents before implementation
+- Process require High-level Process or Technical Process Documents before implementation
 - Modules require Technical Module Documents before implementation.
 - Database tables require Data Model and Technical Schema Documents before implementation.
 - System and Module documentation requirements apply only to non-database components.
