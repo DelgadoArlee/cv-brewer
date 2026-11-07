@@ -4,12 +4,13 @@
 
 CV Brewer follows a four-level architecture organization model:
 
-| Level   | Description                                                 |
-| ------- | ----------------------------------------------------------- |
-| Feature | Defines what the application should accomplish.             |
-| System  | Defines the technical responsibilities supporting features. |
-| Process | Defines workflows that accomplish tasks within systems.     |
-| Module  | Defines encapsulated implementation units.                  |
+| Level     | Description                                                                                     |
+| --------- | ----------------------------------------------------------------------------------------------- |
+| Component | Groups related Systems and Processes that share a common responsibility within the application. |
+| Feature   | Defines what the application should accomplish.                                                 |
+| System    | Defines the technical responsibilities supporting features.                                     |
+| Process   | Defines workflows that accomplish tasks within systems or components.                           |
+| Module    | Defines encapsulated implementation units.                                                      |
 
 ### Organization Rules
 
@@ -19,6 +20,8 @@ CV Brewer follows a four-level architecture organization model:
 - Avoid unnecessary architecture levels or components.
 - These levels do not have to correspond directly to code packages or directories.
 - Obtain approval before changing established architectural responsibilities.
+- Application-Level Process: A workflow that supports the overall application and is not owned by a specific System.
+- System-Level Process: A workflow that performs a specific task within the responsibility of a System.
 
 ## 2. System Architecture
 

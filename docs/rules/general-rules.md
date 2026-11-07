@@ -23,14 +23,21 @@ Documentation Rules and Conventions
 - <component>/docs/system/ contains low-level, technical, and component-specific system documentation.
 - Technical System Documents must reference their corresponding High-Level System Documents.
 
-4. Data Schema Documentation
+1. Process Documentation
+- Application-level processes should be documented separately from System-specific processes.
+- System-Level Processes: Document processes under `docs/systems/<system-name>/processes/` to indicate which System they belong to.
+- Application-Level Processes: Document processes under `docs/processes/` when they support the overall application and do not belong to a specific System.
+
+
+
+5. Data Schema Documentation
 
 - Data schemas must have separate documentation.
 - Non-database schemas → component documentation. `<component>/docs/schemas/<data-name>.md`
 - Database schemas → responsible database service documentation. `database/docs/<name-of-db-service>/schemas/<data-name>`.md:
 - Database schema documentation must be maintained within the documentation of the database service responsible for storing the data.
 
-5. Database Documentation Rules
+6. Database Documentation Rules
 
 - Each database service must have its own documentation directory.
 - Each database service must have its own documentation directory:
@@ -39,7 +46,7 @@ Documentation Rules and Conventions
   - `database/docs/<database-service-name>/schemas/<schema-name>.md`
 - Database schema documentation must follow the Database Schema Documentation Rules.
 
-6. Documentation rules & conventions
+7. Documentation rules & conventions
 
 - Process Documentation rules: `docs/rules/process.md`
 - High-Level ADR rules: `docs/rules/adr.md`
@@ -53,7 +60,7 @@ Documentation Rules and Conventions
 - Technical Module rules: `docs/rules/technical-spec.md`
 - Database Documentation rules: `docs/rules/database`
 
-7. Testing Documentation
+8. Testing Documentation
 
 - The testing component must not have component documentation.
 - The tests themselves are the documentation for the testing component.
