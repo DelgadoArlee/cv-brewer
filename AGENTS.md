@@ -56,7 +56,22 @@ CVBrewery uses four conceptual levels:
 - Do not use pip, poetry, or other package managers unless explicitly approved by the developer.
 - must conform with component architectural & design approaches stated in each components technical-specifcation.md
 
-### Application Components
+## General Coding Guidelines
+
+- Organize functions in top-down order: define helper or smaller functions before the higher-level functions that call them.
+- Place the main function or entry point after its supporting functions.
+- Avoid defining helper functions inside higher-level functions unless necessary.
+- Mirror the organizational hierarchy of the documentation in the codebase.
+- Organize code by Process, and Module according to the established architecture.
+- Maintain clear ownership and relationships between architectural elements.
+- Do not create unnecessary directories or force code into an organizational level where it does not belong.
+- Use Absolute Imports.
+- Use supporting directories such as schemas/, config/, and common/ for code that does not qualify as a Process or Module.
+- Keep schemas/ within the process responsible for it.
+- Use common/ for supporting code shared across multiple module or processes.
+- Avoid creating unnecessary directories or duplicating existing supporting code.
+
+## Application Components
 
 - CLI: `/cli`
 - Core: `/core`
