@@ -71,6 +71,10 @@ CVBrewery uses four conceptual levels:
 - Use common/ for supporting code shared across multiple module or processes.
 - Avoid creating unnecessary directories or duplicating existing supporting code.
 
+## Component Specific Coding Guidelines
+
+- CLI: [cli/docs/guidelines.md](cli/docs/guidelines.md)
+
 ## Application Components
 
 - CLI: `/cli`

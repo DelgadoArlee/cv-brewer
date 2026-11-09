@@ -14,18 +14,24 @@ cvbrewery/
 │   ├── data/               Development-only data (ignored by version control).
 │   ├── docs/
 │   │   ├── technical-specification.md
+│   │   ├── guidelines.md
 │   │   ├── adr/
 │   │   ├── modules/
 │   │   └── processes/
 │   └── src/
 │       └── cli/
 │           ├── __init__.py
+│           ├── app.py
 │           ├── modules/
 │           │   ├── __init__.py
 │           │   └── paths.py
-│           └── processes/
+│           ├── processes/
+│           │   ├── __init__.py
+│           │   ├── application_startup.py
+│           │   └── entry_page.py
+│           └── ui/
 │               ├── __init__.py
-│               └── application_startup.py
+│               └── entry_page.py
 ├── core/
 ├── database/
 │   ├── pyproject.toml
@@ -62,6 +68,7 @@ cvbrewery/
 │   └── e2e/
 ├── docs/
 ├── main.py
+├── run.sh
 ├── pyproject.toml
 ├── uv.lock
 ├── .python-version
@@ -77,10 +84,14 @@ cvbrewery/
 |`cli/`|Contains the Command-Line Interface component.|
 |`cli/data/`|Contains development-only database and local folder data; ignored by version control.|
 |`cli/docs/adr/`|Contains CLI component-level architecture decisions.|
+|`cli/docs/guidelines.md`|Contains CLI component-specific coding guidelines.|
 |`cli/docs/modules/`|Contains CLI component module documentation.|
 |`cli/docs/processes/`|Contains CLI component application-level process documentation.|
+|`cli/src/cli/app.py`|Defines the Typer application and no-command entry page callback.|
 |`cli/src/cli/modules/paths.py`|Defines shared and development startup locations.|
 |`cli/src/cli/processes/application_startup.py`|Coordinates database initialization and folder preparation during startup.|
+|`cli/src/cli/processes/entry_page.py`|Coordinates the CLI entry page workflow.|
+|`cli/src/cli/ui/`|Contains all CLI UI-related code.|
 |`core/`|Contains the Core Processing Engine component.|
 |`database/`|Contains the database component as a single Python project.|
 |`database/docs/`|Contains database component technical documentation.|
@@ -93,7 +104,8 @@ cvbrewery/
 |`llm/adapters/`|Contains LLM adapter implementations.|
 |`tests/`|Contains all test code organized by testing level (features, systems, processes, e2e).|
 |`tests/data/`|Contains generated test environment data; reset at test session start and ignored by version control.|
-|`main.py`|Application composition root that wires CLI startup to database initialization.|
+|`main.py`|Application composition root that wires CLI startup and the CLI entry page.|
+|`run.sh`|Starts the application with `uv run python main.py`.|
 |`docs/`|Contains project-wide documentation.|
 |`pyproject.toml`|Defines the root uv workspace, test tooling, and pytest configuration.|
 |`uv.lock`|Locks dependencies for the root workspace.|

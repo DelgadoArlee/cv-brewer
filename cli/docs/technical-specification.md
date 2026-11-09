@@ -7,6 +7,7 @@ This document defines the technical organization of the CLI component within CVB
 ## 2. Objective
 
 - Provide the user-facing interface for CVBrewer.
+- Display a CVBrewer entry page when the CLI runs without a command.
 - Provide direct subcommands and an interactive menu when no command is supplied.
 - Initialize the embedded database and prepare the resume input and generated output folders on application startup.
 - Discover and check the designated input and output folders.
@@ -24,6 +25,7 @@ This document defines the technical organization of the CLI component within CVB
 
 - The CLI component package and its internal subpackages.
 - Application startup orchestration, including injected database initialization and input/output folder preparation.
+- CLI entry page rendering and wait-for-Enter behavior.
 - User interaction, prompts, menus, progress reporting, tables, and error output.
 - Input and output folder management and file discovery.
 - Reading file bytes and passing immutable file payloads to the Core.
@@ -120,23 +122,31 @@ cli/
 │       └── generated/
 ├── docs/
 │   ├── technical-specification.md
+│   ├── guidelines.md
 │   ├── adr/
 │   │   ├── ADL.md
 │   │   └── 11-07-26/
 │   │       └── development-startup-paths.md
 │   ├── modules/
+│   │   ├── entry-page.md
 │   │   └── paths.md
 │   └── processes/
-│       └── application-startup.md
+│       ├── application-startup.md
+│       └── entry-page.md
 └── src/
     └── cli/
         ├── __init__.py
+        ├── app.py
         ├── modules/
         │   ├── __init__.py
         │   └── paths.py
-        └── processes/
+        ├── processes/
+        │   ├── __init__.py
+        │   ├── application_startup.py
+        │   └── entry_page.py
+        └── ui/
             ├── __init__.py
-            └── application_startup.py
+            └── entry_page.py
 ````
 
 ## 8. Deployment
@@ -153,8 +163,11 @@ cli/
 - [Tech Stack](../../docs/tech-stack.md)
 - [Requirements](../../docs/requirements.md)
 - [General System Rules](../../docs/system-rules.md)
+- [CLI Component Coding Guidelines](guidelines.md)
 - [Application Startup Process](../../docs/system/application-startup.md)
 - [Application Startup Technical Process](processes/application-startup.md)
+- [CLI Entry Page Technical Process](processes/entry-page.md)
+- [CLI Entry Page Module](modules/entry-page.md)
 - [Resume Upload System Overview](../../docs/system/resume-upload/overview.md)
 - [Resume Generation System Overview](../../docs/system/resume-generation/overview.md)
 - [Delete Resumes System Overview](../../docs/system/delete-resumes/overview.md)
