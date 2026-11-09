@@ -34,7 +34,7 @@ Tests are organized around the application's architecture:
 6. Avoid duplicating test scenarios across testing levels. Each level must verify its own scope.
 7. Prefer real internal components over mocks.
 8. Use test doubles for external dependencies when necessary.
-9. Use temporary resources for filesystem and database testing.
+9. Use temporary resources for isolated filesystem and database testing, and use the managed `tests/data/` environment for application startup scenarios that intentionally persist between test runs.
 10. Maintain a small set of full-application end-to-end tests through the CLI.
 
 ## 5. Test Organization
@@ -44,6 +44,7 @@ All tests must reside in the repository-level `tests/` directory.
 ```text
 tests/
 ├── conftest.py
+├── data/
 ├── fixtures/
 ├── features/
 ├── systems/
@@ -57,6 +58,7 @@ tests/
 - `processes/`: Individual process behavior tests.
 - `e2e/`: Full-application CLI tests.
 - `fixtures/`: Shared test data and resources.
+- `data/`: Generated test environment data that is reset at the start of every test session.
 
 ## 6. Test Scenario Format
 
@@ -77,3 +79,13 @@ Use the **Given–When–Then** pattern to describe test scenarios.
 ## 8. Testing Documentation
 
 The testing component does not have separate documentation. The tests themselves are the documentation for the testing component.
+
+## 9. Test Data Lifecycle
+
+- The test data root is `tests/data/`.
+- The test data layout mirrors the development startup layout: `cvbrewer.db`, `local/resumes/`, and `local/generated/`.
+- `tests/data/` is ignored by version control.
+- At the start of every test execution session, `tests/data/` is deleted and recreated as an empty folder. Collection-only runs do not reset it.
+- Application startup tests are marked `application_startup` and run before all other tests.
+- The successful application startup test creates the test data structure under `tests/data/`.
+- Test data is retained after the test session ends.

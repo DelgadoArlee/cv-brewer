@@ -8,6 +8,7 @@ This document defines the technical organization of the CLI component within CVB
 
 - Provide the user-facing interface for CVBrewer.
 - Provide direct subcommands and an interactive menu when no command is supplied.
+- Initialize the embedded database and prepare the resume input and generated output folders on application startup.
 - Discover and check the designated input and output folders.
 - Create and manage the input and output folders according to the application's folder-management rules.
 - Discover files in the input folder and supply their content to the Core Processing Engine.
@@ -22,6 +23,7 @@ This document defines the technical organization of the CLI component within CVB
 ### In Scope
 
 - The CLI component package and its internal subpackages.
+- Application startup orchestration, including injected database initialization and input/output folder preparation.
 - User interaction, prompts, menus, progress reporting, tables, and error output.
 - Input and output folder management and file discovery.
 - Reading file bytes and passing immutable file payloads to the Core.
@@ -46,6 +48,11 @@ This document defines the technical organization of the CLI component within CVB
 ## 4. Rules & Constraints
 
 - The CLI must be orchestration-only and must coordinate work through the Core Processing Engine.
+- The CLI must initialize the embedded database on application startup through a database initializer injected by an application composition root.
+- The CLI must not import or call the Database Service, Database Adapter, or database implementation directly during startup.
+- The CLI must ensure the resume input and generated output folders exist before workflows can begin.
+- The CLI must report startup failures and stop when database initialization or folder preparation fails.
+- The CLI must not scan the input folder automatically during startup.
 - The CLI must not perform file-type validation and must not filter discovered files by type.
 - The CLI must not duplicate Core validation or processing logic.
 - The CLI must read file bytes and pass immutable file payloads to the Core.
@@ -87,6 +94,12 @@ This document defines the technical organization of the CLI component within CVB
 - **Description:** The CLI is maintained as one Python project containing internal packages.
 - **Application:** The CLI package is organized under `cli/src/cli/` within the single application distribution.
 
+### 5.5. Injected Startup Dependencies
+
+- **Name:** Injected startup dependencies.
+- **Description:** Application startup coordinates capabilities supplied by other components without depending on their implementations.
+- **Application:** The CLI accepts a database initializer callable from an application composition root, applies it during startup, and ensures the required input and output folders exist.
+
 ## 6. Systems
 
 | System | Description | Specification |
@@ -100,11 +113,30 @@ cli/
 ├── pyproject.toml          Project configuration and package metadata.
 ├── README.md               Package README file.
 ├── .python-version         Python version selection.
+├── data/                   Development-only data (ignored by version control).
+│   ├── cvbrewer.db
+│   └── local/
+│       ├── resumes/
+│       └── generated/
 ├── docs/
-│   └── technical-specification.md
+│   ├── technical-specification.md
+│   ├── adr/
+│   │   ├── ADL.md
+│   │   └── 11-07-26/
+│   │       └── development-startup-paths.md
+│   ├── modules/
+│   │   └── paths.md
+│   └── processes/
+│       └── application-startup.md
 └── src/
     └── cli/
-        └── __init__.py
+        ├── __init__.py
+        ├── modules/
+        │   ├── __init__.py
+        │   └── paths.py
+        └── processes/
+            ├── __init__.py
+            └── application_startup.py
 ````
 
 ## 8. Deployment
@@ -121,9 +153,12 @@ cli/
 - [Tech Stack](../../docs/tech-stack.md)
 - [Requirements](../../docs/requirements.md)
 - [General System Rules](../../docs/system-rules.md)
+- [Application Startup Process](../../docs/system/application-startup.md)
+- [Application Startup Technical Process](processes/application-startup.md)
 - [Resume Upload System Overview](../../docs/system/resume-upload/overview.md)
 - [Resume Generation System Overview](../../docs/system/resume-generation/overview.md)
 - [Delete Resumes System Overview](../../docs/system/delete-resumes/overview.md)
 - [Use Typer and Rich for a hybrid CLI](../../docs/adr/Architecture/2026-11-04/cli-interface.md)
+- [Establish Development Application Startup](adr/11-07-26/development-startup-paths.md)
 - [Use Python and uv for the CVBrewer implementation](../../docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
 - [Package CVBrewer as per-OS single executables with PyInstaller](../../docs/adr/Architecture/2026-11-04/cross-platform-packaging.md)

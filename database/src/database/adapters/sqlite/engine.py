@@ -6,8 +6,8 @@ from sqlalchemy import Engine, create_engine, event
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session, sessionmaker
 
-from .config import SqliteConfig
-from .errors import to_adapter_error
+from database.adapters.sqlite.config import SqliteConfig
+from database.adapters.sqlite.errors import to_adapter_error
 
 
 def create_sqlite_engine(config: SqliteConfig) -> Engine:

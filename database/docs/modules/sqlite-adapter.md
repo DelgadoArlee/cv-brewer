@@ -21,6 +21,7 @@ Provides the SQLite-specific implementation foundation for the database componen
 | `AdapterDatabaseError` | Exception class | Represents other DB-API failures. | `message: str` – Error description. | `AdapterDatabaseError` instance. |
 | `to_adapter_error()` | Function | Maps SQLAlchemy exceptions to the adapter-local exception hierarchy. | `exc: sqlalchemy.exc.SQLAlchemyError` – SQLAlchemy exception. | `AdapterError` subclass instance. |
 | `upgrade_database()` | Function | Runs Alembic migrations for the supplied SQLite configuration. | `config: SqliteConfig` – SQLite configuration. `revision: str = "head"` – Target Alembic revision. | `None`. |
+| `initialize_database()` | Function | Prepares an explicit SQLite database path, creates the database file, and runs Alembic migrations. | `config: SqliteConfig` – SQLite configuration. | `None`. |
 | Alembic scaffolding | Configuration and templates | Defines `alembic.ini`, the migration environment, and revision template inside the adapter package. | None. | Migration environment and revision template. |
 
 ## 3. Dependencies
@@ -36,6 +37,7 @@ Provides the SQLite-specific implementation foundation for the database componen
 | Date | Decision / Description | Affected Code Elements | Reference |
 | --- | --- | --- | --- |
 | 11/06/2026 | Established the SQLite adapter foundation with synchronous SQLAlchemy, explicit URL configuration, adapter-local errors, and self-contained Alembic scaffolding. | `SqliteConfig`, `create_sqlite_engine()`, `create_session_factory()`, `session_scope()`, `to_adapter_error()`, `upgrade_database()`, Alembic scaffolding | [SQLite adapter foundation](../adr/11-06-26/sqlite-adapter-foundation.md) |
+| 11/07/2026 | Added explicit-path database initialization for application startup while preserving explicit SQLite configuration. | `initialize_database()` | [Development application startup](../../../cli/docs/adr/11-07-26/development-startup-paths.md) |
 
 ## 5. References
 

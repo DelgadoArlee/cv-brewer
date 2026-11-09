@@ -11,6 +11,21 @@ The project follows a **monorepo** structure. All application components and pro
 ```
 cvbrewery/
 ├── cli/
+│   ├── data/               Development-only data (ignored by version control).
+│   ├── docs/
+│   │   ├── technical-specification.md
+│   │   ├── adr/
+│   │   ├── modules/
+│   │   └── processes/
+│   └── src/
+│       └── cli/
+│           ├── __init__.py
+│           ├── modules/
+│           │   ├── __init__.py
+│           │   └── paths.py
+│           └── processes/
+│               ├── __init__.py
+│               └── application_startup.py
 ├── core/
 ├── database/
 │   ├── pyproject.toml
@@ -39,12 +54,14 @@ cvbrewery/
 │   └── adapters/
 ├── tests/
 │   ├── conftest.py
+│   ├── data/               Generated test environment data (ignored by version control).
 │   ├── fixtures/
 │   ├── features/
 │   ├── systems/
 │   ├── processes/
 │   └── e2e/
 ├── docs/
+├── main.py
 ├── pyproject.toml
 ├── uv.lock
 ├── .python-version
@@ -58,6 +75,12 @@ cvbrewery/
 |Directory / File|Description|
 |---|---|
 |`cli/`|Contains the Command-Line Interface component.|
+|`cli/data/`|Contains development-only database and local folder data; ignored by version control.|
+|`cli/docs/adr/`|Contains CLI component-level architecture decisions.|
+|`cli/docs/modules/`|Contains CLI component module documentation.|
+|`cli/docs/processes/`|Contains CLI component application-level process documentation.|
+|`cli/src/cli/modules/paths.py`|Defines shared and development startup locations.|
+|`cli/src/cli/processes/application_startup.py`|Coordinates database initialization and folder preparation during startup.|
 |`core/`|Contains the Core Processing Engine component.|
 |`database/`|Contains the database component as a single Python project.|
 |`database/docs/`|Contains database component technical documentation.|
@@ -69,6 +92,8 @@ cvbrewery/
 |`llm/`|Contains LLM integration components.|
 |`llm/adapters/`|Contains LLM adapter implementations.|
 |`tests/`|Contains all test code organized by testing level (features, systems, processes, e2e).|
+|`tests/data/`|Contains generated test environment data; reset at test session start and ignored by version control.|
+|`main.py`|Application composition root that wires CLI startup to database initialization.|
 |`docs/`|Contains project-wide documentation.|
 |`pyproject.toml`|Defines the root uv workspace, test tooling, and pytest configuration.|
 |`uv.lock`|Locks dependencies for the root workspace.|
@@ -79,4 +104,4 @@ cvbrewery/
 
 ## 4. References
 
-- [System Architecture](docs/architecture/system-architecture.md)````
+- [System Architecture](../architecture.md)````

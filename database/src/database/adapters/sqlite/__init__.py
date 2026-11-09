@@ -1,6 +1,10 @@
-from .config import SqliteConfig
-from .engine import create_session_factory, create_sqlite_engine, session_scope
-from .errors import (
+from database.adapters.sqlite.config import SqliteConfig
+from database.adapters.sqlite.engine import (
+    create_session_factory,
+    create_sqlite_engine,
+    session_scope,
+)
+from database.adapters.sqlite.errors import (
     AdapterDataError,
     AdapterDatabaseError,
     AdapterError,
@@ -9,7 +13,10 @@ from .errors import (
     AdapterProgrammingError,
     to_adapter_error,
 )
-from .migrations import upgrade_database
+from database.adapters.sqlite.migrations import (
+    initialize_database,
+    upgrade_database,
+)
 
 __all__ = [
     "AdapterDataError",
@@ -21,6 +28,7 @@ __all__ = [
     "SqliteConfig",
     "create_session_factory",
     "create_sqlite_engine",
+    "initialize_database",
     "session_scope",
     "to_adapter_error",
     "upgrade_database",
