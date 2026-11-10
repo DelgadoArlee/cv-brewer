@@ -105,7 +105,7 @@ References may include:
 
 ## 3. General Formatting Rules
 
-- Use `camelCase` for field names.
+- Use `snake_case` for field names for .
 - Use consistent naming conventions across data models.
 - Use standard JSON data types when representing data.
 - Use `null` to represent fields that may have no value.
