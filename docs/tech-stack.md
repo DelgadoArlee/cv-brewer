@@ -30,8 +30,7 @@ This document does not replace the ADRs, requirements, architecture, or system d
 | ---------------------- | -------------------------------------------------------------------------------------------------------- |
 | CLI                    | User interaction, folder management, file discovery, workflow coordination, and result reporting         |
 | Core Processing Engine | File-type checks, PDF validation, text extraction, parsing, schema validation, generation, and rendering |
-| Database Service       | Application-level data operations                                                                        |
-| Database Adapter       | SQLite access through SQLAlchemy and Alembic                                                             |
+| Database               | Application-level data operations and SQLite access through SQLAlchemy and Alembic                      |
 | LLM Adapter            | Communication with the user's chosen LLM service                                                         |
 
 ## 4. Boundaries
