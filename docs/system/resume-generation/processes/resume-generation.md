@@ -53,7 +53,7 @@ flowchart TD
 - Parsed job description data must conform to the Job Description JSON schema after AI parsing
 - Stored resume data must exist and pass validation before being used for generation
 - Generated content must not fabricate or alter user's original information
-- LLM operations must go through the configured Provider and Adapter layers
+- LLM operations must go through the LLM Service and its configured adapter
 - Generated resume data must conform to the Generated Resume JSON schema before Markdown rendering
 - Output files must be saved in the designated output folder managed by CLI
 - Any failures at any stage must be reported to the user and halt the process until corrected

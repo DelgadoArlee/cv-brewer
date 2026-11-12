@@ -40,6 +40,6 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing System Overview](docs/system/resume-processing/overview.md)
+- [Resume Processing System Overview](../overview.md)
 - [Data Parsing Process](6-data-parsing.md)
-- [Resume JSON Schema](../../schema/resume-schema.md)
+- [User Resume Data Model](../../../data/user-resume.md)

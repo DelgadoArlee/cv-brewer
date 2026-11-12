@@ -10,13 +10,13 @@ This process parses extracted text content from validated PDF resumes into struc
 flowchart TD
     A[Extracted Text Content] --> B[Apply Deterministic Extraction]
     B --> C{Deterministic Extraction Complete?}
-    C -->|No| D[Mark as Unparsable]
-    D --> E[Log Rejection Reason]
-    E --> F[Skip Further Processing]
     C -->|Yes| G[Invoke LLM Enhancement]
+    C -->|No| L[Log Deterministic Failure]
+    L --> G
     G --> H{LLM Extraction Complete?}
     H -->|No| I[Mark as Unparsable]
-    I --> E
+    I --> E[Log Rejection Reason]
+    E --> F[Skip Further Processing]
     H -->|Yes| J[Combine Deterministic and LLM Results]
     J --> K[Generate Structured Resume Data]
     K --> F
@@ -45,5 +45,6 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing Feature Overview](docs/system/resume-processing/overview.md)
+- [Resume Processing System Overview](../overview.md)
 - [PDF Extraction Process](5-pdf-extraction.md)
+- [Schema Validation Process](7-schema-validation.md)

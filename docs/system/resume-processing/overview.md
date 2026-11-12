@@ -8,7 +8,7 @@ This system handles the extraction of structured data from uploaded PDF resumes 
 
 - Verify file type using file signature validation
 - Extract metadata from uploaded resume files
-- Detect and remove duplicate resumes based on extracted content
+- Detect and remove duplicate resumes based on raw file bytes
 - Extract readable content from uploaded PDF resumes
 - Parse extracted content into structured resume data
 - Validate parsed resume data against the Resume JSON schema
@@ -22,7 +22,7 @@ This system handles the extraction of structured data from uploaded PDF resumes 
 
 - File type validation using file signature verification
 - Metadata extraction from uploaded resume files
-- Deduplication of resume files based on extracted content
+- Deduplication of resume files based on raw file bytes
 - PDF file validation (structural validity, encryption status)
 - Text extraction from valid PDF resumes
 - Deterministic parsing of resume content into structured data
@@ -44,8 +44,8 @@ This system handles the extraction of structured data from uploaded PDF resumes 
 The resume processing workflow follows these steps:
 
 1. **File Type Validation**: The Core verifies the uploaded file is a valid PDF using file signature verification
-2. **Metadata Extraction**: Metadata is extracted from the validated PDF file
-3. **Deduplication**: Duplicate resumes are detected and filtered out based on extracted content
+2. **Metadata Extraction**: Metadata is extracted from the validated file bytes
+3. **Deduplication**: Duplicate resumes are detected and filtered out based on the raw-byte content fingerprint
 4. **PDF Validation**: Each remaining PDF undergoes validation checks before processing
    - Verify the PDF is not encrypted or password-protected
    - Check structural integrity of the PDF document
@@ -59,25 +59,26 @@ The resume processing workflow follows these steps:
 ## 5. Constraints
 
 - Only non-encrypted, non-password-protected PDF resumes are accepted
-- PDFs must contain sufficient readable content to support parsing (determined by text extraction results)
+- PDFs must contain at least one non-whitespace character of extracted text to support parsing
 - Parsed resume data must conform to the Resume JSON schema before storage
 - The Core remains independent of any specific storage technology or database implementation
 - Storage is managed through the Database Service and Database Adapter
 - Duplicate resumes are identified and filtered out during processing
 - Original PDF files in the input folder are never deleted during parsing
-- LLM operations go through the LLM Provider and LLM Adapter layers
+- LLM operations go through the LLM Service and LLM Adapter layers
 
 ## 6. Rules
 
 - File signature verification is performed before any other processing
 - Metadata extraction occurs after file type validation
 - Deduplication is always performed after metadata extraction
+- The content fingerprint is the SHA-256 hash of the raw file bytes
 - Deterministic extraction methods are used first for resume data extraction
 - LLM extraction is always invoked after deterministic extraction, not only on failure
 - LLM handles information that cannot be reliably extracted through deterministic methods
 - Parsed resume data must not be fabricated or altered beyond what exists in the original document
 - All database operations go through the Database Service and Database Adapter
-- LLM communication goes through the LLM Provider and LLM Adapter
+- LLM communication goes through the LLM Service and LLM Adapter
 
 ## 7. Validation
 
@@ -85,10 +86,10 @@ The following validation responsibilities apply:
 
 | Validation Step                              | Responsible Component | Reference                                                                     |
 | -------------------------------------------- | --------------------- | ----------------------------------------------------------------------------- |
-| File type signature verification             | Core                  | [File Type Validation Rules](../file-type-validation/file-type-validation.md) |
-| PDF structural validity and encryption check | Core                  | [PDF Validation Rules](../pdf-validation/pdf-validation.md)                   |
-| Resume JSON schema validation                | Core                  | [Resume JSON Schema](../../schema/resume-schema.md)                           |
-| Readable content verification                | Core                  | [Content Extraction Rules](../content-extraction/content-extraction-rules.md) |
+| File type signature verification             | Core                  | [File Type Verification Process](processes/1-file-type-verification.md)       |
+| PDF structural validity and encryption check | Core                  | [PDF Validation Process](processes/4-pdf-validation.md)                       |
+| Resume JSON schema validation                | Core                  | [Schema Validation Process](processes/7-schema-validation.md)                 |
+| Readable content verification                | Core                  | [PDF Extraction Process](processes/5-pdf-extraction.md)                       |
 
 ## 8. Data Management
 
@@ -99,7 +100,7 @@ The system works with the following data categories:
 - **Parsed resume data**: Structured data stored through Database Service for reuse
 - **Resume JSON schema**: Contract for parsed resume data structure
 
-Refer to [Data Model Documentation](../data-models/resume-data-model.md) for detailed data structure definitions.
+Refer to [User Resume Data Model](../../data/user-resume.md) for detailed data structure definitions.
 
 ## 9. Error Handling
 
@@ -107,7 +108,7 @@ The system handles the following error scenarios:
 
 - **Invalid file type**: Reject with appropriate error message if file signature does not match PDF
 - **Encrypted or password-protected PDF**: Reject as unreadable
-- **Insufficient readable content**: Reject as unparsable (determined by text extraction results)
+- **No non-whitespace readable content**: Reject as unreadable (determined by text extraction results)
 - **Schema validation failure**: Reject parsed data and report specific issues
 - **Storage errors**: Report to CLI for user notification through Database Service
 - **Duplicate resume detected**: Skip processing and log duplicate detection

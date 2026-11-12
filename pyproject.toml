@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "CVBrewer monorepo test workspace"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["cli", "database"]
+dependencies = ["cli", "core", "database", "llm"]
 
 [dependency-groups]
 dev = ["pytest"]
@@ -13,14 +13,17 @@ dev = ["pytest"]
 package = false
 
 [tool.uv.workspace]
-members = ["cli", "database"]
+members = ["cli", "core", "database", "llm"]
 
 [tool.uv.sources]
 cli = { workspace = true }
+core = { workspace = true }
 database = { workspace = true }
+llm = { workspace = true }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = [
     "application_startup: application startup tests that run before all other tests",
+    "requires_empty_data: tests that require an empty database or test data before data-inserting tests",
 ]

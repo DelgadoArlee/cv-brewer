@@ -2,7 +2,7 @@
 
 ## 1. Purpose / Summary
 
-This process handles the extraction of structured data from uploaded PDF resumes and prepares it for storage and reuse during resume generation. It validates file types, extracts metadata, detects duplicates, verifies PDF integrity, parses content into structured data, enhances with LLM when needed, validates against schema, and stores results for future use. The process ensures only valid, readable resumes are processed while preventing duplicate processing and maintaining data quality throughout the workflow.
+This process handles the extraction of structured data from uploaded PDF resumes and prepares it for storage and reuse during resume generation. It validates file types, extracts metadata, detects duplicates, verifies PDF integrity, parses content into structured data, always enhances with LLM, validates against schema, and stores results for future use. The process ensures only valid, readable resumes are processed while preventing duplicate processing and maintaining data quality throughout the workflow.
 
 ## 2. Process Flow
 
@@ -40,7 +40,7 @@ flowchart TD
 - Content extraction must succeed to produce parseable resume data
 - Schema validation must pass before any parsed data is stored for reuse
 - Storage operations must go through the Database Service and Database Adapter layers
-- LLM communication must go through the LLM Provider and LLM Adapter layers
+- LLM communication must go through the LLM Service and LLM Adapter layers
 - Duplicate resumes must be identified and filtered out during processing without storage
 - Invalid file types must be rejected with appropriate error messages
 - Encrypted or password-protected PDFs must be rejected as unreadable
@@ -54,14 +54,19 @@ flowchart TD
 - Parsed resume data must conform to the Resume JSON schema before storage
 - The Core Processing Engine remains independent of any specific storage technology or database implementation
 - Original PDF files in the input folder are never deleted during parsing
-- LLM operations must go through the configured Provider and Adapter layers without direct external calls
+- LLM operations must go through the LLM Service and its configured adapter without direct external calls
 - Storage is managed exclusively through the Database Service abstraction layer
+- Callers may receive notifications of the current processing stage while a file is processed
 - File type validation uses signature verification rather than file extension checking
 
 ## 5. References
 
-- [Resume Processing Feature Overview](docs/system/resume-processing/overview.md)
-- [File Type Validation Rules](../../file-type-validation/file-type-validation.md)
-- [PDF Validation Rules](../../pdf-validation/pdf-validation.md)
-- [Content Extraction Rules](../../content-extraction/content-extraction-rules.md)
-- [Resume JSON Schema](../../schema/resume-schema.md)
+- [Resume Processing System Overview](../overview.md)
+- [File Type Verification Process](1-file-type-verification.md)
+- [Metadata Extraction Process](2-metadata-extraction.md)
+- [Deduplication Process](3-deduplication.md)
+- [PDF Validation Process](4-pdf-validation.md)
+- [PDF Extraction Process](5-pdf-extraction.md)
+- [Data Parsing Process](6-data-parsing.md)
+- [Schema Validation Process](7-schema-validation.md)
+- [User Resume Data Model](../../../data/user-resume.md)

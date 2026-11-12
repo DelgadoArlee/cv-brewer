@@ -4,4 +4,5 @@ This log indexes the component-level Architecture Decision Records (ADRs) for th
 
 | Date | Decision | Status |
 | --- | --- | --- |
+| 2026-11-10 | [Establish resume persistence](11-10-26/resume-persistence.md) — Use a hybrid relational resume schema, unique content fingerprints, service-layer resume operations, and SQLite adapter repositories and models. | Accepted |
 | 2026-11-06 | [Establish SQLite adapter foundation](11-06-26/sqlite-adapter-foundation.md) — Use synchronous SQLAlchemy, explicit SQLite URLs, adapter-local errors, and self-contained Alembic scaffolding. | Accepted |

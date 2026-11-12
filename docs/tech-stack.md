@@ -17,7 +17,7 @@ This document does not replace the ADRs, requirements, architecture, or system d
 | PDF text extraction | `pdfplumber` / `pdfminer.six`                           | Readable-content checks and text extraction                  |
 | Schema validation   | JSON Schema 2020-12 + Pydantic v2 + `jsonschema`        | Data contracts, runtime models, and deterministic validation |
 | Persistence         | SQLite + SQLAlchemy 2.0 + Alembic                       | Embedded database, adapter boundary, and migrations          |
-| LLM integration     | LLM Adapter → User's chosen LLM service                 | Communication with the user's selected external LLM service |
+| LLM integration     | LLM Service → LLM Adapter → User's chosen LLM service    | Application-level LLM operations and communication with the user's selected external LLM service through pluggable adapters |
 | Rendering           | Jinja2 → Markdown                                       | Generated resume output for the MVP                          |
 | Packaging           | PyInstaller                                             | Per-OS single executables                                    |
 | Quality             | pytest, ruff, mypy, pre-commit                          | Testing, linting, formatting, and type checking              |
@@ -31,7 +31,7 @@ This document does not replace the ADRs, requirements, architecture, or system d
 | CLI                    | User interaction, folder management, file discovery, workflow coordination, and result reporting         |
 | Core Processing Engine | File-type checks, PDF validation, text extraction, parsing, schema validation, generation, and rendering |
 | Database               | Application-level data operations and SQLite access through SQLAlchemy and Alembic                      |
-| LLM Adapter            | Communication with the user's chosen LLM service                                                         |
+| LLM                    | Application-level language-model operations and communication with the user's chosen LLM service through pluggable adapters      |
 
 ## 4. Boundaries
 
@@ -39,7 +39,7 @@ This document does not replace the ADRs, requirements, architecture, or system d
 - The Core owns all file-type and PDF validation. The CLI does not filter files by type.
 - The Core does not access the file system directly; it operates on the bytes supplied by the CLI.
 - The Core depends on the Database Service interface, not on SQLAlchemy or SQLite directly.
-- The Core depends on the LLM Adapter interface, not on any specific LLM implementation.
+- The Core depends on the LLM Service interface, not on any specific LLM implementation.
 - JSON Schema is the data contract; validation occurs before storage, generation, and rendering.
 - Generated resume data is not stored in the database. Generated output is saved as a Markdown file in the output folder.
 - PDF rendering is deferred. The renderer boundary allows PDF support to be added later.
@@ -66,15 +66,16 @@ This document does not replace the ADRs, requirements, architecture, or system d
 
 | Decision                                           | ADR                                                                          |
 | -------------------------------------------------- | ---------------------------------------------------------------------------- |
-| Use Python and `uv`                                | [Python runtime and tooling](adr/2026-11-04/python-runtime-and-tooling.md)   |
-| Package per-OS single executables with PyInstaller | [Cross-platform packaging](adr/2026-11-04/cross-platform-packaging.md)       |
-| Use `pypdf` and `pdfplumber` for PDF processing    | [PDF processing](adr/2026-11-04/pdf-processing.md)                           |
-| Use JSON Schema and Pydantic for validation        | [Schema validation](adr/2026-11-04/schema-validation.md)                     |
-| Use SQLite through SQLAlchemy and Alembic          | [Database persistence](adr/2026-11-04/database-persistence.md)               |
-| Integrate LLMs through an adapter pattern           | [LLM integration](adr/2026-11-04/llm-integration.md)                         |
-| Generate Markdown resumes for the MVP              | [Markdown output MVP](adr/2026-11-04/markdown-output-mvp.md)                 |
-| Use Typer and Rich for a hybrid CLI                | [CLI interface](adr/2026-11-04/cli-interface.md)                             |
-| Core owns file-type and PDF validation             | [Validation responsibilities](adr/2026-11-04/validation-responsibilities.md) |
+| Use Python and `uv`                                | [Python runtime and tooling](adr/Architecture/2026-11-04/python-runtime-and-tooling.md)   |
+| Package per-OS single executables with PyInstaller | [Cross-platform packaging](adr/Architecture/2026-11-04/cross-platform-packaging.md)       |
+| Use `pypdf` and `pdfplumber` for PDF processing    | [PDF processing](adr/Architecture/2026-11-04/pdf-processing.md)                           |
+| Use JSON Schema and Pydantic for validation        | [Schema validation](adr/Architecture/2026-11-04/schema-validation.md)                     |
+| Use SQLite through SQLAlchemy and Alembic          | [Database persistence](adr/Architecture/2026-11-04/database-persistence.md)               |
+| Use an LLM Service abstraction with pluggable adapters | [LLM Service abstraction](adr/Architecture/2026-11-11/llm-service-abstraction.md)       |
+| Integrate LLMs through an adapter pattern           | [LLM integration](adr/Architecture/2026-11-04/llm-integration.md) — superseded by the LLM Service abstraction |
+| Generate Markdown resumes for the MVP              | [Markdown output MVP](adr/Architecture/2026-11-04/markdown-output-mvp.md)                 |
+| Use Typer and Rich for a hybrid CLI                | [CLI interface](adr/Architecture/2026-11-04/cli-interface.md)                             |
+| Core owns file-type and PDF validation             | [Validation responsibilities](adr/Architecture/2026-11-04/validation-responsibilities.md) |
 
 ## 8. References
 

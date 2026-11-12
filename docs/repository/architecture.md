@@ -57,7 +57,33 @@ cvbrewery/
 │                   ├── migrations.py
 │                   └── migrations/
 ├── llm/
-│   └── adapters/
+│   ├── pyproject.toml
+│   ├── README.md
+│   ├── .python-version
+│   ├── docs/
+│   │   ├── technical-specification.md
+│   │   ├── guidelines.md
+│   │   ├── adr/
+│   │   ├── modules/
+│   │   └── systems/
+│   └── src/
+│       └── llm/
+│           ├── __init__.py
+│           ├── llm_service/
+│           │   ├── __init__.py
+│           │   └── modules/
+│           │       └── generation/
+│           │           ├── __init__.py
+│           │           ├── models.py
+│           │           ├── adapter.py
+│           │           └── service.py
+│           └── adapters/
+│               ├── __init__.py
+│               └── ollama/
+│                   ├── __init__.py
+│                   ├── adapter.py
+│                   ├── config.py
+│                   └── errors.py
 ├── tests/
 │   ├── conftest.py
 │   ├── data/               Generated test environment data (ignored by version control).
@@ -100,8 +126,14 @@ cvbrewery/
 |`database/src/database/database_service/`|Contains the Database Service package.|
 |`database/src/database/adapters/`|Contains database adapter implementations.|
 |`database/src/database/adapters/sqlite/`|Contains the SQLite adapter implementation and migrations.|
-|`llm/`|Contains LLM integration components.|
-|`llm/adapters/`|Contains LLM adapter implementations.|
+|`llm/`|Contains the LLM component as a single Python project.|
+|`llm/docs/`|Contains LLM component technical documentation.|
+|`llm/docs/adr/`|Contains LLM component-level architecture decisions.|
+|`llm/docs/modules/`|Contains LLM component module documentation.|
+|`llm/docs/systems/`|Contains LLM component system documentation.|
+|`llm/src/llm/llm_service/`|Contains the LLM Service package.|
+|`llm/src/llm/adapters/`|Contains LLM adapter implementations.|
+|`llm/src/llm/adapters/ollama/`|Contains the Ollama adapter implementation.|
 |`tests/`|Contains all test code organized by testing level (features, systems, processes, e2e).|
 |`tests/data/`|Contains generated test environment data; reset at test session start and ignored by version control.|
 |`main.py`|Application composition root that wires CLI startup and the CLI entry page.|
@@ -116,4 +148,4 @@ cvbrewery/
 
 ## 4. References
 
-- [System Architecture](../architecture.md)````
+- [System Architecture](../architecture.md)

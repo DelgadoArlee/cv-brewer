@@ -7,6 +7,7 @@ Documentation Rules and Conventions
 - Follow the appropriate formatting rules defined in docs/rules/.
 - Keep documentation simple, concise, and consistent.
 - Always use quadruple backticks for Markdown code blocks.
+- use absolute paths when referencing
 
 2. Documentation Structure
 
@@ -24,11 +25,10 @@ Documentation Rules and Conventions
 - Technical System Documents must reference their corresponding High-Level System Documents.
 
 1. Process Documentation
+
 - Application-level processes should be documented separately from System-specific processes.
 - System-Level Processes: Document processes under `docs/systems/<system-name>/processes/` to indicate which System they belong to.
 - Application-Level Processes: Document processes under `docs/processes/` when they support the overall application and do not belong to a specific System.
-
-
 
 5. Data Schema Documentation
 

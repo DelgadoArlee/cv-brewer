@@ -43,7 +43,7 @@ The resume generation workflow follows these major steps:
 3. **Job Description Parsing**: AI parses the job description to extract structured requirements, responsibilities, and qualifications using the LLM
 4. **Job Description Parsing Validation**: Parsed job description data is validated against the Job Description JSON schema before proceeding
 5. **Resume Data Retrieval**: System retrieves stored parsed resume data from database
-6. **Generation Request**: Core sends generation request through LLM Provider and Adapter with both parsed user resume and parsed job description as reference inputs
+6. **Generation Request**: Core sends a generation request through the LLM Service with both parsed user resume and parsed job description as reference inputs
 7. **Content Generation**: LLM generates tailored resume content based on job requirements and user's original resume information
 8. **Schema Validation**: Generated data is validated against the Generated Resume JSON schema
 9. **Template Mapping**: Generated data is mapped to selected resume template
@@ -56,7 +56,7 @@ Reference: [Resume Generation Process](processes/resume-generation-process.md)
 
 - Generated resume content must be based exclusively on the user's stored resume data
 - The job description may guide selection, prioritization, and presentation but cannot introduce new facts about the user
-- LLM operations must go through the configured Provider and Adapter layers
+- LLM operations must go through the LLM Service and its configured adapter
 - Normal operation shall not depend on external cloud-based LLM services (though users may choose to use them)
 - Generated outputs must conform to the Generated Resume JSON schema before rendering
 - Output files must be saved in the designated output folder managed by CLI

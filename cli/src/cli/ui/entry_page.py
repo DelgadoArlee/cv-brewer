@@ -8,10 +8,12 @@ BEER_COLOR = "#D9A441"
 
 def render_entry_page(console: Console) -> None:
     console.print(
-        Panel.fit(
+        Panel(
             Text("CVBrewer", style="bold", justify="center"),
-            padding=(1, 4),
+            width=console.width,
+            padding=(2, 4),
             border_style=BEER_COLOR,
+            expand=True,
         )
     )
     console.print(Rule(style=BEER_COLOR))

@@ -4,7 +4,7 @@
 
 The Resume Upload process manages the discovery and initial handling of resume files in CVBrewer's designated input folder. It checks folder accessibility, discovers files, and coordinates with the Core Processing Engine to process discovered files.
 
-The process stores successfully parsed resume data and associated metadata when required storage conditions are satisfied through the Core Processing Engine. Each file is handled independently so that a failure affecting one file does not prevent the remaining files from being processed.
+The Core Processing Engine stores successfully parsed resume data and associated metadata when required storage conditions are satisfied. Each file is handled independently so that a failure affecting one file does not prevent the remaining files from being processed.
 
 ## 2. Process Flow
 
@@ -34,19 +34,24 @@ sequenceDiagram
     else Files found
         loop For each discovered file
             CLI->>Core: Submit file for processing
-            Core-->>CLI: Processing outcome and parsed data
 
-            alt Processing successful
-                CLI->>Database: Save parsed data and metadata
-                Database-->>CLI: Storage outcome
+            alt Duplicate detected
+                Core-->>CLI: Duplicate outcome
+                CLI-->>User: Report duplicate resume
+            else Processing failed
+                Core-->>CLI: Failure outcome
+                CLI-->>User: Report processing failure
+            else Validated
+                Core->>Database: Save validated parsed data and metadata
+                Database-->>Core: Storage outcome
 
                 alt Storage successful
+                    Core-->>CLI: Stored outcome
                     CLI-->>User: Confirm successful upload
                 else Storage failed
+                    Core-->>CLI: Storage failure outcome
                     CLI-->>User: Report storage failure
                 end
-            else Processing failed
-                CLI-->>User: Report processing failure
             end
         end
 
@@ -70,13 +75,14 @@ sequenceDiagram
 - A failed database operation must be reported or recorded as appropriate by the Core Processing Engine.
 - The system must not report a file as successfully stored unless the Core Processing Engine confirms successful storage through processing confirmation.
 - The upload operation is complete only after all discovered files have reached a final outcome.
-- Final outcomes may include successful storage, duplicate detection, file-type rejection, or processing failure.
+- The system may report the current processing stage for each discovered file during processing.
+- Final outcomes may include successful storage, duplicate detection, file-type rejection, processing failure, or storage failure.
 - An empty input folder is a normal completion outcome, not an error.
 
 ## 4. Constraints
 
-- The system must use the defined data models and database interfaces for storing and retrieving resume records.
-- The system must not assume that Core uses the same storage implementation as the CLI - both components share the same Database Service abstraction.
+- The system must use the defined resume file inputs and processing outcomes when coordinating with the Core Processing Engine.
+- The system must not perform storage operations or assume a specific storage implementation; the Core Processing Engine owns storage through the Database Service.
 - The system must not delete, rename, move, modify, or create files within the input folder or other existing file-system locations.
 - The system may create the designated output folder if it does not exist, according to the application's folder-management rules.
 - The system must not modify or delete existing files or folders.

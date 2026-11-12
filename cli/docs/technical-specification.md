@@ -16,6 +16,7 @@ This document defines the technical organization of the CLI component within CVB
 - Coordinate resume upload, generation, and deletion workflows with the Core.
 - Save generated resume Markdown files in the designated output folder.
 - Report workflow outcomes and errors to the user.
+- Report the current processing stage for each file during resume upload.
 - Support non-interactive flags for automation.
 - Remain part of the single executable used by the application.
 

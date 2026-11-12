@@ -2,9 +2,10 @@ from alembic import context
 
 from database.adapters.sqlite.config import SqliteConfig
 from database.adapters.sqlite.engine import create_sqlite_engine
+from database.adapters.sqlite.resume.models import Base
 
 config = context.config
-target_metadata = None
+target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:

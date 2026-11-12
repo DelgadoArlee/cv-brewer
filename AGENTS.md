@@ -66,14 +66,13 @@ CVBrewery uses four conceptual levels:
 - Maintain clear ownership and relationships between architectural elements.
 - Do not create unnecessary directories or force code into an organizational level where it does not belong.
 - Use Absolute Imports.
-- Use supporting directories such as schemas/, config/, and common/ for code that does not qualify as a Process or Module.
-- Keep schemas/ within the process responsible for it.
-- Use common/ for supporting code shared across multiple module or processes.
 - Avoid creating unnecessary directories or duplicating existing supporting code.
+- Do not add packages or move code between layers without an approved decision.
 
 ## Component Specific Coding Guidelines
 
 - CLI: [cli/docs/guidelines.md](cli/docs/guidelines.md)
+- Core: [core/docs/guidelines.md](core/docs/guidelines.md)
 
 ## Application Components
 

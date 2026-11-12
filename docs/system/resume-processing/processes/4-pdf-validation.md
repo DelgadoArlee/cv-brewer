@@ -42,6 +42,7 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing System Overview](docs/system/resume-processing/overview.md)
-- [PDF Validation Rules](../../pdf-validation/pdf-validation.md)
+- [Resume Processing System Overview](../overview.md)
+- [Core PDF Processing Module](../../../../core/docs/modules/resume-processing/pdf-processing.md)
 - [Deduplication Process](3-deduplication.md)
+- [Use pypdf and pdfplumber for PDF processing](../../../adr/Architecture/2026-11-04/pdf-processing.md)

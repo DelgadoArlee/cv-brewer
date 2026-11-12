@@ -6,7 +6,7 @@
 
 ## Status
 
-Accepted
+Superseded by [Use an LLM Service abstraction with pluggable LLM adapters](../2026-11-11/llm-service-abstraction.md)
 
 ## Context
 

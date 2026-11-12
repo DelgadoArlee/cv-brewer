@@ -22,6 +22,7 @@ Each file is handled independently so that a failure affecting one file does not
 - Handle individual file processing failures without unnecessarily interrupting other files.
     
 - Complete the upload operation after all discovered files have reached a final outcome.
+- Report the current processing stage for each file while it is being processed.
     
 
 ## 3. Scope
@@ -170,6 +171,7 @@ Rules define the required behavior and conditions for the Resume Upload feature.
 ### 6.4 Completion
 
 - The upload operation is complete only after all discovered files have reached a final outcome.
+- The upload operation may report the current processing stage for each file while it is processed.
     
 - Final outcomes may include successful storage, duplicate detection, file-type rejection, or processing failure.
     

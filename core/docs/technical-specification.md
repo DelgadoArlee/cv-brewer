@@ -11,7 +11,7 @@ This document defines the technical organization of the Core Processing Engine c
 - Extract, parse, and validate resume data against approved schemas.
 - Generate and validate tailored resume data using stored resume data and a job description.
 - Render generated resume content as Markdown for the MVP.
-- Depend on the Database Service and LLM Adapter interfaces rather than concrete implementations.
+- Depend on the Database Service and LLM Service interfaces rather than concrete implementations.
 - Remain part of the single Python distribution used by the application.
 
 ## 3. Scope
@@ -26,7 +26,7 @@ This document defines the technical organization of the Core Processing Engine c
 - Resume, job description, and generated resume schema validation.
 - Generation of tailored resume data from stored resume data and a job description.
 - Resume template mapping and Markdown rendering.
-- Coordination with the Database Service and LLM Adapter.
+- Coordination with the Database Service and LLM Service.
 - Component technical documentation.
 
 ### Out of Scope
@@ -44,7 +44,7 @@ This document defines the technical organization of the Core Processing Engine c
 - The Core must perform file-type signature verification and PDF validation; the CLI must not filter files by type.
 - The Core must operate on file bytes supplied by the CLI and must not access the file system directly.
 - The Core must not import SQLAlchemy or SQLite directly and must perform database operations through the Database Service.
-- The Core must communicate with LLMs through the LLM Adapter and must not depend on a specific LLM implementation.
+- The Core must communicate with LLMs through the LLM Service and must not depend on a specific LLM implementation.
 - Only PDF resumes that are not encrypted or password-protected and that contain sufficient readable content may be processed.
 - Parsed resume data must conform to the Resume JSON schema before storage.
 - Job description data must conform to the Job Description JSON schema before generation.
@@ -59,7 +59,7 @@ This document defines the technical organization of the Core Processing Engine c
 
 - **Name:** Interface-based component boundaries.
 - **Description:** The Core interacts with persistence and language-processing capabilities through application-level interfaces.
-- **Application:** The Core uses the Database Service for structured data operations and the LLM Adapter for language-processing tasks, without depending on their concrete implementations.
+- **Application:** The Core uses the Database Service for structured data operations and the LLM Service for language-processing tasks, without depending on their concrete implementations.
 
 ### 5.2. Validation-First Processing
 
@@ -79,11 +79,17 @@ This document defines the technical organization of the Core Processing Engine c
 - **Description:** The Core is maintained as one Python project containing internal packages.
 - **Application:** Core packages are organized under `core/src/core/` within the single application distribution.
 
+### 5.5. Responsibility-Based Package Organization
+
+- **Name:** Responsibility-based package organization.
+- **Description:** Core code is organized by architectural responsibility so that orchestration, reusable processing, validation, and data models remain distinct.
+- **Application:** Pipeline processes use `pipeline/`, non-validation modules use `modules/`, validation modules, models, and schemas use `validation/`, non-validation models use `models/`, and shared errors use `core/errors.py`.
+
 ## 6. Systems
 
 | System | Description | Specification |
 | --- | --- | --- |
-| Resume Processing | Validates uploaded files and PDFs, extracts and parses resume data, and validates it against the Resume JSON schema. | Not yet documented |
+| Resume Processing | Validates uploaded files and PDFs, extracts and parses resume data, and validates it against the Resume JSON schema. | [Resume Processing](systems/resume-processing/overview.md) |
 | Resume Generation | Generates and validates tailored resume data from stored resume data and a job description, then renders Markdown output. | Not yet documented |
 
 ## 7. File Structure
@@ -94,17 +100,61 @@ core/
 ├── README.md               Package README file.
 ├── .python-version         Python version selection.
 ├── docs/
-│   └── technical-specification.md
+│   ├── technical-specification.md
+│   ├── guidelines.md
+│   ├── adr/
+│   │   ├── ADL.md
+│   │   └── 11-12-26/
+│   │       ├── core-package-structure.md
+│   │       └── resume-processing-foundation.md
+│   ├── modules/
+│   │   ├── resume-processing/
+│   │   │   ├── metadata.md
+│   │   │   ├── parsing.md
+│   │   │   └── pdf-processing.md
+│   │   ├── validation/
+│   │   │   ├── file-validation.md
+│   │   │   ├── schema-validation.md
+│   │   │   └── validation-models.md
+│   │   ├── pipelines/
+│   │   │   └── processor.md
+│   │   └── models/
+│   │       └── models.md
+│   └── systems/
+│       └── resume-processing/
+│           └── overview.md
 └── src/
     └── core/
-        └── __init__.py
+        ├── __init__.py
+        ├── errors.py
+        ├── models/
+        │   ├── __init__.py
+        │   └── resume.py
+        ├── modules/
+        │   ├── __init__.py
+        │   ├── metadata.py
+        │   ├── parsing.py
+        │   └── pdf_processing.py
+        ├── pipeline/
+        │   ├── __init__.py
+        │   └── resume_processing.py
+        └── validation/
+            ├── __init__.py
+            ├── file_validation.py
+            ├── schema_validation.py
+            ├── models/
+            │   ├── __init__.py
+            │   └── resume.py
+            └── schemas/
+                ├── __init__.py
+                └── resume.json
 ````
 
 ## 8. Deployment
 
 - The Core is included in the single CLI/Core executable and is not independently deployable.
 - The Python runtime and dependencies are bundled into per-OS executables built with PyInstaller.
-- The Core uses the Database Service and LLM Adapter within the application; the LLM service itself is installed and operated separately by the user.
+- The Core uses the Database Service and LLM Service within the application; the LLM service itself is installed and operated separately by the user.
 
 ## 9. References
 

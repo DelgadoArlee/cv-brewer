@@ -42,6 +42,7 @@ This document defines the technical organization of the database component withi
 - Database-specific implementation details must remain isolated to adapter packages.
 - Application-level data structures must follow the approved data model documentation.
 - Application-level data management rules must not be implemented in the Database Adapter.
+- Database Service and Database Adapter code organization must follow the [Database Component Coding Guidelines](guidelines.md).
 - The database component must remain part of the single Python distribution and must not be independently deployed.
 
 ## 5. Architectural & Design Approaches
@@ -66,10 +67,10 @@ This document defines the technical organization of the database component withi
 
 ## 6. Systems
 
-| System | Description | Specification |
-| --- | --- | --- |
-| Database Service | Manages application-level data operations and coordinates requests through the selected Database Adapter. | Not yet documented |
-| Database Adapter | Implements database-specific operations, connections, ORM use, transactions, migrations, and error translation. | Not yet documented |
+| System           | Description                                                                                                     | Specification                                                                        |
+| ---------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Database Service | Manages application-level data operations and coordinates requests through the selected Database Adapter.       | [Database Service](systems/database-service/overview.md)                             |
+| Database Adapter | Implements database-specific operations, connections, ORM use, transactions, migrations, and error translation. | [Database Adapter](systems/database-adapter/overview.md)                             |
 
 ## 7. File Structure
 
@@ -80,17 +81,55 @@ database/
 ├── .python-version         Python version selection.
 ├── docs/
 │   ├── technical-specification.md
+│   ├── guidelines.md
 │   ├── adr/
 │   │   ├── ADL.md
-│   │   └── 11-06-26/
-│   │       └── sqlite-adapter-foundation.md
-│   └── modules/
-│       └── sqlite-adapter.md
+│   │   ├── 11-06-26/
+│   │   │   └── sqlite-adapter-foundation.md
+│   │   └── 11-10-26/
+│   │       └── resume-persistence.md
+│   ├── modules/
+│   │   ├── database-service/
+│   │   │   └── resume/
+│   │   │       ├── models.md
+│   │   │       ├── repository.md
+│   │   │       └── service.md
+│   │   └── sqlite-adapter/
+│   │       ├── resume/
+│   │       │   ├── models.md
+│   │       │   └── repository.md
+│   │       └── sqlite-adapter.md
+│   ├── sqlite/
+│   │   ├── overview.md
+│   │   └── schemas/
+│   │       ├── resume-certifications.md
+│   │       ├── resume-education.md
+│   │       ├── resume-experience.md
+│   │       ├── resume-processing-history.md
+│   │       ├── resume-skills.md
+│   │       └── resumes.md
+│   └── systems/
+│       ├── database-adapter/
+│       │   ├── overview.md
+│       │   └── processes/
+│       │       ├── load-resume.md
+│       │       └── persist-resume.md
+│       └── database-service/
+│           ├── overview.md
+│           └── processes/
+│               ├── retrieve-resume.md
+│               └── store-resume.md
 └── src/
     └── database/
         ├── __init__.py
         ├── database_service/
-        │   └── __init__.py
+        │   ├── __init__.py
+        │   └── modules/
+        │       └── resume/
+        │           ├── __init__.py
+        │           ├── models.py
+        │           ├── repository.py
+        │           └── service.py
         └── adapters/
             ├── __init__.py
             └── sqlite/
@@ -100,10 +139,23 @@ database/
                 ├── engine.py
                 ├── errors.py
                 ├── migrations.py
-                └── migrations/
-                    ├── env.py
-                    ├── script.py.mako
-                    └── versions/
+                ├── migrations/
+                │   ├── env.py
+                │   ├── script.py.mako
+                │   └── versions/
+                │       └── 20261110_0001_create_resume_tables.py
+                └── resume/
+                    ├── __init__.py
+                    ├── repository.py
+                    └── models/
+                        ├── __init__.py
+                        ├── base.py
+                        ├── resume.py
+                        ├── resume_certification.py
+                        ├── resume_education.py
+                        ├── resume_experience.py
+                        ├── resume_processing_history.py
+                        └── resume_skill.py
 ````
 
 ## 8. Deployment
@@ -117,6 +169,10 @@ database/
 - [System Architecture](../../docs/architecture.md)
 - [Repository Architecture](../../docs/repository/architecture.md)
 - [Tech Stack](../../docs/tech-stack.md)
+- [Database Component Coding Guidelines](guidelines.md)
+- [Database Service System Specification](systems/database-service/overview.md)
+- [Database Adapter System Specification](systems/database-adapter/overview.md)
+- [SQLite Database Overview](sqlite/overview.md)
 - [Use SQLite through SQLAlchemy and Alembic](../../docs/adr/Architecture/2026-11-04/database-persistence.md)
 - [Use Python and uv for the CVBrewer implementation](../../docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
 - [User Resume Data Model](../../docs/data/user-resume.md)

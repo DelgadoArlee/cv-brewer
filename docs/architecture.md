@@ -34,7 +34,7 @@ CV Brewer is a CLI-based application for processing resumes and generating tailo
 | CLI         | Handles user interaction and local file management.                                             |
 | Core        | Handles resume processing, job description processing, and resume generation.                   |
 | Database    | Manages structured application data and database-specific operations.                           |
-| LLM Adapter | Communicates with external LLM services.                                                        |
+| LLM         | Provides application-level language-model operations through pluggable LLM adapters.            |
 
 External resources:
 
@@ -52,8 +52,9 @@ flowchart LR
     Core <--> Database[Database]
     Database <--> DBImpl[Database Implementation]
 
-    Core <--> LLMAdapter[LLM Adapter]
-    LLMAdapter <--> LLM[External LLM Service]
+    Core <--> LLM[LLM]
+    LLM <--> LLMAdapter[LLM Adapter]
+    LLMAdapter <--> LLMService[External LLM Service]
 
     CLI <--> FS[Local File System]
 ```
@@ -69,11 +70,12 @@ flowchart LR
 
 **Core**
 
-- Handles PDF validation and content extraction.
+- Owns PDF validation and content extraction.
 - Handles resume and job description processing.
 - Handles resume generation and template rendering.
+- Constructs prompts and JSON Schemas for language-processing requests.
 - Uses the Database component for structured data.
-- Uses the LLM Adapter for language-processing tasks.
+- Uses the LLM Service for language-processing tasks.
 - Does not own local file-system management or depend on a specific database or LLM implementation.
 
 **Database**
@@ -83,10 +85,13 @@ flowchart LR
 - Implements database-specific operations, including connections, queries, transactions, and migrations.
 - Keeps database implementation details separate from application logic.
 
-**LLM Adapter**
+**LLM**
 
-- Handles communication with the selected LLM service.
-- Translates requests and responses between the Core and external service.
+- Defines the application-level language-model operations used by the Core.
+- Defines the plug-in boundary that LLM adapters implement.
+- Verifies LLM service availability and lists available models.
+- Generates structured responses for language-processing tasks.
+- Implements service-specific communication through pluggable LLM adapters.
 - Does not contain or bundle the LLM.
 
 **External LLM Service**
@@ -103,7 +108,7 @@ flowchart LR
 ## 3. Deployment Architecture
 
 - CLI and Core are bundled into one executable.
-- Database and LLM Adapter are included in the application.
+- Database and LLM components are included in the application.
 - The database may be embedded (such as SQLite) or externally hosted.
 - External database servers operate separately from the application.
 - The LLM is never bundled with the application.
@@ -115,7 +120,7 @@ CV Brewer follows a monorepo structure.
 
 - CLI and Core share the same repository.
 - Database is maintained in the monorepo.
-- LLM Adapter implementations are maintained in the monorepo.
+- LLM Service and LLM adapter implementations are maintained in the monorepo.
 - Documentation is maintained alongside source code.
 - Logical architecture boundaries do not require separate repositories.
 

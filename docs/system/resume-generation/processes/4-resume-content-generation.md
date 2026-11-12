@@ -20,7 +20,7 @@ flowchart TD
 ## 3. Rules
 
 - The generation request must include both the parsed user resume and parsed job description as reference inputs
-- LLM operations must go through the configured Provider and Adapter layers
+- LLM operations must go through the LLM Service and its configured adapter
 - Generated content must be based exclusively on the user's stored resume data without fabrication
 - The job description may guide selection, prioritization, and presentation but cannot introduce new facts about the user
 - Any LLM connection or response failures must be reported to the user and halt the process
@@ -33,7 +33,7 @@ flowchart TD
 - Users must provide their own LLM configuration through the adapter layer
 - Generated outputs cannot exceed the maximum content length supported by the configured LLM
 - The process must not store generated content in the database; output files only
-- LLM operations cannot bypass the configured Provider and Adapter layers
+- LLM operations cannot bypass the LLM Service and its configured adapter
 
 ## 5. References
 

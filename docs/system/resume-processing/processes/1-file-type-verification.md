@@ -34,5 +34,5 @@ flowchart TD
 
 ## 5. References
 
-- [File Type Validation Rules](../file-type-validation/file-type-validation.md)
-- [System Overview](docs/system/resume-processing/overview.md)
+- [Resume Processing System Overview](../overview.md)
+- [Core File Validation Module](../../../../core/docs/modules/validation/file-validation.md)

@@ -34,7 +34,7 @@ Tests are organized around the application's architecture:
 6. Avoid duplicating test scenarios across testing levels. Each level must verify its own scope.
 7. Prefer real internal components over mocks.
 8. Use test doubles for external dependencies when necessary.
-9. Use temporary resources for isolated filesystem and database testing, and use the managed `tests/data/` environment for application startup scenarios that intentionally persist between test runs.
+9. Use temporary resources for isolated filesystem and database testing, and use the managed `tests/data/` or `tests/e2e/data/` environments for scenarios that intentionally persist between test runs.
 10. Maintain a small set of full-application end-to-end tests through the CLI.
 
 ## 5. Test Organization
@@ -51,6 +51,7 @@ tests/
 │   └── <system-name>/
 │       └── processes/
 └── e2e/
+    └── data/
 ```
 
 - `features/`: Feature acceptance tests.
@@ -59,6 +60,17 @@ tests/
 - `e2e/`: Full-application CLI tests.
 - `fixtures/`: Shared test data and resources.
 - `data/`: Generated test environment data that is reset at the start of every test session.
+- `e2e/data/`: Generated end-to-end test environment data that is reset at the start of every test session.
+
+Full test runs order items as follows:
+
+1. Tests marked `application_startup`.
+2. Non-end-to-end tests marked `requires_empty_data`.
+3. All other non-end-to-end tests.
+4. End-to-end tests marked `requires_empty_data`.
+5. All other end-to-end tests.
+
+End-to-end tests always run last. Tests marked `requires_empty_data` run before tests that insert test data within their test group.
 
 ## 6. Test Scenario Format
 
@@ -82,10 +94,21 @@ The testing component does not have separate documentation. The tests themselves
 
 ## 9. Test Data Lifecycle
 
-- The test data root is `tests/data/`.
-- The test data layout mirrors the development startup layout: `cvbrewer.db`, `local/resumes/`, and `local/generated/`.
-- `tests/data/` is ignored by version control.
-- At the start of every test execution session, `tests/data/` is deleted and recreated as an empty folder. Collection-only runs do not reset it.
+- Managed test data roots are `tests/data/` and `tests/e2e/data/`.
+- Both test data layouts mirror the development startup layout: `cvbrewer.db`, `local/resumes/`, and `local/generated/`.
+- `tests/data/` and `tests/e2e/data/` are ignored by version control.
+- At the start of every test execution session, both test data roots are deleted and recreated as empty folders. Collection-only runs do not reset them.
 - Application startup tests are marked `application_startup` and run before all other tests.
 - The successful application startup test creates the test data structure under `tests/data/`.
+- End-to-end tests initialize and use the test data structure under `tests/e2e/data/`.
 - Test data is retained after the test session ends.
+
+## 10. Test Execution Scripts
+
+- `scripts/test-features.sh` runs feature tests.
+- `scripts/test-processes.sh` runs process tests.
+- `scripts/test-systems.sh` runs system tests.
+- `scripts/test-e2e.sh` runs end-to-end tests.
+- `scripts/test-all.sh` runs each test level in a separate session, with end-to-end tests last.
+- Each script forwards additional arguments to pytest.
+- `scripts/test-all.sh` continues through all levels, treats pytest exit code 5 as no collected tests, and returns a nonzero exit code if any level fails.

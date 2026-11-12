@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-Provides the SQLite-specific implementation foundation for the database component. The module owns SQLite configuration, synchronous SQLAlchemy engine and session lifecycle, adapter-level error translation, and Alembic migration infrastructure. Application-level data operations and resume persistence are outside this module.
+Provides the SQLite-specific implementation foundation for the database component. The module owns SQLite configuration, synchronous SQLAlchemy engine and session lifecycle, adapter-level error translation, and Alembic migration infrastructure. Application-level data operations remain outside this module. Resume ORM models and persistence repositories are implemented in dedicated SQLite adapter modules.
 
 ## 2. Code Elements
 
@@ -36,14 +36,18 @@ Provides the SQLite-specific implementation foundation for the database componen
 
 | Date | Decision / Description | Affected Code Elements | Reference |
 | --- | --- | --- | --- |
-| 11/06/2026 | Established the SQLite adapter foundation with synchronous SQLAlchemy, explicit URL configuration, adapter-local errors, and self-contained Alembic scaffolding. | `SqliteConfig`, `create_sqlite_engine()`, `create_session_factory()`, `session_scope()`, `to_adapter_error()`, `upgrade_database()`, Alembic scaffolding | [SQLite adapter foundation](../adr/11-06-26/sqlite-adapter-foundation.md) |
-| 11/07/2026 | Added explicit-path database initialization for application startup while preserving explicit SQLite configuration. | `initialize_database()` | [Development application startup](../../../cli/docs/adr/11-07-26/development-startup-paths.md) |
+| 11/06/2026 | Established the SQLite adapter foundation with synchronous SQLAlchemy, explicit URL configuration, adapter-local errors, and self-contained Alembic scaffolding. | `SqliteConfig`, `create_sqlite_engine()`, `create_session_factory()`, `session_scope()`, `to_adapter_error()`, `upgrade_database()`, Alembic scaffolding | [SQLite adapter foundation](../../adr/11-06-26/sqlite-adapter-foundation.md) |
+| 11/07/2026 | Added explicit-path database initialization for application startup while preserving explicit SQLite configuration. | `initialize_database()` | [Development application startup](../../../../cli/docs/adr/11-07-26/development-startup-paths.md) |
+| 11/10/2026 | Connected Alembic migration metadata to the resume ORM models and added the initial resume schema migration. | Alembic environment, `migrations/versions/` | [Resume persistence](../../adr/11-10-26/resume-persistence.md) |
 
 ## 5. References
 
-- [Database Component Technical Specification](../technical-specification.md)
-- [SQLite Adapter Foundation ADR](../adr/11-06-26/sqlite-adapter-foundation.md)
-- [Database Component ADL](../adr/ADL.md)
-- [Use SQLite through SQLAlchemy and Alembic](../../../docs/adr/Architecture/2026-11-04/database-persistence.md)
+- [Database Component Technical Specification](../../technical-specification.md)
+- [SQLite Adapter Foundation ADR](../../adr/11-06-26/sqlite-adapter-foundation.md)
+- [Resume Persistence ADR](../../adr/11-10-26/resume-persistence.md)
+- [Resume Repository Module](resume/repository.md)
+- [Resume Models Module](resume/models.md)
+- [Database Component ADL](../../adr/ADL.md)
+- [Use SQLite through SQLAlchemy and Alembic](../../../../docs/adr/Architecture/2026-11-04/database-persistence.md)
 - [SQLAlchemy 2.0 Documentation](https://docs.sqlalchemy.org/en/20/)
 - [Alembic Documentation](https://alembic.sqlalchemy.org/en/latest/)

@@ -80,7 +80,7 @@ The system shall distinguish between:
 ## 6. Version Control
 
 - The project shall follow a monorepo version control strategy.
-- The repository shall contain the CLI, Core, LLM Provider, and other project components defined by the architecture.
+- The repository shall contain the CLI, Core, LLM, and other project components defined by the architecture.
 - The repository shall maintain clear separation of component responsibilities.
 
 ## 7. References

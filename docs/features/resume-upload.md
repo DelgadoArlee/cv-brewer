@@ -37,17 +37,18 @@ flowchart TD
 
 | System | Description |
 |--------|-------------|
-| [Resume Upload](docs/system/resume-upload/overview.md) | Manages input folder discovery, file coordination with Core Processing Engine, and handles individual file processing outcomes. |
-| [Core Processing Engine](docs/system/resume-processing/overview.md) | Handles PDF validation, text extraction, resume parsing, schema validation, and data storage through the Database Service. |
+| [Resume Upload](../system/resume-upload/overview.md) | Manages input folder discovery, file coordination with Core Processing Engine, and handles individual file processing outcomes. |
+| [Core Processing Engine](../system/resume-processing/overview.md) | Handles PDF validation, text extraction, resume parsing, schema validation, and data storage through the Database Service. |
 
 ## 5. References
 
-- [Feature Overview Format Rules](docs/rules/format/feature-rules.md)
-- [Resume Upload System Overview](docs/system/resume-upload/overview.md)
-- [Resume Processing System Overview](docs/system/resume-processing/overview.md)
-- [File Type Validation Rules](docs/validation/file-type-validation.md)
-- [PDF Validation Rules](docs/validation/pdf-validation.md)
-- [Content Extraction Rules](docs/validation/content-extraction-rules.md)
+- [Feature Overview Format Rules](../rules/feature.md)
+- [Resume Upload System Overview](../system/resume-upload/overview.md)
+- [Resume Processing System Overview](../system/resume-processing/overview.md)
+- [File Type Verification Process](../system/resume-processing/processes/1-file-type-verification.md)
+- [PDF Validation Process](../system/resume-processing/processes/4-pdf-validation.md)
+- [PDF Extraction Process](../system/resume-processing/processes/5-pdf-extraction.md)
+- [Schema Validation Process](../system/resume-processing/processes/7-schema-validation.md)
 
 ## 6. Acceptance Criteria
 

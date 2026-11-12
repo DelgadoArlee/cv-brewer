@@ -7,7 +7,18 @@ authors = [
     { name = "delgadoarlee", email = "delgadoarlee@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "database",
+    "jsonschema>=4.0,<5.0",
+    "llm",
+    "pdfplumber>=0.11,<1.0",
+    "pydantic>=2.0,<3.0",
+    "pypdf>=6.0,<7.0",
+]
+
+[tool.uv.sources]
+database = { workspace = true }
+llm = { workspace = true }
 
 [build-system]
 requires = ["uv_build>=0.13.6,<0.14.0"]

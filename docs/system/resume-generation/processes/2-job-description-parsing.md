@@ -31,7 +31,7 @@ flowchart TD
 - Unsupported file formats or text encodings are not accepted by the LLM parser
 - The process must not store job descriptions in persistent storage beyond temporary processing needs
 - External parsing tools or services cannot be used without going through the configured adapter layer
-- LLM operations must go through the configured Provider and Adapter layers
+- LLM operations must go through the LLM Service and its configured adapter
 
 ## 5. References
 
