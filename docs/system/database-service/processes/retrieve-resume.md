@@ -6,18 +6,18 @@ This process retrieves stored resume records through the Database Service by ide
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B{Requested lookup}
-        B -->|By identifier| C[Retrieve resume by identifier]
-        B -->|By content fingerprint| D[Retrieve resume by content fingerprint]
-        B -->|List all| E[Retrieve all stored resumes]
-        C --> F{Record found?}
-        D --> F
-        F -->|Yes| G([Return complete resume record])
-        F -->|No| H([Return no matching record])
-        E --> I([Return stored resume records])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B{Requested lookup}
+    B -->|By identifier| C[Retrieve resume by identifier]
+    B -->|By content fingerprint| D[Retrieve resume by content fingerprint]
+    B -->|List all| E[Retrieve all stored resumes]
+    C --> F{Record found?}
+    D --> F
+    F -->|Yes| G([Return complete resume record])
+    F -->|No| H([Return no matching record])
+    E --> I([Return stored resume records])
+````
 
 ## 3. Rules
 

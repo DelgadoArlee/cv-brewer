@@ -30,17 +30,17 @@ The process does not define when resume data is valid for storage.
 
 ### Diagram
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive resume record]
-        B --> C[Map root and child models]
-        C --> D[Open transactional session]
-        D --> E[Add resume aggregate]
-        E --> F{Commit succeeds?}
-        F -->|Yes| G([Persisted])
-        F -->|No| H[Roll back and translate error]
-        H --> I([Raise adapter error])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive resume record]
+    B --> C[Map root and child models]
+    C --> D[Open transactional session]
+    D --> E[Add resume aggregate]
+    E --> F{Commit succeeds?}
+    F -->|Yes| G([Persisted])
+    F -->|No| H[Roll back and translate error]
+    H --> I([Raise adapter error])
+````
 
 ### Steps
 

@@ -6,18 +6,18 @@ This process retrieves stored resume data from the configured database implement
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive lookup request]
-        B --> C[Retrieve stored resume data]
-        C --> D{Single record found?}
-        D -->|Yes| E[Assemble complete resume record]
-        D -->|No| F{Listing requested?}
-        F -->|Yes| G[Assemble stored resume records]
-        F -->|No| H([Return no matching record])
-        E --> I([Return resume record])
-        G --> J([Return resume records])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive lookup request]
+    B --> C[Retrieve stored resume data]
+    C --> D{Single record found?}
+    D -->|Yes| E[Assemble complete resume record]
+    D -->|No| F{Listing requested?}
+    F -->|Yes| G[Assemble stored resume records]
+    F -->|No| H([Return no matching record])
+    E --> I([Return resume record])
+    G --> J([Return resume records])
+````
 
 ## 3. Rules
 

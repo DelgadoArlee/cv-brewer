@@ -6,15 +6,15 @@ This process stores a complete application-level resume record in the configured
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive resume record]
-        B --> C[Persist resume and ordered child data]
-        C --> D{Storage operation succeeds?}
-        D -->|Yes| E([Complete persistence])
-        D -->|No| F[Undo partial changes]
-        F --> G([Report storage failure])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive resume record]
+    B --> C[Persist resume and ordered child data]
+    C --> D{Storage operation succeeds?}
+    D -->|Yes| E([Complete persistence])
+    D -->|No| F[Undo partial changes]
+    F --> G([Report storage failure])
+````
 
 ## 3. Rules
 

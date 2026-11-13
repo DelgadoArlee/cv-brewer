@@ -6,14 +6,14 @@ This process lists the models available on the configured LLM service so users c
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive model listing request]
-        B --> C[Request available models from configured adapter]
-        C --> D{Listing succeeded?}
-        D -->|Yes| E([Return available models])
-        D -->|No| F([Report listing failure])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive model listing request]
+    B --> C[Request available models from configured adapter]
+    C --> D{Listing succeeded?}
+    D -->|Yes| E([Return available models])
+    D -->|No| F([Report listing failure])
+````
 
 ## 3. Rules
 

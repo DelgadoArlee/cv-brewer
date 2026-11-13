@@ -6,14 +6,14 @@ This process verifies that the configured LLM service is reachable so processing
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive availability request]
-        B --> C[Request availability check from configured adapter]
-        C --> D{Service reachable?}
-        D -->|Yes| E([Report service available])
-        D -->|No| F([Report service unavailable])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive availability request]
+    B --> C[Request availability check from configured adapter]
+    C --> D{Service reachable?}
+    D -->|Yes| E([Report service available])
+    D -->|No| F([Report service unavailable])
+````
 
 ## 3. Rules
 

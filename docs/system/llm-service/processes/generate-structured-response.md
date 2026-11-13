@@ -6,16 +6,16 @@ This process generates a structured response by submitting a prompt and a JSON S
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive generation request]
-        B --> C{Request complete?}
-        C -->|No| D([Reject incomplete request])
-        C -->|Yes| E[Submit prompt and schema to selected model via adapter]
-        E --> F{Generation succeeded?}
-        F -->|Yes| G([Return structured response])
-        F -->|No| H([Report generation failure])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive generation request]
+    B --> C{Request complete?}
+    C -->|No| D([Reject incomplete request])
+    C -->|Yes| E[Submit prompt and schema to selected model via adapter]
+    E --> F{Generation succeeded?}
+    F -->|Yes| G([Return structured response])
+    F -->|No| H([Report generation failure])
+````
 
 ## 3. Rules
 

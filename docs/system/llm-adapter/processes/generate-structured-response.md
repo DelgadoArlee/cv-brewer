@@ -6,19 +6,19 @@ This process generates a structured response on the external LLM service. It sen
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive generation request]
-        B --> C[Send prompt messages and schema to selected model]
-        C --> D{Generation succeeded?}
-        D -->|Yes| E[Parse structured response content]
-        E --> F{Valid JSON object?}
-        F -->|Yes| G([Return structured response])
-        F -->|No| H[Translate response failure]
-        D -->|No| I[Translate failure]
-        H --> J([Report response failure])
-        I --> J
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive generation request]
+    B --> C[Send prompt messages and schema to selected model]
+    C --> D{Generation succeeded?}
+    D -->|Yes| E[Parse structured response content]
+    E --> F{Valid JSON object?}
+    F -->|Yes| G([Return structured response])
+    F -->|No| H[Translate response failure]
+    D -->|No| I[Translate failure]
+    H --> J([Report response failure])
+    I --> J
+````
 
 ## 3. Rules
 

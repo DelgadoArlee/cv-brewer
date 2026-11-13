@@ -26,12 +26,12 @@ The process does not filter, rank, install, or download models.
 
 ### Diagram
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive model listing request]
-        B --> C[Delegate model discovery to adapter]
-        C --> D([Return available models])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive model listing request]
+    B --> C[Delegate model discovery to adapter]
+    C --> D([Return available models])
+````
 
 ### Steps
 

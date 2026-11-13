@@ -26,12 +26,12 @@ The process does not verify that a specific model is installed and does not perf
 
 ### Diagram
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive availability request]
-        B --> C[Delegate availability check to adapter]
-        C --> D([Return availability outcome])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive availability request]
+    B --> C[Delegate availability check to adapter]
+    C --> D([Return availability outcome])
+````
 
 ### Steps
 

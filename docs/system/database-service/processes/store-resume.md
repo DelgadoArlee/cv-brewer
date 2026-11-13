@@ -6,22 +6,22 @@ This process stores a complete resume record through the Database Service so tha
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive resume data]
-        B --> C{Resume identifier provided?}
-        C -->|No| D[Assign unique identifier]
-        C -->|Yes| E[Keep provided identifier]
-        D --> F{Creation time provided?}
-        E --> F
-        F -->|No| G[Assign creation time]
-        F -->|Yes| H[Keep provided creation time]
-        G --> I[Persist complete resume record]
-        H --> I
-        I --> J{Persisted successfully?}
-        J -->|Yes| K([Return stored record])
-        J -->|No| L([Report persistence failure])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive resume data]
+    B --> C{Resume identifier provided?}
+    C -->|No| D[Assign unique identifier]
+    C -->|Yes| E[Keep provided identifier]
+    D --> F{Creation time provided?}
+    E --> F
+    F -->|No| G[Assign creation time]
+    F -->|Yes| H[Keep provided creation time]
+    G --> I[Persist complete resume record]
+    H --> I
+    I --> J{Persisted successfully?}
+    J -->|Yes| K([Return stored record])
+    J -->|No| L([Report persistence failure])
+````
 
 ## 3. Rules
 

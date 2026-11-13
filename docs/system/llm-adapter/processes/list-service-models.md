@@ -6,16 +6,16 @@ This process lists the models provided by the external LLM service. It communica
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive model listing request]
-        B --> C[Request model listing from external LLM service]
-        C --> D{Listing succeeded?}
-        D -->|Yes| E[Parse available models]
-        E --> F([Return model listing])
-        D -->|No| G[Translate failure]
-        G --> H([Report listing failure])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive model listing request]
+    B --> C[Request model listing from external LLM service]
+    C --> D{Listing succeeded?}
+    D -->|Yes| E[Parse available models]
+    E --> F([Return model listing])
+    D -->|No| G[Translate failure]
+    G --> H([Report listing failure])
+````
 
 ## 3. Rules
 

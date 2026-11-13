@@ -7,6 +7,7 @@ Documentation Rules and Conventions
 - Follow the appropriate formatting rules defined in docs/rules/.
 - Keep documentation simple, concise, and consistent.
 - Always use quadruple backticks for Markdown code blocks.
+- Do not indent code blocks.
 - use absolute paths when referencing
 
 2. Documentation Structure

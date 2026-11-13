@@ -28,14 +28,14 @@ The process does not construct prompts, select schemas, or validate generated co
 
 ### Diagram
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive generation request]
-        B --> C{Request complete?}
-        C -->|No| D([Reject incomplete request])
-        C -->|Yes| E[Delegate generation to adapter]
-        E --> F([Return structured response])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive generation request]
+    B --> C{Request complete?}
+    C -->|No| D([Reject incomplete request])
+    C -->|Yes| E[Delegate generation to adapter]
+    E --> F([Return structured response])
+````
 
 ### Steps
 

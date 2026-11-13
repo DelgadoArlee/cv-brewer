@@ -6,15 +6,15 @@ This process verifies that the external LLM service is reachable by performing a
 
 ## 2. Process Flow
 
-    ```` mermaid
-    flowchart TD
-        A([Start]) --> B[Receive availability check]
-        B --> C[Send service request to external LLM service]
-        C --> D{Response received?}
-        D -->|Yes| E([Report service available])
-        D -->|No| F[Translate communication failure]
-        F --> G([Report service unavailable])
-    ````
+```` mermaid
+flowchart TD
+    A([Start]) --> B[Receive availability check]
+    B --> C[Send service request to external LLM service]
+    C --> D{Response received?}
+    D -->|Yes| E([Report service available])
+    D -->|No| F[Translate communication failure]
+    F --> G([Report service unavailable])
+````
 
 ## 3. Rules
 
