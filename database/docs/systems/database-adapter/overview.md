@@ -91,6 +91,6 @@ The adapter implements the resume schema documented in [Resume Table](../../sqli
 - [Database Adapter System Overview](../../../../docs/system/database-adapter/overview.md)
 - [Database Component Technical Specification](../../technical-specification.md)
 - [SQLite Database Overview](../../sqlite/overview.md)
-- [Resume Repository Module](../../modules/sqlite-adapter/resume/repository.md)
-- [Resume Models Module](../../modules/sqlite-adapter/resume/models.md)
+- `database/src/database/adapters/sqlite/resume/repository.py` — Implements resume persistence and retrieval.
+- `database/src/database/adapters/sqlite/resume/models/` — Defines the SQLite ORM models.
 - [Resume Persistence ADR](../../adr/11-10-26/resume-persistence.md)

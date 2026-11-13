@@ -36,7 +36,7 @@ This document defines the technical organization of the Core Processing Engine c
 - LLM service communication and service-specific error handling, which belong to the LLM Adapter.
 - Management of original PDF files and generated Markdown files.
 - Data model and schema definitions, which are documented separately.
-- System and module technical documentation.
+- System technical documentation.
 - Implementation code and test cases.
 
 ## 4. Rules & Constraints
@@ -107,22 +107,18 @@ core/
 │   │   └── 11-12-26/
 │   │       ├── core-package-structure.md
 │   │       └── resume-processing-foundation.md
-│   ├── modules/
-│   │   ├── resume-processing/
-│   │   │   ├── metadata.md
-│   │   │   ├── parsing.md
-│   │   │   └── pdf-processing.md
-│   │   ├── validation/
-│   │   │   ├── file-validation.md
-│   │   │   ├── schema-validation.md
-│   │   │   └── validation-models.md
-│   │   ├── pipelines/
-│   │   │   └── processor.md
-│   │   └── models/
-│   │       └── models.md
 │   └── systems/
 │       └── resume-processing/
-│           └── overview.md
+│           ├── overview.md
+│           └── processes/
+│               ├── resume-processing.md
+│               ├── 1-file-type-verification.md
+│               ├── 2-metadata-extraction.md
+│               ├── 3-deduplication.md
+│               ├── 4-pdf-validation.md
+│               ├── 5-pdf-extraction.md
+│               ├── 6-data-parsing.md
+│               └── 7-schema-validation.md
 └── src/
     └── core/
         ├── __init__.py
@@ -164,6 +160,8 @@ core/
 - [Requirements](../../docs/requirements.md)
 - [General System Rules](../../docs/system-rules.md)
 - [Resume Processing System Overview](../../docs/system/resume-processing/overview.md)
+- [Resume Processing Technical System Specification](systems/resume-processing/overview.md)
+- [Resume Processing Technical Process](systems/resume-processing/processes/resume-processing.md)
 - [Resume Generation System Overview](../../docs/system/resume-generation/overview.md)
 - [Use Python and uv for the CVBrewer implementation](../../docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
 - [Package CVBrewer as per-OS single executables with PyInstaller](../../docs/adr/Architecture/2026-11-04/cross-platform-packaging.md)

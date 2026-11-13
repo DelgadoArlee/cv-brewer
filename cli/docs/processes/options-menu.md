@@ -39,10 +39,10 @@ Provide a secondary interactive menu for CVBrewer options. The process must disp
 ```` mermaid
 flowchart TD
     A([Start]) --> B[Render Options Menu]
-    B --> C{Selection}
-    C -->|Imported Resume| D[Display Imported Resumes]
+    B --> C[User selects an item]
+    C -->|Imported Resume| D[Display imported resumes or empty message]
     D --> B
-    C -->|Back| E([Return])
+    C -->|Back| E([Return to caller])
 ````
 
 ### Steps
@@ -54,40 +54,41 @@ flowchart TD
 
 ## 6. Modules
 
-- [CLI Paths Module](../modules/paths.md) — Provides application paths used by menu actions.
+- `cli/src/cli/processes/options.py` — Implements the Options menu and Imported Resume action.
+- `cli/src/cli/modules/paths.py` — Provides application paths used by menu actions.
 
-## 8. Testing
+## 7. Testing
 
-### 8.1 Test Level
+### 7.1 Test Level
 
 This process is tested at the **Process** level according to the testing strategy.
 
-### 8.2 Test Scenarios
+### 7.2 Test Scenarios
 
 | Scenario ID | Given | When | Then |
 | --- | --- | --- | --- |
 | Options-001 | The Options menu is displayed. | The user selects Imported Resume. | Imported resumes are displayed. |
 | Options-002 | The Options menu is displayed. | The user selects Back. | The menu returns to the caller. |
 
-### 8.3 Test Coverage
+### 7.3 Test Coverage
 
 - Cover Options menu rendering and navigation.
 - Cover the empty imported-resume case.
 
-### 8.4 Test Organization
+### 7.4 Test Organization
 
 Tests reside in `tests/processes/options-menu/`.
 
-### 8.5 Test Dependencies
+### 7.5 Test Dependencies
 
 - Use Typer's test runner with newline input where applicable.
 
-### 8.6 Testing Rules Compliance
+### 7.6 Testing Rules Compliance
 
 This process follows the testing strategy by verifying observable menu behavior.
 
-## 9. References
+## 8. References
 
 - [CLI Component Technical Specification](../technical-specification.md)
 - [CLI Component Coding Guidelines](../guidelines.md)
-EOF
+- [CLI Main Menu Technical Process](menu.md)

@@ -50,9 +50,9 @@ The process does not perform database queries directly.
 
 ## 6. Modules
 
-- [Resume Service Module](../../../modules/database-service/resume/service.md) — Defines retrieval operations.
-- [Resume Repository Module](../../../modules/database-service/resume/repository.md) — Defines the retrieval contract.
-- [Resume Models Module](../../../modules/database-service/resume/models.md) — Defines resume records.
+- `database/src/database/database_service/modules/resume/service.py` — Defines retrieval operations.
+- `database/src/database/database_service/modules/resume/repository.py` — Defines the retrieval contract.
+- `database/src/database/database_service/modules/resume/models.py` — Defines resume records.
 
 ## 7. Data
 

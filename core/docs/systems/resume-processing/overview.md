@@ -64,14 +64,14 @@ Defines the Core Processing Engine system that turns uploaded PDF resume bytes i
 
 | Process | Description | Specification |
 | --- | --- | --- |
-| Resume Processing | Coordinates file validation, extraction, parsing, schema validation, deduplication, and storage. | [Resume Processing Process](../../../../docs/system/resume-processing/processes/resume-processing.md) |
-| File Type Verification | Verifies the supplied bytes begin with the PDF signature. | [File Type Verification Process](../../../../docs/system/resume-processing/processes/1-file-type-verification.md) |
-| Metadata Extraction | Produces file metadata and a raw-byte content fingerprint. | [Metadata Extraction Process](../../../../docs/system/resume-processing/processes/2-metadata-extraction.md) |
-| Deduplication | Detects existing resumes with the same content fingerprint. | [Deduplication Process](../../../../docs/system/resume-processing/processes/3-deduplication.md) |
-| PDF Validation | Rejects encrypted, password-protected, or structurally invalid PDFs. | [PDF Validation Process](../../../../docs/system/resume-processing/processes/4-pdf-validation.md) |
-| PDF Extraction | Extracts readable text from valid PDFs. | [PDF Extraction Process](../../../../docs/system/resume-processing/processes/5-pdf-extraction.md) |
-| Data Parsing | Applies deterministic extraction followed by LLM enhancement. | [Data Parsing Process](../../../../docs/system/resume-processing/processes/6-data-parsing.md) |
-| Schema Validation | Validates structured resume data against the Resume JSON Schema. | [Schema Validation Process](../../../../docs/system/resume-processing/processes/7-schema-validation.md) |
+| Resume Processing | Coordinates file validation, extraction, parsing, schema validation, deduplication, and storage. | [Resume Processing Process](processes/resume-processing.md) |
+| File Type Verification | Verifies the supplied bytes begin with the PDF signature. | [File Type Verification Process](processes/1-file-type-verification.md) |
+| Metadata Extraction | Produces file metadata and a raw-byte content fingerprint. | [Metadata Extraction Process](processes/2-metadata-extraction.md) |
+| Deduplication | Detects existing resumes with the same content fingerprint. | [Deduplication Process](processes/3-deduplication.md) |
+| PDF Validation | Rejects encrypted, password-protected, or structurally invalid PDFs. | [PDF Validation Process](processes/4-pdf-validation.md) |
+| PDF Extraction | Extracts readable text from valid PDFs. | [PDF Extraction Process](processes/5-pdf-extraction.md) |
+| Data Parsing | Applies deterministic extraction followed by LLM enhancement. | [Data Parsing Process](processes/6-data-parsing.md) |
+| Schema Validation | Validates structured resume data against the Resume JSON Schema. | [Schema Validation Process](processes/7-schema-validation.md) |
 
 ## 6. Dependencies
 

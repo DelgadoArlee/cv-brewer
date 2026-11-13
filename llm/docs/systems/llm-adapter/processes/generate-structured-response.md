@@ -29,7 +29,7 @@ The process does not construct or modify prompts and does not validate content a
 
 ### Diagram
 
-    ```` mermaid
+```` mermaid
     flowchart TD
         A([Start]) --> B[Receive generation request]
         B --> C[Send messages and schema to selected model]
@@ -40,7 +40,7 @@ The process does not construct or modify prompts and does not validate content a
         G --> H{Valid JSON object?}
         H -->|Yes| I([Return structured response])
         H -->|No| F
-    ````
+````
 
 ### Steps
 
@@ -53,8 +53,8 @@ The process does not construct or modify prompts and does not validate content a
 
 ## 6. Modules
 
-- [Ollama Adapter Module](../../../modules/ollama-adapter/ollama-adapter.md) — Implements structured generation.
-- [Generation Models Module](../../../modules/llm-service/generation/models.md) — Defines the generation request records.
+- `llm/src/llm/adapters/ollama/adapter.py` — Implements structured generation.
+- `llm/src/llm/llm_service/modules/generation/models.py` — Defines the generation request records.
 
 ## 7. Testing
 

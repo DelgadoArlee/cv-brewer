@@ -59,9 +59,9 @@ The process does not validate resume content or perform database access directly
 
 ## 6. Modules
 
-- [Resume Service Module](../../../modules/database-service/resume/service.md) — Defines the service operation and generated resume fields.
-- [Resume Repository Module](../../../modules/database-service/resume/repository.md) — Defines the persistence contract.
-- [Resume Models Module](../../../modules/database-service/resume/models.md) — Defines resume records.
+- `database/src/database/database_service/modules/resume/service.py` — Defines the service operation and generated resume fields.
+- `database/src/database/database_service/modules/resume/repository.py` — Defines the persistence contract.
+- `database/src/database/database_service/modules/resume/models.py` — Defines resume records.
 
 ## 7. Data
 

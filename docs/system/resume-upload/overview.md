@@ -88,7 +88,7 @@ These responsibilities are handled by the Core Processing Engine, other relevant
 
 ## 4. Feature Workflow
 
-For detailed interactions between components, refer to the [Resume Upload Sequence Diagram](docs/system/resume-upload/processes/resume-upload.md).
+For detailed interactions between components, refer to the [Resume Upload Sequence Diagram](processes/resume-upload.md).
 
 1. Check whether the input folder exists and is accessible.
     
@@ -96,7 +96,7 @@ For detailed interactions between components, refer to the [Resume Upload Sequen
     
 3. Check whether the input folder contains files.
     
-4. If the folder is empty, end the upload operation.
+4. If the folder is empty, end the upload operation normally.
     
 5. Discover the files in the input folder.
     
@@ -143,7 +143,7 @@ Rules define the required behavior and conditions for the Resume Upload feature.
     
 - If the input folder cannot be accessed or created, the upload operation must report the failure and stop because file processing cannot proceed.
     
-- If the input folder is empty, the upload operation must end and report the failure without attempting to process resume files.
+- If the input folder is empty, the upload operation must end and report the normal completion outcome without attempting to process resume files.
     
 - The feature must not scan the input folder automatically at application startup unless explicitly required by a separate system rule.
     

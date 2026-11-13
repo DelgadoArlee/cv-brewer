@@ -79,13 +79,13 @@ flowchart LR
 
 ## 10. Data
 
-The service defines generation request records documented in [Generation Models Module](../../modules/llm-service/generation/models.md).
+The service defines generation request records in `llm/src/llm/llm_service/modules/generation/models.py`.
 
 ## 11. References
 
 - [LLM Service System Overview](../../../../docs/system/llm-service/overview.md)
 - [LLM Component Technical Specification](../../technical-specification.md)
-- [Generation Models Module](../../modules/llm-service/generation/models.md)
-- [Generation Adapter Module](../../modules/llm-service/generation/adapter.md)
-- [Generation Service Module](../../modules/llm-service/generation/service.md)
+- `llm/src/llm/llm_service/modules/generation/models.py` — Defines generation request records.
+- `llm/src/llm/llm_service/modules/generation/adapter.py` — Defines the adapter contract.
+- `llm/src/llm/llm_service/modules/generation/service.py` — Implements application-level LLM operations.
 - [Use an LLM Service abstraction with pluggable LLM adapters](../../../../docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)

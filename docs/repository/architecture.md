@@ -16,8 +16,8 @@ cvbrewery/
 │   │   ├── technical-specification.md
 │   │   ├── guidelines.md
 │   │   ├── adr/
-│   │   ├── modules/
-│   │   └── processes/
+│   │   ├── processes/
+│   │   └── systems/
 │   └── src/
 │       └── cli/
 │           ├── __init__.py
@@ -28,10 +28,14 @@ cvbrewery/
 │           ├── processes/
 │           │   ├── __init__.py
 │           │   ├── application_startup.py
-│           │   └── entry_page.py
+│           │   ├── entry_page.py
+│           │   ├── menu.py
+│           │   ├── options.py
+│           │   └── resume_upload.py
 │           └── ui/
 │               ├── __init__.py
-│               └── entry_page.py
+│               ├── entry_page.py
+│               └── resume_upload.py
 ├── core/
 ├── database/
 │   ├── pyproject.toml
@@ -39,8 +43,7 @@ cvbrewery/
 │   ├── .python-version
 │   ├── docs/
 │   │   ├── technical-specification.md
-│   │   ├── adr/
-│   │   └── modules/
+│   │   └── adr/
 │   └── src/
 │       └── database/
 │           ├── __init__.py
@@ -64,7 +67,6 @@ cvbrewery/
 │   │   ├── technical-specification.md
 │   │   ├── guidelines.md
 │   │   ├── adr/
-│   │   ├── modules/
 │   │   └── systems/
 │   └── src/
 │       └── llm/
@@ -111,25 +113,26 @@ cvbrewery/
 |`cli/data/`|Contains development-only database and local folder data; ignored by version control.|
 |`cli/docs/adr/`|Contains CLI component-level architecture decisions.|
 |`cli/docs/guidelines.md`|Contains CLI component-specific coding guidelines.|
-|`cli/docs/modules/`|Contains CLI component module documentation.|
-|`cli/docs/processes/`|Contains CLI component application-level process documentation.|
-|`cli/src/cli/app.py`|Defines the Typer application and no-command entry page callback.|
+|`cli/docs/processes/`|Contains CLI component application-level and UI process documentation.|
+|`cli/docs/systems/`|Contains CLI component system documentation.|
+|`cli/src/cli/app.py`|Defines the Typer application and no-command main menu callback.|
 |`cli/src/cli/modules/paths.py`|Defines shared and development startup locations.|
 |`cli/src/cli/processes/application_startup.py`|Coordinates database initialization and folder preparation during startup.|
 |`cli/src/cli/processes/entry_page.py`|Coordinates the CLI entry page workflow.|
+|`cli/src/cli/processes/menu.py`|Coordinates the CLI main menu and action routing.|
+|`cli/src/cli/processes/options.py`|Coordinates the CLI Options menu and imported resume display.|
+|`cli/src/cli/processes/resume_upload.py`|Coordinates resume folder preparation, discovery, and Core delegation.|
 |`cli/src/cli/ui/`|Contains all CLI UI-related code.|
 |`core/`|Contains the Core Processing Engine component.|
 |`database/`|Contains the database component as a single Python project.|
 |`database/docs/`|Contains database component technical documentation.|
 |`database/docs/adr/`|Contains database component-level architecture decisions.|
-|`database/docs/modules/`|Contains database component module documentation.|
 |`database/src/database/database_service/`|Contains the Database Service package.|
 |`database/src/database/adapters/`|Contains database adapter implementations.|
 |`database/src/database/adapters/sqlite/`|Contains the SQLite adapter implementation and migrations.|
 |`llm/`|Contains the LLM component as a single Python project.|
 |`llm/docs/`|Contains LLM component technical documentation.|
 |`llm/docs/adr/`|Contains LLM component-level architecture decisions.|
-|`llm/docs/modules/`|Contains LLM component module documentation.|
 |`llm/docs/systems/`|Contains LLM component system documentation.|
 |`llm/src/llm/llm_service/`|Contains the LLM Service package.|
 |`llm/src/llm/adapters/`|Contains LLM adapter implementations.|

@@ -86,14 +86,6 @@ llm/
 │   │   ├── ADL.md
 │   │   └── 11-11-26/
 │   │       └── ollama-adapter-foundation.md
-│   ├── modules/
-│   │   ├── llm-service/
-│   │   │   └── generation/
-│   │   │       ├── models.md
-│   │   │       ├── adapter.md
-│   │   │       └── service.md
-│   │   └── ollama-adapter/
-│   │       └── ollama-adapter.md
 │   └── systems/
 │       ├── llm-service/
 │       │   ├── overview.md

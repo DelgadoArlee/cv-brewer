@@ -35,4 +35,4 @@ flowchart TD
 ## 5. References
 
 - [Resume Processing System Overview](../overview.md)
-- [Core File Validation Module](../../../../core/docs/modules/validation/file-validation.md)
+- `core/src/core/validation/file_validation.py` — Implements PDF signature verification.

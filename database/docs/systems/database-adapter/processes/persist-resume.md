@@ -52,8 +52,8 @@ The process does not define when resume data is valid for storage.
 
 ## 6. Modules
 
-- [Resume Repository Module](../../../modules/sqlite-adapter/resume/repository.md) — Implements the adapter persistence operation.
-- [Resume Models Module](../../../modules/sqlite-adapter/resume/models.md) — Defines the SQLite ORM models.
+- `database/src/database/adapters/sqlite/resume/repository.py` — Implements the adapter persistence operation.
+- `database/src/database/adapters/sqlite/resume/models/` — Defines the SQLite ORM models.
 
 ## 7. Data
 

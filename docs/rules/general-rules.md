@@ -57,7 +57,7 @@ Documentation Rules and Conventions
 - High-Level Data Model Documentation rules: `docs/rules/data.md`
 - Technical System rules: `docs/rules/technical-system.md`
 - Technical Process rules: `docs/rules/technical-process.md`
-- Technical Module rules: `docs/rules/technical-spec.md`
+- Component Technical Specification rules: `docs/rules/technical-spec.md`
 - Database Documentation rules: `docs/rules/database`
 
 8. Testing Documentation

@@ -41,8 +41,9 @@ Provide a visible CVBrewer entry page when the CLI runs without a command. The p
 ```` mermaid
 flowchart TD
     A([Start]) --> B[Render Entry Page and Separator]
-    B --> C[Wait for Enter]
-    C --> D([Exit Entry Page])
+    B --> C[User views CVBrewer entry page]
+    C --> D[User presses Enter]
+    D --> E([Exit Entry Page])
 ````
 
 ### Steps
@@ -54,43 +55,44 @@ flowchart TD
 
 ## 6. Modules
 
-- [CLI Entry Page Module](../modules/entry-page.md) — Provides the entry page title and Enter wait behavior.
+- `cli/src/cli/ui/entry_page.py` — Provides the entry page title and Enter wait behavior.
+- `cli/src/cli/processes/entry_page.py` — Coordinates the entry page workflow.
 
-## 8. Testing
+## 7. Testing
 
-### 8.1 Test Level
+### 7.1 Test Level
 
 This process is tested at the **Process** level according to the testing strategy.
 
-### 8.2 Test Scenarios
+### 7.2 Test Scenarios
 
 | Scenario ID | Given | When | Then |
 | --- | --- | --- | --- |
 | Entry-001 | The CLI app is available and no command is supplied. | The app is invoked. | The CVBrewer entry page is displayed. |
 | Entry-002 | The entry page is displayed. | The user presses Enter. | The app exits successfully. |
 
-### 8.3 Test Coverage
+### 7.3 Test Coverage
 
 - Cover the no-command entry page and the successful exit after Enter.
 - Use Typer's test runner with newline input.
 - Do not test the Enter prompt text.
 
-### 8.4 Test Organization
+### 7.4 Test Organization
 
 Tests reside in `tests/processes/entry-page/`.
 
-### 8.5 Test Dependencies
+### 7.5 Test Dependencies
 
 - Use Typer's `CliRunner` to invoke the app.
 - Provide newline input to allow the entry page to exit.
 
-### 8.6 Testing Rules Compliance
+### 7.6 Testing Rules Compliance
 
 This process follows the testing strategy by verifying observable entry page behavior and avoiding implementation-detail tests.
 
-## 9. References
+## 8. References
 
 - [CLI Component Technical Specification](../technical-specification.md)
-- [CLI Entry Page Module](../modules/entry-page.md)
+- `cli/src/cli/ui/entry_page.py`
 - [CLI Component Coding Guidelines](../guidelines.md)
 - [Use Typer and Rich for a hybrid CLI](../../../docs/adr/Architecture/2026-11-04/cli-interface.md)

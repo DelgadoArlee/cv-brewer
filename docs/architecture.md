@@ -130,7 +130,7 @@ The project follows a **doc-as-code** approach.
 
 - Documentation is written in Markdown.
 - Documentation is maintained alongside source code.
-- Architecture documentation follows the Feature → System → Process → Module organization model.
+- Architecture documentation follows the Feature → System → Process organization model.
 - Each document describes responsibilities appropriate to its level.
 - Documentation is updated alongside relevant architecture and implementation changes.
 

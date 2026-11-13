@@ -82,14 +82,14 @@ flowchart LR
 
 ## 10. Data
 
-The service uses the [User Resume Data Model](../../../../docs/data/user-resume.md) and defines application-level record structures documented in [Resume Models Module](../../modules/database-service/resume/models.md).
+The service uses the [User Resume Data Model](../../../../docs/data/user-resume.md) and defines application-level record structures in `database/src/database/database_service/modules/resume/models.py`.
 
 ## 11. References
 
 - [Database Service System Overview](../../../../docs/system/database-service/overview.md)
 - [Database Component Technical Specification](../../technical-specification.md)
-- [Resume Models Module](../../modules/database-service/resume/models.md)
-- [Resume Repository Module](../../modules/database-service/resume/repository.md)
-- [Resume Service Module](../../modules/database-service/resume/service.md)
+- `database/src/database/database_service/modules/resume/models.py` — Defines resume records.
+- `database/src/database/database_service/modules/resume/repository.py` — Defines the retrieval and persistence contract.
+- `database/src/database/database_service/modules/resume/service.py` — Defines resume operations.
 - [Resume Persistence ADR](../../adr/11-10-26/resume-persistence.md)
 - [User Resume Data Model](../../../../docs/data/user-resume.md)

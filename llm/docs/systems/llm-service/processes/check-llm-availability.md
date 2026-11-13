@@ -41,7 +41,7 @@ The process does not verify that a specific model is installed and does not perf
 
 ## 6. Modules
 
-- [Generation Service Module](../../../modules/llm-service/generation/service.md) — Implements the availability operation.
+- `llm/src/llm/llm_service/modules/generation/service.py` — Implements the availability operation.
 
 ## 7. Testing
 

@@ -44,5 +44,5 @@ flowchart TD
 
 - [Resume Processing System Overview](../overview.md)
 - [PDF Validation Process](4-pdf-validation.md)
-- [Core PDF Processing Module](../../../../core/docs/modules/resume-processing/pdf-processing.md)
+- `core/src/core/modules/pdf_processing.py` — Implements PDF text extraction.
 

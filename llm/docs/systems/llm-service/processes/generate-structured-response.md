@@ -47,8 +47,8 @@ The process does not construct prompts, select schemas, or validate generated co
 
 ## 6. Modules
 
-- [Generation Service Module](../../../modules/llm-service/generation/service.md) — Implements request verification and delegation.
-- [Generation Models Module](../../../modules/llm-service/generation/models.md) — Defines the generation request records.
+- `llm/src/llm/llm_service/modules/generation/service.py` — Implements request verification and delegation.
+- `llm/src/llm/llm_service/modules/generation/models.py` — Defines the generation request records.
 
 ## 7. Testing
 

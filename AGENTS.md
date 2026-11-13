@@ -8,8 +8,8 @@
 - Minor implementation decisions that do not change approved behavior can proceed.- Recommendations are allowed but are not approved decisions.
 - Record significant architectural, technical, and design decisions in the appropriate ADR.
 - If documentation contains conflicting or inconsistent information, report it and await developer direction before proceeding with affected work.
-- Consult relevant component and module documentation before modifying or implementing them.
-- Update relevant documentation after implementing or modifying a component or module.
+- Consult relevant component, system, and process documentation before modifying or implementing them.
+- Update relevant documentation after implementing or modifying a component, system, or process.
 - Read applicable documentation rules before creating or modifying documentation.
 - Preserve existing document structures unless a change is necessary and approved.
 
@@ -25,7 +25,7 @@ CVBrewery uses four conceptual levels:
 
 ### Architecture Organization Rules
 
-- Follow the Feature → System → Process → Module model when organizing documentation.
+- Follow the Feature → System → Process model when organizing documentation.
 - Features can involve multiple systems.
 - Systems can support multiple features.
 - Processes can coordinate multiple modules or systems.
@@ -48,9 +48,8 @@ CVBrewery uses four conceptual levels:
 - Components require a Technical Specification Document.
 - Systems require High-Level System and Technical System Documents before implementation.
 - Process require High-level Process or Technical Process Documents before implementation
-- Modules require Technical Module Documents before implementation.
 - Database tables require Data Model and Technical Schema Documents before implementation.
-- System and Module documentation requirements apply only to non-database components.
+- System documentation requirements apply only to non-database components.
 - Only modify files relevant to the requested task.
 - Use `uv` as the package manager for all Python projects and dependency management.
 - Do not use pip, poetry, or other package managers unless explicitly approved by the developer.
@@ -112,7 +111,6 @@ CVBrewery uses four conceptual levels:
         - Technical Specification Document: `<component>/docs/technical-specification.md`
         - Technical System Documentation: `<component>/docs/systems/<system-name>/`
         - Technical Process Documentation: `<component>/docs/systems/<system-name>/processes/<process-name>.md
-        - Technical Module Documentation: `<component>/docs/modules/<module-name>.md`
         - Technical Schema Documentation: `<component>/docs/schemas/<schema-name>.md`
 
     ### Database-specific Documentation

@@ -27,6 +27,9 @@ List the implementation rules, conditions, and limitations that the process must
 
 Provide a Mermaid diagram illustrating the process flow, including important decisions and processing steps.
 
+- For processes with user-visible interaction, include the UI flow of user actions, prompts or menus, and displayed outcomes in the diagram.
+- Keep the UI flow concise.
+
 ### Steps
 
 Describe each workflow step in execution order.
@@ -37,9 +40,9 @@ Describe each workflow step in execution order.
 
 ## 6. Modules
 
-List the modules used in the process and briefly describe their responsibilities.
+List the modules used in the process, reference their actual source files using absolute repository paths, and briefly describe their responsibilities.
 
-- [Module Name](path/to/module.md) — Brief description.
+- `core/src/core/modules/parsing.py` — Brief description.
 
 Only include modules directly involved in executing the process.
 
@@ -115,11 +118,3 @@ This process must follow these testing rules from the testing strategy:
 List related documentation, dependencies, and external references.
 
 - [Reference Name](path/to/reference.md)
-
-## 10. Data _(Optional)_
-
-List the schemas used or produced by the process.
-
-- [Schema Name](path/to/schema.md) — Brief description.
-
-Only include this section when the process uses or produces structured data with a documented schema.

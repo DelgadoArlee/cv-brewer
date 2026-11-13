@@ -26,14 +26,14 @@ The process does not verify installed models and does not define application-lev
 
 ### Diagram
 
-    ```` mermaid
+```` mermaid
     flowchart TD
         A([Start]) --> B[Receive availability check]
         B --> C[Send lightweight service request]
         C --> D{Response received?}
         D -->|Yes| E([Report service available])
         D -->|No| F([Report service unavailable])
-    ````
+````
 
 ### Steps
 
@@ -44,7 +44,7 @@ The process does not verify installed models and does not define application-lev
 
 ## 6. Modules
 
-- [Ollama Adapter Module](../../../modules/ollama-adapter/ollama-adapter.md) — Implements the availability verification.
+- `llm/src/llm/adapters/ollama/adapter.py` — Implements the availability verification.
 
 ## 7. Testing
 

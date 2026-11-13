@@ -188,7 +188,7 @@ Component documentation may include:
 
 Implementation-specific architecture and design decisions.
 
-Internal system and module documentation.
+Internal system and process documentation.
 
 Implementation procedures and workflows.
 

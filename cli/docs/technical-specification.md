@@ -45,7 +45,7 @@ This document defines the technical organization of the CLI component within CVB
 - Core processing logic and validation rules.
 - Modification or deletion of uploaded files in the input folder.
 - Data model and schema definitions.
-- System and module technical documentation.
+- System technical documentation.
 - Implementation code and test cases.
 
 ## 4. Rules & Constraints
@@ -107,7 +107,7 @@ This document defines the technical organization of the CLI component within CVB
 
 | System | Description | Specification |
 | --- | --- | --- |
-| None documented | No CLI systems have been documented yet. | Not yet documented |
+| Resume Upload | Prepares the input folder, discovers files, delegates processing, and reports outcomes. | [Resume Upload System](systems/resume-upload/overview.md) |
 
 ## 7. File Structure
 
@@ -128,12 +128,16 @@ cli/
 │   │   ├── ADL.md
 │   │   └── 11-07-26/
 │   │       └── development-startup-paths.md
-│   ├── modules/
+│   ├── processes/
+│   │   ├── application-startup.md
 │   │   ├── entry-page.md
-│   │   └── paths.md
-│   └── processes/
-│       ├── application-startup.md
-│       └── entry-page.md
+│   │   ├── menu.md
+│   │   └── options-menu.md
+│   └── systems/
+│       └── resume-upload/
+│           ├── overview.md
+│           └── processes/
+│               └── resume-upload.md
 └── src/
     └── cli/
         ├── __init__.py
@@ -144,10 +148,14 @@ cli/
         ├── processes/
         │   ├── __init__.py
         │   ├── application_startup.py
-        │   └── entry_page.py
+        │   ├── entry_page.py
+        │   ├── menu.py
+        │   ├── options.py
+        │   └── resume_upload.py
         └── ui/
             ├── __init__.py
-            └── entry_page.py
+            ├── entry_page.py
+            └── resume_upload.py
 ````
 
 ## 8. Deployment
@@ -168,8 +176,10 @@ cli/
 - [Application Startup Process](../../docs/system/application-startup.md)
 - [Application Startup Technical Process](processes/application-startup.md)
 - [CLI Entry Page Technical Process](processes/entry-page.md)
-- [CLI Entry Page Module](modules/entry-page.md)
-- [Resume Upload System Overview](../../docs/system/resume-upload/overview.md)
+- [CLI Main Menu Technical Process](processes/menu.md)
+- [CLI Options Menu Technical Process](processes/options-menu.md)
+- [Resume Upload Technical System Specification](systems/resume-upload/overview.md)
+- [Resume Upload Feature Overview](../../docs/system/resume-upload/overview.md)
 - [Resume Generation System Overview](../../docs/system/resume-generation/overview.md)
 - [Delete Resumes System Overview](../../docs/system/delete-resumes/overview.md)
 - [Use Typer and Rich for a hybrid CLI](../../docs/adr/Architecture/2026-11-04/cli-interface.md)

@@ -88,17 +88,6 @@ database/
 │   │   │   └── sqlite-adapter-foundation.md
 │   │   └── 11-10-26/
 │   │       └── resume-persistence.md
-│   ├── modules/
-│   │   ├── database-service/
-│   │   │   └── resume/
-│   │   │       ├── models.md
-│   │   │       ├── repository.md
-│   │   │       └── service.md
-│   │   └── sqlite-adapter/
-│   │       ├── resume/
-│   │       │   ├── models.md
-│   │       │   └── repository.md
-│   │       └── sqlite-adapter.md
 │   ├── sqlite/
 │   │   ├── overview.md
 │   │   └── schemas/

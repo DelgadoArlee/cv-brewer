@@ -69,7 +69,7 @@ flowchart TD
 
 ## 6. Modules
 
-- [CLI Paths Module](../modules/paths.md) — Defines the startup path container and shared startup layout.
+- `cli/src/cli/modules/paths.py` — Defines the startup path container and shared startup layout.
 
 ## 8. Testing
 
@@ -113,6 +113,6 @@ This process follows the testing strategy by verifying observable startup outcom
 
 - [Application Startup Process](../../../docs/system/application-startup.md)
 - [CLI Component Technical Specification](../technical-specification.md)
-- [CLI Paths Module](../modules/paths.md)
+- `cli/src/cli/modules/paths.py`
 - [Development Application Startup Decision](../adr/11-07-26/development-startup-paths.md)
 - [CLI Component ADL](../adr/ADL.md)

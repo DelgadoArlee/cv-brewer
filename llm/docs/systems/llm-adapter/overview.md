@@ -89,13 +89,13 @@ flowchart LR
 
 ## 10. Data
 
-The adapter handles application-level records documented in [Generation Models Module](../../modules/llm-service/generation/models.md).
+The adapter handles application-level records defined in `llm/src/llm/llm_service/modules/generation/models.py`.
 
 ## 11. References
 
 - [LLM Adapter System Overview](../../../../docs/system/llm-adapter/overview.md)
 - [LLM Component Technical Specification](../../technical-specification.md)
-- [Ollama Adapter Module](../../modules/ollama-adapter/ollama-adapter.md)
-- [Generation Adapter Module](../../modules/llm-service/generation/adapter.md)
+- `llm/src/llm/adapters/ollama/adapter.py` — Implements Ollama communication.
+- `llm/src/llm/llm_service/modules/generation/adapter.py` — Defines the adapter contract.
 - [Ollama Adapter Foundation ADR](../../adr/11-11-26/ollama-adapter-foundation.md)
 - [Ollama API Documentation](https://github.com/ollama/ollama/blob/main/docs/api.md)

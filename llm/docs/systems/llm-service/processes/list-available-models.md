@@ -41,7 +41,7 @@ The process does not filter, rank, install, or download models.
 
 ## 6. Modules
 
-- [Generation Service Module](../../../modules/llm-service/generation/service.md) — Implements the model listing operation.
+- `llm/src/llm/llm_service/modules/generation/service.py` — Implements the model listing operation.
 
 ## 7. Testing
 

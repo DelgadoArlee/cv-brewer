@@ -26,7 +26,7 @@ The process does not filter or rank models and does not install or download mode
 
 ### Diagram
 
-    ```` mermaid
+```` mermaid
     flowchart TD
         A([Start]) --> B[Receive model listing request]
         B --> C[Request service model listing]
@@ -34,8 +34,8 @@ The process does not filter or rank models and does not install or download mode
         D -->|Yes| E[Parse model records]
         E --> F([Return model listing])
         D -->|No| G[Translate failure]
-        G --> H([Raise adapter error])
-    ````
+        G --> H([Raise adapter error])    
+````
 
 ### Steps
 
@@ -47,7 +47,7 @@ The process does not filter or rank models and does not install or download mode
 
 ## 6. Modules
 
-- [Ollama Adapter Module](../../../modules/ollama-adapter/ollama-adapter.md) — Implements the model listing operation.
+- `llm/src/llm/adapters/ollama/adapter.py` — Implements the model listing operation.
 
 ## 7. Testing
 
