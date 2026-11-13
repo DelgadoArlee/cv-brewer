@@ -221,7 +221,7 @@ def test_process_many_continues_after_a_failure(tmp_path: Path) -> None:
 
 
 def test_core_does_not_import_adapters_or_concrete_clients() -> None:
-    core_source = Path(__file__).resolve().parents[3] / "core" / "src" / "core"
+    core_source = Path(__file__).resolve().parents[3] / "app" / "core"
 
     imported_modules: list[str] = []
     for source_path in core_source.rglob("*.py"):

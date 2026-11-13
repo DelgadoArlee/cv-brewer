@@ -118,11 +118,14 @@ flowchart LR
 
 CV Brewer follows a monorepo structure.
 
+- Application components are located under `app/`: `app/cli`, `app/core`, `app/database`, and `app/llm`.
+- The components are packaged as modules of the single `app/` Python project.
 - CLI and Core share the same repository.
 - Database is maintained in the monorepo.
 - LLM Service and LLM adapter implementations are maintained in the monorepo.
 - Documentation is maintained alongside source code.
 - Logical architecture boundaries do not require separate repositories.
+- The component summary and repository structure are documented in `app/README.md`.
 
 ## 5. Documentation Approach
 

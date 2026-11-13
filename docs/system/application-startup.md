@@ -41,9 +41,9 @@ flowchart TD
 
 ## 5. References
 
-- [Command-Line Interface Component Technical Specification](../../cli/docs/technical-specification.md)
-- [Application Startup Technical Process](../../cli/docs/processes/application-startup.md)
-- [Database Component Technical Specification](../../database/docs/technical-specification.md)
+- [Command-Line Interface Component Technical Specification](../../app/cli/docs/technical-specification.md)
+- [Application Startup Technical Process](../../app/cli/docs/processes/application-startup.md)
+- [Database Component Technical Specification](../../app/database/docs/technical-specification.md)
 - [Input Folder Initialization](resume-upload/processes/1-input-folder-initialization.md)
 - [Output Folder Initialization](resume-generation/processes/1-output-folder-initialization.md)
-- [Development Application Startup Decision](../../cli/docs/adr/11-07-26/development-startup-paths.md)
+- [Development Application Startup Decision](../../app/cli/docs/adr/11-07-26/development-startup-paths.md)

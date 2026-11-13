@@ -31,5 +31,5 @@ flowchart TD
 ## 5. References
 
 - [LLM Service System Overview](../overview.md)
-- [Check LLM Availability Technical Process](../../../../llm/docs/systems/llm-service/processes/check-llm-availability.md)
+- [Check LLM Availability Technical Process](../../../../app/llm/docs/systems/llm-service/processes/check-llm-availability.md)
 - [Verify Service Availability Process](../../llm-adapter/processes/verify-service-availability.md)

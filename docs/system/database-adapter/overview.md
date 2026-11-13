@@ -51,7 +51,7 @@ See the [Persist Resume Process](processes/persist-resume.md) and [Load Resume P
 
 ## 7. Data Management
 
-The adapter stores resume records using the SQLite schema documented in [SQLite Database Overview](../../../database/docs/sqlite/overview.md).
+The adapter stores resume records using the SQLite schema documented in [SQLite Database Overview](../../../app/database/docs/sqlite/overview.md).
 
 ## 8. Error Handling
 
@@ -61,6 +61,6 @@ The adapter stores resume records using the SQLite schema documented in [SQLite 
 
 ## 9. References
 
-- [Database Component Technical Specification](../../../database/docs/technical-specification.md)
-- [Database Adapter Technical Specification](../../../database/docs/systems/database-adapter/overview.md)
+- [Database Component Technical Specification](../../../app/database/docs/technical-specification.md)
+- [Database Adapter Technical Specification](../../../app/database/docs/systems/database-adapter/overview.md)
 - [User Resume Data Model](../../data/user-resume.md)

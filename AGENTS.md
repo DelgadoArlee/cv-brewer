@@ -70,14 +70,17 @@ CVBrewery uses four conceptual levels:
 
 ## Component Specific Coding Guidelines
 
-- CLI: [cli/docs/guidelines.md](cli/docs/guidelines.md)
-- Core: [core/docs/guidelines.md](core/docs/guidelines.md)
+- CLI: [app/cli/docs/guidelines.md](app/cli/docs/guidelines.md)
+- Core: [app/core/docs/guidelines.md](app/core/docs/guidelines.md)
+- Database: [app/database/docs/guidelines.md](app/database/docs/guidelines.md)
+- LLM: [app/llm/docs/guidelines.md](app/llm/docs/guidelines.md)
 
 ## Application Components
 
-- CLI: `/cli`
-- Core: `/core`
-- Database: `/database`
+- CLI: `/app/cli`
+- Core: `/app/core`
+- Database: `/app/database`
+- LLM: `/app/llm`
 
 ## Implementation Workflow
 
@@ -105,16 +108,16 @@ CVBrewery uses four conceptual levels:
         - High-level Feature documentation: `docs/features/`
         - High-level System documentation: `docs/system/`
         - High-level Process documentation: `docs/system/`
-        - Repository Architecture: `docs/repository/architecture.md`
+        - Repository Architecture: `app/README.md`
 
     ### Low-level Component Documentation (Technical & Implementation):
-        - Technical Specification Document: `<component>/docs/technical-specification.md`
-        - Technical System Documentation: `<component>/docs/systems/<system-name>/`
-        - Technical Process Documentation: `<component>/docs/systems/<system-name>/processes/<process-name>.md
-        - Technical Schema Documentation: `<component>/docs/schemas/<schema-name>.md`
+        - Technical Specification Document: `app/<component>/docs/technical-specification.md`
+        - Technical System Documentation: `app/<component>/docs/systems/<system-name>/`
+        - Technical Process Documentation: `app/<component>/docs/systems/<system-name>/processes/<process-name>.md
+        - Technical Schema Documentation: `app/<component>/docs/schemas/<schema-name>.md`
 
     ### Database-specific Documentation
-       - Database service specific documentation & schemas: `database/docs/<database-service-name>/`
+       - Database service specific documentation & schemas: `app/database/docs/<database-service-name>/`
 
 ## Verification
 

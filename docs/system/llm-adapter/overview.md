@@ -53,7 +53,7 @@ See the [Verify Service Availability Process](processes/verify-service-availabil
 
 ## 8. References
 
-- [LLM Component Technical Specification](../../../llm/docs/technical-specification.md)
-- [LLM Adapter Technical Specification](../../../llm/docs/systems/llm-adapter/overview.md)
-- [Ollama Adapter Foundation ADR](../../../llm/docs/adr/11-11-26/ollama-adapter-foundation.md)
+- [LLM Component Technical Specification](../../../app/llm/docs/technical-specification.md)
+- [LLM Adapter Technical Specification](../../../app/llm/docs/systems/llm-adapter/overview.md)
+- [Ollama Adapter Foundation ADR](../../../app/llm/docs/adr/11-11-26/ollama-adapter-foundation.md)
 - [Use an LLM Service abstraction with pluggable LLM adapters](../../adr/Architecture/2026-11-11/llm-service-abstraction.md)

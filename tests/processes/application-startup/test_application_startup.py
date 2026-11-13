@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from cli.modules.paths import StartupPaths, development_startup_paths
-from cli.processes.application_startup import StartupError, initialize_application
+from cli.commands.application_startup import StartupError, initialize_application
 from database import initialize_database as initialize_database_from_path
 
 pytestmark = pytest.mark.application_startup
@@ -100,10 +100,9 @@ def test_development_startup_paths_are_under_cli_data() -> None:
 def test_startup_module_does_not_import_database_implementation() -> None:
     module_path = (
         Path(__file__).resolve().parents[3]
+        / "app"
         / "cli"
-        / "src"
-        / "cli"
-        / "processes"
+        / "commands"
         / "application_startup.py"
     )
     tree = ast.parse(module_path.read_text())

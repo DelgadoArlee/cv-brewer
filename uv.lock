@@ -4,11 +4,8 @@ requires-python = ">=3.12"
 
 [manifest]
 members = [
-    "cli",
-    "core",
     "cv-brewer",
-    "database",
-    "llm",
+    "cv-brewer-workspace",
 ]
 
 [[package]]
@@ -291,52 +288,12 @@ wheels = [
 ]
 
 [[package]]
-name = "cli"
-version = "0.1.0"
-source = { editable = "cli" }
-dependencies = [
-    { name = "questionary" },
-    { name = "rich" },
-    { name = "typer" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "questionary", specifier = ">=2.1.1" },
-    { name = "rich", specifier = ">=15.0.0" },
-    { name = "typer", specifier = ">=0.27.3" },
-]
-
-[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44", size = 27697, upload-time = "2022-10-25T02:36:22.414Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6", size = 25335, upload-time = "2022-10-25T02:36:20.889Z" },
-]
-
-[[package]]
-name = "core"
-version = "0.1.0"
-source = { editable = "core" }
-dependencies = [
-    { name = "database" },
-    { name = "jsonschema" },
-    { name = "llm" },
-    { name = "pdfplumber" },
-    { name = "pydantic" },
-    { name = "pypdf" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "database", editable = "database" },
-    { name = "jsonschema", specifier = ">=4.0,<5.0" },
-    { name = "llm", editable = "llm" },
-    { name = "pdfplumber", specifier = ">=0.11,<1.0" },
-    { name = "pydantic", specifier = ">=2.0,<3.0" },
-    { name = "pypdf", specifier = ">=6.0,<7.0" },
 ]
 
 [[package]]
@@ -405,12 +362,40 @@ wheels = [
 [[package]]
 name = "cv-brewer"
 version = "0.1.0"
+source = { editable = "app" }
+dependencies = [
+    { name = "alembic" },
+    { name = "httpx" },
+    { name = "jsonschema" },
+    { name = "pdfplumber" },
+    { name = "pydantic" },
+    { name = "pypdf" },
+    { name = "questionary" },
+    { name = "rich" },
+    { name = "sqlalchemy" },
+    { name = "typer" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "alembic", specifier = ">=1.20.1" },
+    { name = "httpx", specifier = ">=0.28,<1.0" },
+    { name = "jsonschema", specifier = ">=4.0,<5.0" },
+    { name = "pdfplumber", specifier = ">=0.11,<1.0" },
+    { name = "pydantic", specifier = ">=2.0,<3.0" },
+    { name = "pypdf", specifier = ">=6.0,<7.0" },
+    { name = "questionary", specifier = ">=2.1.1" },
+    { name = "rich", specifier = ">=15.0.0" },
+    { name = "sqlalchemy", specifier = ">=2.0,<2.1" },
+    { name = "typer", specifier = ">=0.27.3" },
+]
+
+[[package]]
+name = "cv-brewer-workspace"
+version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "cli" },
-    { name = "core" },
-    { name = "database" },
-    { name = "llm" },
+    { name = "cv-brewer" },
 ]
 
 [package.dev-dependencies]
@@ -419,30 +404,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "cli", editable = "cli" },
-    { name = "core", editable = "core" },
-    { name = "database", editable = "database" },
-    { name = "llm", editable = "llm" },
-]
+requires-dist = [{ name = "cv-brewer", editable = "app" }]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest" }]
-
-[[package]]
-name = "database"
-version = "0.1.0"
-source = { editable = "database" }
-dependencies = [
-    { name = "alembic" },
-    { name = "sqlalchemy" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "alembic", specifier = ">=1.20.1" },
-    { name = "sqlalchemy", specifier = ">=2.0,<2.1" },
-]
 
 [[package]]
 name = "greenlet"
@@ -580,17 +545,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/19/74/a633ee74eb36c44aa
 wheels = [
     { url = "https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl", hash = "sha256:98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe", size = 18437, upload-time = "2025-09-08T01:34:57.871Z" },
 ]
-
-[[package]]
-name = "llm"
-version = "0.1.0"
-source = { editable = "llm" }
-dependencies = [
-    { name = "httpx" },
-]
-
-[package.metadata]
-requires-dist = [{ name = "httpx", specifier = ">=0.28,<1.0" }]
 
 [[package]]
 name = "mako"

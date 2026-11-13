@@ -1,6 +1,6 @@
 # Database Overview
 
-**File location:** `database/docs/<name-of-database-service>/overview.md`
+**File location:** `app/database/docs/<name-of-database-service>/overview.md`
 
 ## 1. Purpose
 

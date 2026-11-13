@@ -43,4 +43,4 @@ flowchart TD
 
 - [Database Service System Overview](../overview.md)
 - [User Resume Data Model](../../../data/user-resume.md)
-- [Store Resume Technical Process](../../../../database/docs/systems/database-service/processes/store-resume.md)
+- [Store Resume Technical Process](../../../../app/database/docs/systems/database-service/processes/store-resume.md)

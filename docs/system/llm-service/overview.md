@@ -57,6 +57,6 @@ See the [Check LLM Availability Process](processes/check-llm-availability.md), t
 
 ## 8. References
 
-- [LLM Component Technical Specification](../../../llm/docs/technical-specification.md)
-- [LLM Service Technical Specification](../../../llm/docs/systems/llm-service/overview.md)
+- [LLM Component Technical Specification](../../../app/llm/docs/technical-specification.md)
+- [LLM Service Technical Specification](../../../app/llm/docs/systems/llm-service/overview.md)
 - [Use an LLM Service abstraction with pluggable LLM adapters](../../adr/Architecture/2026-11-11/llm-service-abstraction.md)

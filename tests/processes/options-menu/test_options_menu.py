@@ -3,7 +3,7 @@ from types import SimpleNamespace
 
 from rich.console import Console
 
-from cli.processes import options as options_module
+from cli.commands import options as options_module
 from core.models import ResumeProcessingStatus
 
 

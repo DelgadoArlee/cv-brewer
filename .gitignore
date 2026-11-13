@@ -5,6 +5,6 @@
 __pycache__/
 .pytest_cache/
 *.egg-info/
-cli/data/
+app/cli/data/
 tests/data/
 tests/e2e/data/

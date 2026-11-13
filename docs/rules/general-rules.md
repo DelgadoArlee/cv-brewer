@@ -16,13 +16,14 @@ Documentation Rules and Conventions
   - Features and systems.
   - Data models and schemas.
   - Documentation rules, conventions, and implementation guidelines.
-  - Repository and release documentation.
-- <component>/docs/ contains implementation-specific and technical documentation for the component.
+  - Release documentation.
+- app/README.md contains the application component summary and repository structure.
+- app/<component>/docs/ contains implementation-specific and technical documentation for the component.
 
 3. System Documentation
 
 - docs/system/ contains high-level system documentation.
-- <component>/docs/system/ contains low-level, technical, and component-specific system documentation.
+- app/<component>/docs/system/ contains low-level, technical, and component-specific system documentation.
 - Technical System Documents must reference their corresponding High-Level System Documents.
 
 1. Process Documentation
@@ -34,17 +35,17 @@ Documentation Rules and Conventions
 5. Data Schema Documentation
 
 - Data schemas must have separate documentation.
-- Non-database schemas → component documentation. `<component>/docs/schemas/<data-name>.md`
-- Database schemas → responsible database service documentation. `database/docs/<name-of-db-service>/schemas/<data-name>`.md:
+- Non-database schemas → component documentation. `app/<component>/docs/schemas/<data-name>.md`
+- Database schemas → responsible database service documentation. `app/database/docs/<name-of-db-service>/schemas/<data-name>`.md:
 - Database schema documentation must be maintained within the documentation of the database service responsible for storing the data.
 
 6. Database Documentation Rules
 
 - Each database service must have its own documentation directory.
 - Each database service must have its own documentation directory:
-  - `database/docs/<database-service-name>/`
+  - `app/database/docs/<database-service-name>/`
 - Database-specific schemas must be documented under their corresponding database:
-  - `database/docs/<database-service-name>/schemas/<schema-name>.md`
+  - `app/database/docs/<database-service-name>/schemas/<schema-name>.md`
 - Database schema documentation must follow the Database Schema Documentation Rules.
 
 7. Documentation rules & conventions

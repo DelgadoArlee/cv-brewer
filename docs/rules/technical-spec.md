@@ -156,7 +156,7 @@ Use descriptive links instead of raw URLs.
 All Technical Specification documents must be located at:
 
 ```
-<component>/docs/technical-specification.md
+app/<component>/docs/technical-specification.md
 ```
 
 Where `<component>` is the name of the component directory (e.g., `database`, `resume-generation`, etc.).
@@ -186,7 +186,7 @@ Rules:
 All Technical Specification documents must follow this exact path format:
 
 ```
-<component>/docs/technical-specification.md
+app/<component>/docs/technical-specification.md
 ```
 
 Where `<component>` is the name of the component directory (e.g., `database`, `resume-generation`, etc.).

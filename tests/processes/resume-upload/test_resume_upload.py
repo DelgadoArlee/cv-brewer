@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from cli.processes.resume_upload import (
+from cli.commands.resume_upload import (
     ResumeUploadError,
     build_resume_inputs,
     discover_resume_files,

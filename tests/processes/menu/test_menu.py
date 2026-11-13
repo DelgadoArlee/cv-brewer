@@ -1,7 +1,7 @@
 from typer.testing import CliRunner
 
 from cli.app import app
-from cli.processes.menu import _OPTIONS, _OPTIONS_MENU_OPTIONS
+from cli.commands.menu import _OPTIONS, _OPTIONS_MENU_OPTIONS
 
 
 def test_main_menu_options_include_required_items() -> None:

@@ -71,25 +71,25 @@ Each component-level ADR must have its own Markdown file.
 
 **Path:**
 
-`<component>/docs/adr/<MM-DD-YY>/<topic>.md`
+`app/<component>/docs/adr/<MM-DD-YY>/<topic>.md`
 
 **Example:**
 
 ```
-core/
-└── docs/
-    └── adr/
-        ├── 11-04-26/
-        │   ├── pdf-text-extraction.md
-        │   └── resume-parser-strategy.md
-        └── 11-05-26/
-            └── schema-validation.md
-
-cli/
-└── docs/
-    └── adr/
-        └── 11-05-26/
-            └── input-folder-discovery.md
+app/
+├── core/
+│   └── docs/
+│       └── adr/
+│           ├── 11-04-26/
+│           │   ├── pdf-text-extraction.md
+│           │   └── resume-parser-strategy.md
+│           └── 11-05-26/
+│               └── schema-validation.md
+└── cli/
+    └── docs/
+        └── adr/
+            └── 11-05-26/
+                └── input-folder-discovery.md
 ```
 
 - Use the decision date as the directory name.
@@ -147,7 +147,7 @@ Each component must maintain its own ADL in a single Markdown file.
 
 **Path:**
 
-`<component>/docs/adr/ADL.md`
+`app/<component>/docs/adr/ADL.md`
 
 **Example:**
 

@@ -6,7 +6,7 @@
 - Applies only to data that is stored in a database.
 - The schema format depends on the database type and implementation.
 - Documents must be stored at:
-  `database/docs/<database-service-name>/schemas/<schema-name>.md`
+  `app/database/docs/<database-service-name>/schemas/<schema-name>.md`
 
 ## Documentation Structure
 

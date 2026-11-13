@@ -1,10 +1,10 @@
 [project]
-name = "cv-brewer"
+name = "cv-brewer-workspace"
 version = "0.1.0"
-description = "CVBrewer monorepo test workspace"
+description = "CVBrewer monorepo workspace"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["cli", "core", "database", "llm"]
+dependencies = ["cv-brewer"]
 
 [dependency-groups]
 dev = ["pytest"]
@@ -13,13 +13,10 @@ dev = ["pytest"]
 package = false
 
 [tool.uv.workspace]
-members = ["cli", "core", "database", "llm"]
+members = ["app"]
 
 [tool.uv.sources]
-cli = { workspace = true }
-core = { workspace = true }
-database = { workspace = true }
-llm = { workspace = true }
+cv-brewer = { workspace = true }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

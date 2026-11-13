@@ -61,6 +61,6 @@ The service manages resume records based on the [User Resume Data Model](../../d
 
 ## 9. References
 
-- [Database Component Technical Specification](../../../database/docs/technical-specification.md)
-- [Database Service Technical Specification](../../../database/docs/systems/database-service/overview.md)
+- [Database Component Technical Specification](../../../app/database/docs/technical-specification.md)
+- [Database Service Technical Specification](../../../app/database/docs/systems/database-service/overview.md)
 - [User Resume Data Model](../../data/user-resume.md)

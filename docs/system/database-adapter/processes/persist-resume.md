@@ -36,4 +36,4 @@ flowchart TD
 
 - [Database Adapter System Overview](../overview.md)
 - [User Resume Data Model](../../../data/user-resume.md)
-- [Persist Resume Technical Process](../../../../database/docs/systems/database-adapter/processes/persist-resume.md)
+- [Persist Resume Technical Process](../../../../app/database/docs/systems/database-adapter/processes/persist-resume.md)

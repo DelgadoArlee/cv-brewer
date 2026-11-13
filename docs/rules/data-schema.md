@@ -1,6 +1,6 @@
 # Data Schema Documentation Rules
 
-**File location:** `<component>/docs/schema/<schema-name>.md`
+**File location:** `app/<component>/docs/schema/<schema-name>.md`
 
 ## 1. Purpose
 

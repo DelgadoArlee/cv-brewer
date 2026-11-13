@@ -1,6 +1,6 @@
 from cli.app import app, configure_application
 from cli.modules.paths import development_startup_paths
-from cli.processes.application_startup import initialize_application
+from cli.commands.application_startup import initialize_application
 from core.pipeline import ResumeProcessor
 from database import create_resume_service, initialize_database
 from llm import create_llm_service

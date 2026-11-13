@@ -37,5 +37,5 @@ flowchart TD
 ## 5. References
 
 - [LLM Adapter System Overview](../overview.md)
-- [Generate Structured Response Technical Process](../../../../llm/docs/systems/llm-adapter/processes/generate-structured-response.md)
+- [Generate Structured Response Technical Process](../../../../app/llm/docs/systems/llm-adapter/processes/generate-structured-response.md)
 - [Generate Structured Response Process](../../llm-service/processes/generate-structured-response.md)
