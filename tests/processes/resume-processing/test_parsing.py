@@ -10,7 +10,7 @@ from llm.llm_service import (
 )
 
 from core.errors import LlmProcessingError
-from core.modules.parsing import (
+from core.services.parsing import (
     extract_deterministic_data,
     merge_resume_payloads,
     parse_resume_text,

@@ -58,7 +58,7 @@ flowchart TD
 
 ## 6. Modules
 
-- `app/core/modules/pdf_processing.py` — Implements PDF opening, encryption, and page validation.
+- `app/core/services/pdf/service.py` — Implements PDF opening, encryption, and page validation.
 - `app/core/pipeline/resume_processing.py` — Invokes PDF validation after deduplication.
 - `app/core/errors.py` — Defines the invalid PDF error.
 

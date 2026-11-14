@@ -59,9 +59,9 @@ The process does not validate resume content or perform database access directly
 
 ## 6. Modules
 
-- `app/database/database_service/modules/resume/service.py` — Defines the service operation and generated resume fields.
-- `app/database/database_service/modules/resume/repository.py` — Defines the persistence contract.
-- `app/database/database_service/modules/resume/models.py` — Defines resume records.
+- `app/core/services/resume/service.py` — Defines the service operation and generated resume fields.
+- `app/core/services/resume/repository.py` — Defines the persistence contract.
+- `app/core/services/resume/models.py` — Defines resume records.
 
 ## 7. Data
 
@@ -89,4 +89,6 @@ Tests must verify observable service behavior and failure propagation.
 
 - [Database Service Technical System Specification](../overview.md)
 - [Database Service System Overview](../../../../../../docs/system/database-service/overview.md)
-- [Resume Persistence ADR](../../../adr/11-10-26/resume-persistence.md)
+- [Move the Database Service into Core](../../../../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md)
+- [Establish the resume service package](../../../adr/11-13-26/resume-service-package.md)
+- [Resume Persistence ADR](../../../../../database/docs/adr/11-10-26/resume-persistence.md)

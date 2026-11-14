@@ -2,7 +2,7 @@ import hashlib
 from datetime import datetime, timezone
 
 from core.models import ResumeInput
-from core.modules.metadata import (
+from core.services.metadata import (
     build_resume_metadata,
     calculate_content_fingerprint,
     resolve_upload_timestamp,

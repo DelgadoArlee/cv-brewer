@@ -2,11 +2,11 @@
 
 ## 1. Purpose
 
-Defines the database-specific implementation of resume persistence for the database component. The adapter owns SQLAlchemy models, SQLite repository implementations, transactions, migrations, and error translation.
+Defines the database-specific implementation of resume persistence for the database component. The adapter owns SQLAlchemy models, SQLite repository implementations, transactions, migrations, and error translation while implementing Core-owned repository contracts.
 
 ## 2. Objective
 
-- Implement the Database Service resume repository abstraction using SQLite and SQLAlchemy.
+- Implement the Core-owned resume repository contract using SQLite and SQLAlchemy.
 - Persist complete resume records and ordered child data.
 - Retrieve resume records by identifier, content fingerprint, and listing.
 - Enforce database constraints for relationships and unique fingerprints.
@@ -24,7 +24,7 @@ Defines the database-specific implementation of resume persistence for the datab
 
 ### Out of Scope
 
-- Application-level operation definitions.
+- Application-level operation definitions, which are owned by the Core.
 - Resume validation and parsing.
 - CLI and upload workflow behavior.
 - Delete-all resume behavior.
@@ -52,8 +52,8 @@ Defines the database-specific implementation of resume persistence for the datab
 | --- | --- | --- |
 | SQLAlchemy | External library | Declarative models, sessions, transactions, queries, and error types. |
 | Alembic | External library | Schema migrations. |
-| `ResumeRepository` | Internal interface | Defines the adapter contract implemented by the SQLite repository. |
-| `ResumeRecord` | Internal record | Application-level data mapped to SQLite models. |
+| `ResumeRepository` | Core-owned interface | Defines the adapter contract implemented by the SQLite repository. |
+| `ResumeRecord` | Core-owned record | Application-level data mapped to SQLite models. |
 
 ## 7. Test Cases
 
@@ -79,6 +79,7 @@ flowchart LR
 
 | ADR | Decision Summary |
 | --- | --- |
+| [Retain Database Adapters as the Database Component Boundary](../../adr/11-13-26/adapter-only-boundary.md) | Keep adapters in Database and implement Core-owned repository contracts. |
 | [Establish resume persistence](../../adr/11-10-26/resume-persistence.md) | Organize adapter repositories and models in dedicated packages and use a hybrid relational schema. |
 | [Establish SQLite adapter foundation](../../adr/11-06-26/sqlite-adapter-foundation.md) | Use synchronous SQLAlchemy, explicit SQLite URLs, adapter-local errors, and Alembic scaffolding. |
 
@@ -90,7 +91,9 @@ The adapter implements the resume schema documented in [Resume Table](../../sqli
 
 - [Database Adapter System Overview](../../../../../docs/system/database-adapter/overview.md)
 - [Database Component Technical Specification](../../technical-specification.md)
+- [Database Service Technical System Specification](../../../../core/docs/systems/database-service/overview.md)
 - [SQLite Database Overview](../../sqlite/overview.md)
 - `app/database/adapters/sqlite/resume/repository.py` — Implements resume persistence and retrieval.
 - `app/database/adapters/sqlite/resume/models/` — Defines the SQLite ORM models.
+- [Retain Database Adapters as the Database Component Boundary](../../adr/11-13-26/adapter-only-boundary.md)
 - [Resume Persistence ADR](../../adr/11-10-26/resume-persistence.md)

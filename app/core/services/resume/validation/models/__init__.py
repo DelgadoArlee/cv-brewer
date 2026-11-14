@@ -1,4 +1,4 @@
-from core.validation.models.resume import (
+from core.services.resume.validation.models.resume import (
     CertificationModel,
     EducationModel,
     ExperienceModel,

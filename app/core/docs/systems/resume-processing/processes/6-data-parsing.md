@@ -67,7 +67,7 @@ flowchart TD
 
 ## 6. Modules
 
-- `app/core/modules/parsing.py` — Implements model selection, deterministic extraction, LLM enhancement, and merging.
+- `app/core/services/parsing/service.py` — Implements model selection, deterministic extraction, LLM enhancement, and merging.
 - `app/core/pipeline/resume_processing.py` — Invokes parsing after text extraction.
 - `app/core/errors.py` — Defines the LLM processing error.
 - `app/llm/llm_service/modules/generation/service.py` — Provides availability, model listing, and structured generation.
@@ -75,7 +75,7 @@ flowchart TD
 
 ## 7. Data
 
-- [Resume JSON Schema](../../../../validation/schemas/resume.json) — Defines the structured payload requested from the LLM.
+- [Resume JSON Schema](../../../../services/resume/validation/schemas/resume.json) — Defines the structured payload requested from the LLM.
 
 ## 8. Testing
 

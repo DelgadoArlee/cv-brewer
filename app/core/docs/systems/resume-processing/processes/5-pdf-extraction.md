@@ -58,7 +58,7 @@ flowchart TD
 
 ## 6. Modules
 
-- `app/core/modules/pdf_processing.py` — Implements PDF text extraction and readability checks.
+- `app/core/services/pdf/service.py` — Implements PDF text extraction and readability checks.
 - `app/core/pipeline/resume_processing.py` — Invokes extraction after PDF validation.
 - `app/core/errors.py` — Defines the unreadable content error.
 

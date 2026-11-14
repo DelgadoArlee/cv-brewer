@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-Defines the application-level data operations exposed by the database component. The Database Service owns resume operation definitions and record structures while delegating persistence to a Database Adapter.
+Defines the application-level resume data operations exposed by the Core application layer. The service owns resume operation definitions and record structures while delegating persistence to a Database Adapter.
 
 ## 2. Objective
 
@@ -15,7 +15,7 @@ Defines the application-level data operations exposed by the database component.
 
 ### In Scope
 
-- Resume module under `app/database/database_service/modules/resume/`.
+- Resume module under `app/core/services/resume/`.
 - Application-level resume record definitions.
 - Resume repository abstraction.
 - Resume service operations for save, get, find by fingerprint, and list.
@@ -29,7 +29,7 @@ Defines the application-level data operations exposed by the database component.
 
 ## 4. Rules & Constraints
 
-- The service must not import SQLAlchemy or SQLite modules.
+- The service must not import database adapters, SQLAlchemy, or SQLite modules.
 - All persistence must go through the `ResumeRepository` abstraction.
 - A resume identifier must be generated with `uuid4` when absent.
 - A creation timestamp must be generated when absent.
@@ -78,18 +78,24 @@ flowchart LR
 
 | ADR | Decision Summary |
 | --- | --- |
-| [Establish resume persistence](../../adr/11-10-26/resume-persistence.md) | Use a hybrid relational schema, unique fingerprints, and service-layer resume operations. |
+| [Establish the resume service package](../../adr/11-13-26/resume-service-package.md) | Place all resume-specific service code under `app/core/services/resume/`. |
+| [Move the Database Service into Core](../../../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md) | Own application-level resume data operations in Core while Database retains adapters. |
+| [Retain Database Adapters as the Database Component Boundary](../../../../database/docs/adr/11-13-26/adapter-only-boundary.md) | Keep adapters in Database and implement Core-owned repository contracts. |
+| [Establish resume persistence](../../../../database/docs/adr/11-10-26/resume-persistence.md) | Use a hybrid relational schema, unique fingerprints, and service-layer resume operations. |
 
 ## 10. Data
 
-The service uses the [User Resume Data Model](../../../../../docs/data/user-resume.md) and defines application-level record structures in `app/database/database_service/modules/resume/models.py`.
+The service uses the [User Resume Data Model](../../../../../docs/data/user-resume.md) and defines application-level record structures in `app/core/services/resume/models.py`.
 
 ## 11. References
 
 - [Database Service System Overview](../../../../../docs/system/database-service/overview.md)
-- [Database Component Technical Specification](../../technical-specification.md)
-- `app/database/database_service/modules/resume/models.py` — Defines resume records.
-- `app/database/database_service/modules/resume/repository.py` — Defines the retrieval and persistence contract.
-- `app/database/database_service/modules/resume/service.py` — Defines resume operations.
-- [Resume Persistence ADR](../../adr/11-10-26/resume-persistence.md)
+- [Core Component Technical Specification](../../technical-specification.md)
+- `app/core/services/resume/models.py` — Defines resume records.
+- `app/core/services/resume/repository.py` — Defines the retrieval and persistence contract.
+- `app/core/services/resume/service.py` — Defines resume operations.
+- [Move the Database Service into Core](../../../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md)
+- [Establish the resume service package](../../adr/11-13-26/resume-service-package.md)
+- [Retain Database Adapters as the Database Component Boundary](../../../../database/docs/adr/11-13-26/adapter-only-boundary.md)
+- [Resume Persistence ADR](../../../../database/docs/adr/11-10-26/resume-persistence.md)
 - [User Resume Data Model](../../../../../docs/data/user-resume.md)

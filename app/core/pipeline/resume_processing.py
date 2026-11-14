@@ -1,13 +1,14 @@
 from datetime import datetime, timezone
 from typing import Iterable
 
-from database.database_service.modules.resume import (
+from core.services.resume import (
     NewResume,
     ParsedResumeData,
     ProcessingHistoryEntry,
     ResumeMetadata,
     ResumeService,
     ValidationStatus,
+    validate_resume_payload,
 )
 from llm.llm_service import LLMService
 
@@ -24,11 +25,9 @@ from core.models import (
     ResumeProcessingStatus,
     StageCallback,
 )
-from core.modules.metadata import build_resume_metadata
-from core.modules.parsing import parse_resume_text, resolve_parsing_model
-from core.modules.pdf_processing import extract_pdf_text, validate_pdf
-from core.validation.file_validation import verify_pdf_signature
-from core.validation.schema_validation import validate_resume_payload
+from core.services.metadata import build_resume_metadata
+from core.services.parsing import parse_resume_text, resolve_parsing_model
+from core.services.pdf import extract_pdf_text, validate_pdf, verify_pdf_signature
 
 
 def _timestamp() -> datetime:

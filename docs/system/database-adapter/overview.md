@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-The Database Adapter implements database-specific operations for the Database Service. It owns connections, ORM use, queries, transactions, migrations, and database-specific error translation so that application-level operations remain independent of a database implementation.
+The Database Adapter implements database-specific operations for the Database Service. It owns connections, ORM use, queries, transactions, migrations, and database-specific error translation so that application-level operations remain independent of a database implementation. The adapter implements repository contracts owned by the Core.
 
 ## 2. Objectives
 
@@ -37,7 +37,7 @@ See the [Persist Resume Process](processes/persist-resume.md) and [Load Resume P
 ## 5. Constraints
 
 - All database-specific implementation details must remain inside the adapter.
-- Application-level data management rules must remain in the Database Service.
+- Application-level data management rules must remain in the Core Database Service.
 - Models must not be exposed to other components.
 - Transactions must commit successful work and roll back failed work.
 

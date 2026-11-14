@@ -29,8 +29,8 @@ This document does not replace the ADRs, requirements, architecture, or system d
 | Component              | Technology responsibility                                                                                |
 | ---------------------- | -------------------------------------------------------------------------------------------------------- |
 | CLI                    | User interaction, folder management, file discovery, workflow coordination, and result reporting         |
-| Core Processing Engine | File-type checks, PDF validation, text extraction, parsing, schema validation, generation, and rendering |
-| Database               | Application-level data operations and SQLite access through SQLAlchemy and Alembic                      |
+| Core Processing Engine | File-type checks, PDF validation, text extraction, parsing, schema validation, generation, rendering, and application-level resume data operations |
+| Database               | Database-specific operations and SQLite access through SQLAlchemy and Alembic adapters       |
 | LLM                    | Application-level language-model operations and communication with the user's chosen LLM service through pluggable adapters      |
 
 ## 4. Boundaries
@@ -38,7 +38,8 @@ This document does not replace the ADRs, requirements, architecture, or system d
 - The CLI is orchestration-only. It discovers files, reads file bytes, passes immutable payloads to the Core, and reports outcomes.
 - The Core owns all file-type and PDF validation. The CLI does not filter files by type.
 - The Core does not access the file system directly; it operates on the bytes supplied by the CLI.
-- The Core depends on the Database Service interface, not on SQLAlchemy or SQLite directly.
+- The Core owns the Database Service interface and depends on it rather than on SQLAlchemy or SQLite directly.
+- Database adapters implement Core-owned repository contracts.
 - The Core depends on the LLM Service interface, not on any specific LLM implementation.
 - JSON Schema is the data contract; validation occurs before storage, generation, and rendering.
 - Generated resume data is not stored in the database. Generated output is saved as a Markdown file in the output folder.

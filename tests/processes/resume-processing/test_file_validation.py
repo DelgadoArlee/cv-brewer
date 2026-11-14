@@ -1,7 +1,7 @@
 import pytest
 
 from core.errors import InvalidFileTypeError
-from core.validation.file_validation import verify_pdf_signature
+from core.services.pdf import verify_pdf_signature
 
 
 def test_verify_pdf_signature_accepts_pdf_bytes() -> None:

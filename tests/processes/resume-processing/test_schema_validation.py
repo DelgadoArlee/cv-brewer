@@ -3,10 +3,9 @@ from typing import Any
 
 import pytest
 
-from database.database_service.modules.resume import ParsedResumeData
-
 from core.errors import ResumeSchemaError
-from core.validation.schema_validation import (
+from core.services.resume import (
+    ParsedResumeData,
     load_resume_schema,
     validate_resume_payload,
 )

@@ -42,7 +42,7 @@ Describe each workflow step in execution order.
 
 List the modules used in the process, reference their actual source files using absolute repository paths, and briefly describe their responsibilities.
 
-- `app/core/modules/parsing.py` — Brief description.
+- `app/core/services/parsing/service.py` — Brief description.
 
 Only include modules directly involved in executing the process.
 

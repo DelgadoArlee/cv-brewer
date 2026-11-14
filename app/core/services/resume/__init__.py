@@ -1,4 +1,4 @@
-from database.database_service.modules.resume.models import (
+from core.services.resume.models import (
     Certification,
     Education,
     Experience,
@@ -10,8 +10,12 @@ from database.database_service.modules.resume.models import (
     ResumeRecord,
     ValidationStatus,
 )
-from database.database_service.modules.resume.repository import ResumeRepository
-from database.database_service.modules.resume.service import ResumeService
+from core.services.resume.repository import ResumeRepository
+from core.services.resume.service import (
+    ResumeService,
+    load_resume_schema,
+    validate_resume_payload,
+)
 
 __all__ = [
     "Certification",
@@ -26,4 +30,6 @@ __all__ = [
     "ResumeRepository",
     "ResumeService",
     "ValidationStatus",
+    "load_resume_schema",
+    "validate_resume_payload",
 ]

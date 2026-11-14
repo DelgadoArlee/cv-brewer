@@ -6,7 +6,7 @@
 
 ## Status
 
-Accepted
+Superseded by [Retain Database Adapters as the Database Component Boundary](../11-13-26/adapter-only-boundary.md).
 
 ## Context
 

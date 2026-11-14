@@ -6,7 +6,7 @@
 
 ## Status
 
-Accepted
+Superseded by [Organize processing modules as services](../11-13-26/processing-service-packages.md).
 
 ## Context
 

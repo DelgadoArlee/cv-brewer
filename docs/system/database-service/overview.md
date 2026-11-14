@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-The Database Service provides the application-level operations used to manage structured application data. It defines what data operations are available while delegating database-specific access to a Database Adapter.
+The Database Service provides the application-level operations used to manage structured application data. It defines what data operations are available while delegating database-specific access to a Database Adapter. The service is owned by the Core application layer; the Database component supplies adapters.
 
 ## 2. Objectives
 
@@ -62,5 +62,6 @@ The service manages resume records based on the [User Resume Data Model](../../d
 ## 9. References
 
 - [Database Component Technical Specification](../../../app/database/docs/technical-specification.md)
-- [Database Service Technical Specification](../../../app/database/docs/systems/database-service/overview.md)
+- [Database Service Technical Specification](../../../app/core/docs/systems/database-service/overview.md)
+- [Move the Database Service into Core](../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md)
 - [User Resume Data Model](../../data/user-resume.md)

@@ -5,7 +5,7 @@ from typing import Any
 from llm.llm_service import ChatMessage, LLMService, StructuredGenerationRequest
 
 from core.errors import LlmProcessingError
-from core.validation.schema_validation import load_resume_schema
+from core.services.resume import load_resume_schema
 
 _EMAIL_PATTERN = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
 _PHONE_PATTERN = re.compile(r"(?:\+?\d[\d\s().-]{7,}\d)")

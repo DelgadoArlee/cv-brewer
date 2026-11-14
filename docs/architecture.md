@@ -32,8 +32,8 @@ CV Brewer is a CLI-based application for processing resumes and generating tailo
 | Component   | Responsibility                                                                                 |
 | ----------- | ---------------------------------------------------------------------------------------------- |
 | CLI         | Handles user interaction and local file management.                                             |
-| Core        | Handles resume processing, job description processing, and resume generation.                   |
-| Database    | Manages structured application data and database-specific operations.                           |
+| Core        | Handles resume processing, job description processing, resume generation, and application-level resume data operations. |
+| Database    | Implements database-specific operations and adapters for Core-owned data contracts.              |
 | LLM         | Provides application-level language-model operations through pluggable LLM adapters.            |
 
 External resources:
@@ -74,16 +74,17 @@ flowchart LR
 - Handles resume and job description processing.
 - Handles resume generation and template rendering.
 - Constructs prompts and JSON Schemas for language-processing requests.
-- Uses the Database component for structured data.
+- Owns the Database Service and application-level resume data operations.
+- Uses the Database component through Core-owned repository contracts.
 - Uses the LLM Service for language-processing tasks.
 - Does not own local file-system management or depend on a specific database or LLM implementation.
 
 **Database**
 
-- Defines application-level data operations.
-- Manages structured application data.
+- Implements Core-owned repository contracts.
 - Implements database-specific operations, including connections, queries, transactions, and migrations.
 - Keeps database implementation details separate from application logic.
+- Does not define application-level operations or record structures.
 
 **LLM**
 
@@ -119,6 +120,8 @@ flowchart LR
 CV Brewer follows a monorepo structure.
 
 - Application components are located under `app/`: `app/cli`, `app/core`, `app/database`, and `app/llm`.
+- The Core application layer contains the Database Service under `app/core/services/resume/`.
+- Database adapters remain under `app/database/adapters/`.
 - The components are packaged as modules of the single `app/` Python project.
 - CLI and Core share the same repository.
 - Database is maintained in the monorepo.

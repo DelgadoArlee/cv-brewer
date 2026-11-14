@@ -9,8 +9,8 @@ This document defines the directory and file structure of the CVBrewery monorepo
 | Component | Description |
 |---|---|
 | CLI | Handles user interaction, local file management, workflow coordination, and result reporting. |
-| Core | Handles resume processing, job description processing, validation, and resume generation. |
-| Database | Manages structured application data and database-specific operations through the Database Service and adapter boundary. |
+| Core | Handles resume processing, job description processing, validation, resume generation, and application-level resume data operations. |
+| Database | Implements database-specific operations and adapters for Core-owned data contracts. |
 | LLM | Provides application-level language-model operations through pluggable LLM adapters. |
 
 ## 3. Repository Structure
@@ -59,22 +59,33 @@ cv-brewer/
 │   │   ├── models/
 │   │   │   ├── __init__.py
 │   │   │   └── resume.py
-│   │   ├── modules/
-│   │   │   ├── __init__.py
-│   │   │   ├── metadata.py
-│   │   │   ├── parsing.py
-│   │   │   └── pdf_processing.py
 │   │   ├── pipeline/
 │   │   │   ├── __init__.py
 │   │   │   └── resume_processing.py
-│   │   └── validation/
-│   │       ├── __init__.py
-│   │       ├── file_validation.py
-│   │       ├── schema_validation.py
-│   │       ├── models/
-│   │       └── schemas/
-│   │           ├── __init__.py
-│   │           └── resume.json
+│   │   ├── services/
+│   │   │   ├── __init__.py
+│   │   │   ├── metadata/
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── service.py
+│   │   │   ├── parsing/
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── service.py
+│   │   │   ├── pdf/
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── service.py
+│   │   │   └── resume/
+│   │   │       ├── __init__.py
+│   │   │       ├── models.py
+│   │   │       ├── repository.py
+│   │   │       ├── service.py
+│   │   │       └── validation/
+│   │   │           ├── __init__.py
+│   │   │           ├── models/
+│   │   │           │   ├── __init__.py
+│   │   │           │   └── resume.py
+│   │   │           └── schemas/
+│   │   │               ├── __init__.py
+│   │   │               └── resume.json
 │   ├── database/
 │   │   ├── README.md
 │   │   ├── __init__.py
@@ -84,10 +95,6 @@ cv-brewer/
 │   │   │   ├── adr/
 │   │   │   ├── sqlite/
 │   │   │   └── systems/
-│   │   ├── database_service/
-│   │   │   ├── __init__.py
-│   │   │   └── modules/
-│   │   │       └── resume/
 │   │   └── adapters/
 │   │       ├── __init__.py
 │   │       └── sqlite/
@@ -169,14 +176,16 @@ cv-brewer/
 |`app/core/docs/`|Contains Core component technical documentation.|
 |`app/core/docs/adr/`|Contains Core component-level architecture decisions.|
 |`app/core/models/`|Contains non-validation Core models.|
-|`app/core/modules/`|Contains non-validation Core processing modules.|
 |`app/core/pipeline/`|Contains resume-processing pipeline orchestration.|
-|`app/core/validation/`|Contains validation modules, models, and JSON Schemas.|
+|`app/core/services/metadata/`|Contains the resume metadata service.|
+|`app/core/services/parsing/`|Contains the resume parsing service.|
+|`app/core/services/pdf/`|Contains the PDF processing and validation service.|
+|`app/core/services/resume/`|Contains resume-specific records, repository contracts, service operations, and validation functions.|
+|`app/core/services/resume/validation/`|Contains resume validation models and JSON Schemas.|
 |`app/database/`|Contains the Database component module.|
 |`app/database/README.md`|Provides the Database component overview.|
 |`app/database/docs/`|Contains database component technical documentation.|
 |`app/database/docs/adr/`|Contains database component-level architecture decisions.|
-|`app/database/database_service/`|Contains the Database Service package.|
 |`app/database/adapters/`|Contains database adapter implementations.|
 |`app/database/adapters/sqlite/`|Contains the SQLite adapter implementation and migrations.|
 |`app/llm/`|Contains the LLM component module.|

@@ -50,7 +50,7 @@ flowchart TD
 
 ## 6. Modules
 
-- `app/core/validation/file_validation.py` — Implements PDF signature verification.
+- `app/core/services/pdf/service.py` — Implements PDF signature verification.
 - `app/core/pipeline/resume_processing.py` — Invokes verification as the first stage.
 
 ## 7. Testing

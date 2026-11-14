@@ -2,11 +2,11 @@
 
 ## 1. Purpose
 
-This document defines the technical organization of the database component within CVBrewer. It describes how the Database Service and Database Adapter are structured and bounded so structured application data can be accessed without coupling the rest of the application to a specific database implementation.
+This document defines the technical organization of the database component within CVBrewer. It describes how Database Adapters are structured and bounded so database-specific operations can be implemented without coupling the Core application layer to a specific database implementation. Application-level resume data operations are owned by the Core.
 
 ## 2. Objective
 
-- Provide a stable application-level data access boundary for the Core Processing Engine.
+- Provide adapter implementations for Core-owned resume repository contracts.
 - Keep database-specific concerns inside adapter implementations.
 - Support SQLite as the default database implementation through SQLAlchemy 2.0 and Alembic.
 - Allow future database implementations to be added through compatible adapters without changing application-level data operations.
@@ -17,13 +17,13 @@ This document defines the technical organization of the database component withi
 ### In Scope
 
 - The database component package and its internal subpackages.
-- Database Service application-level data operations and boundaries.
 - Database Adapter implementation boundaries.
 - Database connections, ORM configuration, queries, transactions, migrations, and error translation within adapters.
 - Component technical documentation.
 
 ### Out of Scope
 
+- Application-level resume data operations, record definitions, and repository contracts, which belong to the Core.
 - Core Processing Engine resume processing and generation workflows.
 - CLI user interaction and file-system management.
 - LLM integration.
@@ -33,44 +33,43 @@ This document defines the technical organization of the database component withi
 
 ## 4. Rules & Constraints
 
-- The Database Service must define the application-level create, read, update, delete, and query operations required by the application.
-- The Database Service must not contain database-specific queries, connection handling, or ORM behavior.
+- The Database Adapter must implement the repository contracts defined by the Core.
+- The database component must not define application-level operations or application-level record structures.
 - All database operations must be performed through the selected Database Adapter.
 - The Database Adapter must own database connections, connection lifecycle, ORM configuration, query execution, transactions, migrations, and database-specific error translation.
-- The Core Processing Engine must depend only on the Database Service interface and must not import SQLAlchemy or SQLite directly.
+- The Core must not import SQLAlchemy, SQLite, or database adapters directly.
 - SQLite is the default database implementation, accessed through SQLAlchemy 2.0, with schema changes managed by Alembic inside the Database Adapter.
 - Database-specific implementation details must remain isolated to adapter packages.
 - Application-level data structures must follow the approved data model documentation.
 - Application-level data management rules must not be implemented in the Database Adapter.
-- Database Service and Database Adapter code organization must follow the [Database Component Coding Guidelines](guidelines.md).
+- Database Adapter code organization must follow the [Database Component Coding Guidelines](guidelines.md).
 - The database component must remain part of the single Python distribution and must not be independently deployed.
 
 ## 5. Architectural & Design Approaches
 
-### 5.1. Service–Adapter Separation
+### 5.1. Adapter Layer for Core-Owned Service Contracts
 
-- **Name:** Service–Adapter separation.
-- **Description:** Application-level data operations are separated from database-specific implementation details.
-- **Application:** The Database Service defines the operations required by the application, and the Database Adapter carries out those operations using the selected database implementation.
+- **Name:** Adapter layer for Core-owned service contracts.
+- **Description:** Application-level resume operations are separated from database-specific implementation details.
+- **Application:** The Core defines the resume repository contract and service operations, and the Database Adapter carries out those operations using the selected database implementation.
 
 ### 5.2. Adapter Pattern
 
 - **Name:** Adapter pattern.
-- **Description:** A stable component interface is implemented by database-specific adapters.
-- **Application:** The SQLite adapter uses SQLAlchemy and Alembic, and future database implementations can be supported by providing compatible adapters without changing the Database Service.
+- **Description:** A stable Core-owned interface is implemented by database-specific adapters.
+- **Application:** The SQLite adapter uses SQLAlchemy and Alembic, and future database implementations can be supported by providing compatible adapters without changing the Core service.
 
 ### 5.3. Single-Project Internal Packaging
 
 - **Name:** Single-project internal packaging.
 - **Description:** The database component is maintained as a module within the single application Python project.
-- **Application:** The Database Service and database adapter implementations are organized under `app/database/` and packaged with the other components by the `app/` project.
+- **Application:** Database adapter implementations are organized under `app/database/` and packaged with the other components by the `app/` project.
 
 ## 6. Systems
 
 | System           | Description                                                                                                     | Specification                                                                        |
 | ---------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Database Service | Manages application-level data operations and coordinates requests through the selected Database Adapter.       | [Database Service](systems/database-service/overview.md)                             |
-| Database Adapter | Implements database-specific operations, connections, ORM use, transactions, migrations, and error translation. | [Database Adapter](systems/database-adapter/overview.md)                             |
+| Database Adapter | Implements Core-owned repository contracts, database-specific operations, connections, ORM use, transactions, migrations, and error translation. | [Database Adapter](systems/database-adapter/overview.md)                             |
 
 ## 7. File Structure
 
@@ -84,8 +83,10 @@ app/database/
 │   │   ├── ADL.md
 │   │   ├── 11-06-26/
 │   │   │   └── sqlite-adapter-foundation.md
-│   │   └── 11-10-26/
-│   │       └── resume-persistence.md
+│   │   ├── 11-10-26/
+│   │   │   └── resume-persistence.md
+│   │   └── 11-13-26/
+│   │       └── adapter-only-boundary.md
 │   ├── sqlite/
 │   │   ├── overview.md
 │   │   └── schemas/
@@ -96,25 +97,12 @@ app/database/
 │   │       ├── resume-skills.md
 │   │       └── resumes.md
 │   └── systems/
-│       ├── database-adapter/
-│       │   ├── overview.md
-│       │   └── processes/
-│       │       ├── load-resume.md
-│       │       └── persist-resume.md
-│       └── database-service/
+│       └── database-adapter/
 │           ├── overview.md
 │           └── processes/
-│               ├── retrieve-resume.md
-│               └── store-resume.md
+│               ├── load-resume.md
+│               └── persist-resume.md
 ├── __init__.py
-├── database_service/
-│   ├── __init__.py
-│   └── modules/
-│       └── resume/
-│           ├── __init__.py
-│           ├── models.py
-│           ├── repository.py
-│           └── service.py
 └── adapters/
     ├── __init__.py
     └── sqlite/
@@ -154,10 +142,12 @@ app/database/
 - [System Architecture](../../../docs/architecture.md)
 - [Repository Architecture](../../README.md)
 - [Tech Stack](../../../docs/tech-stack.md)
+- [Core Component Technical Specification](../../core/docs/technical-specification.md)
 - [Database Component Coding Guidelines](guidelines.md)
-- [Database Service System Specification](systems/database-service/overview.md)
 - [Database Adapter System Specification](systems/database-adapter/overview.md)
 - [SQLite Database Overview](sqlite/overview.md)
+- [Move the Database Service into Core](../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md)
+- [Retain Database Adapters as the Database Component Boundary](adr/11-13-26/adapter-only-boundary.md)
 - [Use SQLite through SQLAlchemy and Alembic](../../../docs/adr/Architecture/2026-11-04/database-persistence.md)
 - [Use Python and uv for the CVBrewer implementation](../../../docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
 - [User Resume Data Model](../../../docs/data/user-resume.md)

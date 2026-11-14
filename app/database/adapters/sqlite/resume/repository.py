@@ -10,7 +10,7 @@ from database.adapters.sqlite.resume.models import (
     ResumeProcessingHistory,
     ResumeSkill,
 )
-from database.database_service.modules.resume.models import (
+from core.services.resume import (
     Certification,
     Education,
     Experience,
@@ -19,9 +19,9 @@ from database.database_service.modules.resume.models import (
     ProcessingHistoryEntry,
     ResumeMetadata,
     ResumeRecord,
+    ResumeRepository,
     ValidationStatus,
 )
-from database.database_service.modules.resume.repository import ResumeRepository
 
 
 def _to_experience_model(

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from database.database_service.modules.resume.models import ResumeRecord
+from core.services.resume.models import ResumeRecord
 
 
 class ResumeRepository(ABC):

@@ -1,7 +1,7 @@
 import hashlib
 from datetime import datetime, timezone
 
-from database.database_service.modules.resume import ResumeMetadata
+from core.services.resume import ResumeMetadata
 
 from core.models import ResumeInput
 

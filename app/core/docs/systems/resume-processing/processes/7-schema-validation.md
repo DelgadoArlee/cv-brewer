@@ -7,7 +7,7 @@ Define how the Core Processing Engine validates a structured resume payload befo
 ## 2. Objective
 
 - Validate the payload against the Resume JSON Schema.
-- Validate and convert the payload into Database Service resume records.
+- Validate and convert the payload into Core resume service records.
 - Reject invalid payloads without storing partial data.
 
 ## 3. Scope
@@ -28,12 +28,12 @@ Define how the Core Processing Engine validates a structured resume payload befo
 ## 4. Rules & Constraints
 
 - Validate the complete merged payload only.
-- Load the schema from `app/core/validation/schemas/resume.json`.
+- Load the schema from `app/core/services/resume/validation/schemas/resume.json`.
 - Use JSON Schema Draft 2020-12 validation with format checking.
 - Reject payloads that fail JSON Schema validation.
 - Reject payloads that fail Pydantic validation.
 - Reject an invalid schema as a resume schema error.
-- Return Database Service resume records only after all validation succeeds.
+- Return Core resume service records only after all validation succeeds.
 - Do not store partial or invalid records.
 
 ## 5. Workflow
@@ -60,20 +60,20 @@ flowchart TD
 4. Raise a schema error when JSON Schema validation fails.
 5. Validate the payload with Pydantic models.
 6. Raise a schema error when Pydantic validation fails.
-7. Convert the validated payload into Database Service resume records.
+7. Convert the validated payload into Core resume service records.
 8. Return the validated resume data for storage.
 
 ## 6. Modules
 
-- `app/core/validation/schema_validation.py` — Implements schema loading, validation, and record conversion.
-- `app/core/validation/models/resume.py` — Defines the Pydantic payload models.
-- `app/core/validation/schemas/resume.json` — Defines the Resume JSON Schema.
+- `app/core/services/resume/service.py` — Implements schema loading, validation, and record conversion.
+- `app/core/services/resume/validation/models/resume.py` — Defines the Pydantic payload models.
+- `app/core/services/resume/validation/schemas/resume.json` — Defines the Resume JSON Schema.
 - `app/core/pipeline/resume_processing.py` — Invokes schema validation before storage.
 - `app/core/errors.py` — Defines the resume schema error.
 
 ## 7. Data
 
-- [Resume JSON Schema](../../../../validation/schemas/resume.json) — Defines the parsed resume payload contract.
+- [Resume JSON Schema](../../../../services/resume/validation/schemas/resume.json) — Defines the parsed resume payload contract.
 - [User Resume Data Model](../../../../../../docs/data/user-resume.md) — Defines the resume data contract.
 
 ## 8. Testing

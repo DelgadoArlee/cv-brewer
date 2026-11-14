@@ -54,8 +54,8 @@ flowchart TD
 ## 6. Modules
 
 - `app/core/pipeline/resume_processing.py` — Coordinates the duplicate check and outcome.
-- `app/database/database_service/modules/resume/service.py` — Implements resume lookup by fingerprint.
-- `app/database/database_service/modules/resume/models.py` — Defines resume records.
+- `app/core/services/resume/service.py` — Implements resume lookup by fingerprint.
+- `app/core/services/resume/models.py` — Defines resume records.
 
 ## 7. Testing
 

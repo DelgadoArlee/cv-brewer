@@ -85,7 +85,7 @@ flowchart TD
 ## 7. Data
 
 - [User Resume Data Model](../../../../../../docs/data/user-resume.md) — Defines the resume data contract.
-- [Resume JSON Schema](../../../../validation/schemas/resume.json) — Defines the parsed resume payload contract.
+- [Resume JSON Schema](../../../../services/resume/validation/schemas/resume.json) — Defines the parsed resume payload contract.
 
 ## 8. Testing
 

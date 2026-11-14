@@ -1,7 +1,7 @@
 import pytest
 
 from core.errors import InvalidPdfError, UnreadableContentError
-from core.modules.pdf_processing import extract_pdf_text, validate_pdf
+from core.services.pdf import extract_pdf_text, validate_pdf
 from tests.fixtures.resumes.pdf_factory import build_pdf, encrypt_pdf
 
 

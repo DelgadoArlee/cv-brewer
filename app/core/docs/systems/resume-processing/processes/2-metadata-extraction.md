@@ -58,9 +58,9 @@ flowchart TD
 
 ## 6. Modules
 
-- `app/core/modules/metadata.py` — Builds metadata, normalizes timestamps, and calculates fingerprints.
+- `app/core/services/metadata/service.py` — Builds metadata, normalizes timestamps, and calculates fingerprints.
 - `app/core/pipeline/resume_processing.py` — Invokes metadata extraction before deduplication.
-- `app/database/database_service/modules/resume/models.py` — Defines the resume metadata record.
+- `app/core/services/resume/models.py` — Defines the resume metadata record.
 
 ## 7. Testing
 

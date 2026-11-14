@@ -7,7 +7,7 @@ from database.adapters.sqlite import (
     create_sqlite_engine,
 )
 from database.adapters.sqlite import initialize_database as _initialize_database
-from database.database_service.modules.resume import ResumeService
+from core.services.resume import ResumeService
 
 
 def initialize_database(database_path: Path | str) -> None:

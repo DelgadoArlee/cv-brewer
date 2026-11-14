@@ -21,14 +21,14 @@ Defines the Core Processing Engine system that turns uploaded PDF resume bytes i
 
 ### In Scope
 
-- The resume-processing system under `app/core/pipeline/`, `app/core/modules/`, `app/core/validation/`, and `app/core/models/`.
+- The resume-processing system under `app/core/pipeline/`, `app/core/services/`, and `app/core/models/`.
 - File signature verification on supplied file bytes.
 - File metadata and raw-byte fingerprint creation.
 - Deduplication against stored resume records.
 - PDF encryption, structure, and readable-content validation.
 - PDF text extraction.
 - Deterministic resume parsing and LLM enhancement.
-- Resume JSON Schema validation and conversion to Database Service records.
+- Resume JSON Schema validation and conversion to Core resume service records.
 - Per-file processing outcomes and processing history.
 
 ### Out of Scope
@@ -77,7 +77,7 @@ Defines the Core Processing Engine system that turns uploaded PDF resume bytes i
 
 | Name | Type | Purpose |
 | --- | --- | --- |
-| `ResumeService` | Database Service interface | Finds duplicates and stores validated resume records. |
+| `ResumeService` | Core service interface | Finds duplicates and stores validated resume records. |
 | `LLMService` | LLM Service interface | Provides model discovery and structured generation for parsing enhancement. |
 | `pypdf` | External library | Validates PDF encryption and structure. |
 | `pdfplumber` | External library | Extracts text from valid PDFs. |
@@ -122,22 +122,27 @@ flowchart TD
 
 | ADR | Decision Summary |
 | --- | --- |
+| [Organize processing and validation code by service packages](../../adr/11-14-26/processing-and-validation-service-packages.md) | Place processing and validation functions under the owning service package, with only validation models and schemas under `validation/`. |
+| [Establish the resume service package](../../adr/11-13-26/resume-service-package.md) | Place all resume-specific service code under `app/core/services/resume/`. |
+| [Organize processing modules as services](../../adr/11-13-26/processing-service-packages.md) | Place each processing module under its own service package. |
 | [Organize Core packages by responsibility](../../adr/11-12-26/core-package-structure.md) | Separate pipeline processes, modules, validation, and models into dedicated packages and keep shared errors at the Core package root. |
 | [Establish the resume-processing foundation](../../adr/11-12-26/resume-processing-foundation.md) | Use raw-byte fingerprints, first-available model selection, always-on LLM enhancement, basic deterministic parsing, and a schema derived from the user resume data model. |
 
 ## 10. Data
 
 - [User Resume Data Model](../../../../../docs/data/user-resume.md) — Defines the resume data contract.
-- [Resume JSON Schema](../../../validation/schemas/resume.json) — Defines the parsed resume data contract used for validation and structured LLM output.
+- [Resume JSON Schema](../../../services/resume/validation/schemas/resume.json) — Defines the parsed resume data contract used for validation and structured LLM output.
 
 ## 11. References
 
 - [Resume Processing System Overview](../../../../../docs/system/resume-processing/overview.md)
 - [Resume Processing Process](../../../../../docs/system/resume-processing/processes/resume-processing.md)
 - [Core Component Technical Specification](../../technical-specification.md)
+- [Database Service Technical System Specification](../database-service/overview.md)
 - [User Resume Data Model](../../../../../docs/data/user-resume.md)
 - [Resume Persistence ADR](../../../../database/docs/adr/11-10-26/resume-persistence.md)
 - [Use an LLM Service abstraction with pluggable LLM adapters](../../../../../docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)
 - [Use pypdf and pdfplumber for PDF processing](../../../../../docs/adr/Architecture/2026-11-04/pdf-processing.md)
 - [Use JSON Schema and Pydantic for data validation](../../../../../docs/adr/Architecture/2026-11-04/schema-validation.md)
 - [Establish the resume-processing foundation](../../adr/11-12-26/resume-processing-foundation.md)
+- [Organize processing modules as services](../../adr/11-13-26/processing-service-packages.md)

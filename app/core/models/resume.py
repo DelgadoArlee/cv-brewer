@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import Enum
 from typing import TypeAlias
 
-from database.database_service.modules.resume import ProcessingHistoryEntry
+from core.services.resume import ProcessingHistoryEntry
 
 
 class ResumeProcessingStatus(Enum):

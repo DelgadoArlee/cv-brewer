@@ -3,7 +3,9 @@ import io
 import pdfplumber
 from pypdf import PdfReader
 
-from core.errors import InvalidPdfError, UnreadableContentError
+from core.errors import InvalidFileTypeError, InvalidPdfError, UnreadableContentError
+
+PDF_SIGNATURE = b"%PDF-"
 
 
 def _open_pdf_reader(content: bytes) -> PdfReader:
@@ -28,6 +30,11 @@ def _validate_pages(reader: PdfReader) -> None:
 def _extract_page_texts(content: bytes) -> list[str]:
     with pdfplumber.open(io.BytesIO(content)) as pdf:
         return [page.extract_text() or "" for page in pdf.pages]
+
+
+def verify_pdf_signature(content: bytes) -> None:
+    if not content.startswith(PDF_SIGNATURE):
+        raise InvalidFileTypeError("File content does not have a valid PDF signature.")
 
 
 def validate_pdf(content: bytes) -> None:

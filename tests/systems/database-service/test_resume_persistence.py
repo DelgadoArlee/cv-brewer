@@ -14,7 +14,7 @@ from database.adapters.sqlite import (
     create_session_factory,
     create_sqlite_engine,
 )
-from database.database_service.modules.resume import (
+from core.services.resume import (
     Certification,
     Education,
     Experience,
