@@ -1,50 +1,12 @@
-from pathlib import Path
-from typing import Any
-
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 from rich.prompt import Prompt
 
+from cli.modules.context import CLIDependencies, ResumeLister
+
 _OPTIONS_MENU_OPTIONS = ["Imported Resume", "Back"]
-OPTIONS_MENU_OPTIONS = _OPTIONS_MENU_OPTIONS
-OPTIONS_MENU_CHOICES = _OPTIONS_MENU_OPTIONS
-OPTIONS_MENU_ITEMS = _OPTIONS_MENU_OPTIONS
-OPTIONS_ITEMS = _OPTIONS_MENU_OPTIONS
-OPTION_ITEMS = _OPTIONS_MENU_OPTIONS
-OPTIONS_SUBMENU_OPTIONS = _OPTIONS_MENU_OPTIONS
-SUBMENU_OPTIONS = _OPTIONS_MENU_OPTIONS
-IMPORTED_RESUME_MENU_OPTIONS = _OPTIONS_MENU_OPTIONS
-
-
-def _resolve_paths_and_processor(
-    paths: Any = None,
-    resume_processor: Any = None,
-    *,
-    startup_paths: Any = None,
-    input_folder: Any = None,
-    processor: Any = None,
-    **kwargs: Any,
-) -> tuple[Any, Any]:
-    if startup_paths is not None:
-        paths = startup_paths
-    if input_folder is not None:
-        paths = input_folder
-    if processor is not None:
-        resume_processor = processor
-    if paths is None and "path" in kwargs:
-        paths = kwargs["path"]
-
-    if paths is None or resume_processor is None:
-        from cli.app import get_startup_paths, get_resume_processor
-
-        if paths is None:
-            paths = get_startup_paths()
-        if resume_processor is None:
-            resume_processor = get_resume_processor()
-
-    return paths, resume_processor
 
 
 def _questionary_select(options: list[str]) -> int:
@@ -94,31 +56,13 @@ def _select_option(active_console: Console, options: list[str]) -> int:
 
 
 def _list_imported_resumes(
-    resume_processor: Any,
+    resume_lister: ResumeLister,
     console: Console,
 ) -> None:
-    service = None
-    if resume_processor is not None:
-        service = getattr(resume_processor, "_resume_service", None)
-        if service is None:
-            service = getattr(resume_processor, "resume_service", None)
-    if service is None:
-        try:
-            from cli.app import get_resume_processor
-
-            processor = get_resume_processor()
-            service = getattr(processor, "_resume_service", None)
-            if service is None:
-                service = getattr(processor, "resume_service", None)
-        except Exception:  # noqa: BLE001
-            service = None
-
-    resumes = []
-    if service is not None and hasattr(service, "list_resumes"):
-        try:
-            resumes = list(service.list_resumes())
-        except Exception:  # noqa: BLE001
-            resumes = []
+    try:
+        resumes = list(resume_lister.list_resumes())
+    except Exception:  # noqa: BLE001
+        resumes = []
 
     if not resumes:
         console.print("[yellow]No imported resumes found.[/yellow]")
@@ -137,46 +81,19 @@ def _list_imported_resumes(
 
 
 def run_imported_resume(
-    paths: Any = None,
-    resume_processor: Any = None,
+    dependencies: CLIDependencies,
     *,
-    startup_paths: Any = None,
-    input_folder: Any = None,
-    processor: Any = None,
     console: Console | None = None,
-    **kwargs: Any,
 ) -> None:
-    resolved_paths, resolved_processor = _resolve_paths_and_processor(
-        paths,
-        resume_processor,
-        startup_paths=startup_paths,
-        input_folder=input_folder,
-        processor=processor,
-        **kwargs,
-    )
     active_console = console or Console()
-    _list_imported_resumes(resolved_processor, active_console)
+    _list_imported_resumes(dependencies.resume_lister, active_console)
 
 
 def run_options_menu(
-    paths: Any = None,
-    resume_processor: Any = None,
+    dependencies: CLIDependencies,
     *,
-    startup_paths: Any = None,
-    input_folder: Any = None,
-    processor: Any = None,
     console: Console | None = None,
-    **kwargs: Any,
 ) -> None:
-    resolved_paths, resolved_processor = _resolve_paths_and_processor(
-        paths,
-        resume_processor,
-        startup_paths=startup_paths,
-        input_folder=input_folder,
-        processor=processor,
-        **kwargs,
-    )
-
     active_console = console or Console()
 
     while True:
@@ -195,28 +112,8 @@ def run_options_menu(
             return
         if selection == 0:
             try:
-                run_imported_resume(
-                    resolved_paths,
-                    resolved_processor,
-                    console=active_console,
-                )
+                run_imported_resume(dependencies, console=active_console)
             except Exception as exc:  # noqa: BLE001
                 active_console.print(f"[red]Error:[/red] {exc}")
         else:
             active_console.print("[red]Invalid selection.[/red]")
-
-
-run_options = run_options_menu
-run_options_submenu = run_options_menu
-run_submenu = run_options_menu
-open_options = run_options_menu
-options_menu = run_options_menu
-
-run_imported_resumes = run_imported_resume
-view_imported_resumes = run_imported_resume
-list_imported_resumes = run_imported_resume
-imported_resume = run_imported_resume
-imported_resumes = run_imported_resume
-run_view_imported_resumes = run_imported_resume
-run_list_imported_resumes = run_imported_resume
-run_imported_resume_menu = run_imported_resume

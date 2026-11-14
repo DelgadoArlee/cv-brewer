@@ -5,12 +5,11 @@ from typing import Any
 import pytest
 from typer.testing import CliRunner
 
-from cli.app import app
 from tests.fixtures.resumes.pdf_factory import build_pdf
 
 
-def _run_upload() -> Any:
-    return CliRunner().invoke(app, [], input="1\n3\n")
+def _run_upload(application: SimpleNamespace) -> Any:
+    return CliRunner().invoke(application.app, [], input="1\n3\n")
 
 
 def _write_resume(
@@ -34,7 +33,7 @@ def _records_by_file_name(application: SimpleNamespace) -> dict[str, Any]:
 def test_upload_reports_empty_input_folder(e2e_cli: SimpleNamespace) -> None:
     before = len(e2e_cli.resume_service.list_resumes())
 
-    result = _run_upload()
+    result = _run_upload(e2e_cli)
 
     assert result.exit_code == 0
     assert "No resume files found" in result.output
@@ -48,7 +47,7 @@ def test_upload_imports_single_resume(e2e_cli: SimpleNamespace) -> None:
         "Alice Single\nalice.single@example.com\nSkills: Python, SQL",
     )
 
-    result = _run_upload()
+    result = _run_upload(e2e_cli)
 
     assert result.exit_code == 0
     assert "1 imported" in result.output
@@ -69,7 +68,7 @@ def test_upload_handles_mixed_valid_and_invalid_files(
     )
     (e2e_cli.paths.resumes / "mixed-invalid.pdf").write_bytes(b"not a pdf")
 
-    result = _run_upload()
+    result = _run_upload(e2e_cli)
 
     assert result.exit_code == 0
     assert "1 imported" in result.output
@@ -93,7 +92,7 @@ def test_upload_imports_multiple_resumes_in_one_batch(
         "Beta Batch\nbeta.batch@example.com\nSkills: SQL",
     )
 
-    result = _run_upload()
+    result = _run_upload(e2e_cli)
 
     assert result.exit_code == 0
     assert "2 imported" in result.output
@@ -115,7 +114,7 @@ def test_upload_imports_multiple_resumes_across_runs(
         "Carol First\ncarol.first@example.com\nSkills: Java",
     )
 
-    first_result = _run_upload()
+    first_result = _run_upload(e2e_cli)
 
     assert first_result.exit_code == 0
     assert "1 imported" in first_result.output
@@ -127,7 +126,7 @@ def test_upload_imports_multiple_resumes_across_runs(
         "Dave Second\ndave.second@example.com\nSkills: Rust",
     )
 
-    second_result = _run_upload()
+    second_result = _run_upload(e2e_cli)
 
     assert second_result.exit_code == 0
     assert "1 imported" in second_result.output
@@ -146,13 +145,13 @@ def test_upload_reports_duplicate_on_reimport(e2e_cli: SimpleNamespace) -> None:
         "Eve Duplicate\neve.duplicate@example.com\nSkills: TypeScript",
     )
 
-    first_result = _run_upload()
+    first_result = _run_upload(e2e_cli)
 
     assert first_result.exit_code == 0
     first_record = _records_by_file_name(e2e_cli)["duplicate.pdf"]
     before_count = len(e2e_cli.resume_service.list_resumes())
 
-    second_result = _run_upload()
+    second_result = _run_upload(e2e_cli)
 
     assert second_result.exit_code == 0
     assert "0 imported" in second_result.output

@@ -4,6 +4,7 @@ This log indexes the Architecture Decision Records (ADRs) for CVBrewer. Entries 
 
 | Date | Decision | Status |
 | --- | --- | --- |
+| 2026-11-14 | [Use manual dependency injection with a single composition root](Architecture/2026-11-14/manual-dependency-injection.md) — Wire application dependencies explicitly in `main.py`, inject CLI dependencies, and remove global dependency access. | Accepted |
 | 2026-11-13 | [Move the Database Service into the Core application layer](Architecture/2026-11-13/database-service-to-core.md) — Own application-level resume data operations in Core while Database retains adapters and implements Core-owned contracts. | Accepted |
 | 2026-11-13 | [Adopt a single `app/` project with component modules](repositories/26-11-13/app-project-layout.md) — Group `cli`, `core`, `database`, and `llm` under `app/`, remove `<component>/src`, and package them as modules of one `cv-brewer` project. | Accepted |
 | 2026-11-11 | [Use an LLM Service abstraction with pluggable LLM adapters](Architecture/2026-11-11/llm-service-abstraction.md) — Define application-level LLM operations behind an LLM Service that adapters implement; the Core constructs prompts and supplies JSON Schemas. | Accepted |

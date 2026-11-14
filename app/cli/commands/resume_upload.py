@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Any
 
 from rich.console import Console
 from rich.progress import (
@@ -12,6 +11,7 @@ from rich.progress import (
 )
 
 from core.models import ResumeInput, ResumeProcessingOutcome, ResumeProcessingStatus
+from core.pipeline import ResumeProcessor
 
 from cli.modules.paths import StartupPaths
 from cli.ui.resume_upload import (
@@ -25,12 +25,10 @@ class ResumeUploadError(Exception):
     pass
 
 
-def _resolve_folder(paths: Any) -> Path:
+def _resolve_folder(paths: str | Path | StartupPaths) -> Path:
     if isinstance(paths, (str, Path)):
         return Path(paths)
-    if hasattr(paths, "resumes"):
-        return Path(paths.resumes)
-    raise ResumeUploadError("A valid input folder or startup paths object is required.")
+    return Path(paths.resumes)
 
 
 def ensure_input_folder(path: Path) -> None:
@@ -75,29 +73,11 @@ def build_resume_inputs(paths: list[Path]) -> list[ResumeInput]:
 
 
 def run_resume_upload(
-    paths: Any = None,
-    resume_processor: Any = None,
+    paths: str | Path | StartupPaths,
+    resume_processor: ResumeProcessor,
     *,
-    startup_paths: Any = None,
-    input_folder: Any = None,
-    processor: Any = None,
     console: Console | None = None,
-    **kwargs: Any,
 ) -> list[ResumeProcessingOutcome]:
-    if startup_paths is not None:
-        paths = startup_paths
-    if input_folder is not None:
-        paths = input_folder
-    if processor is not None:
-        resume_processor = processor
-    if paths is None and "path" in kwargs:
-        paths = kwargs["path"]
-
-    if paths is None:
-        from cli.modules.paths import development_startup_paths
-
-        paths = development_startup_paths()
-
     folder = _resolve_folder(paths)
 
     try:
@@ -195,17 +175,3 @@ def run_resume_upload(
         render_upload_results(console, folder, outcomes)
 
     return outcomes
-
-
-run_upload = run_resume_upload
-run_resume_upload_process = run_resume_upload
-upload_resumes = run_resume_upload
-import_resumes = run_resume_upload
-run_import_resumes = run_resume_upload
-process_resume_upload = run_resume_upload
-resume_upload = run_resume_upload
-
-# Compatibility aliases for common naming variants.
-discover_files = discover_resume_files
-discover_input_files = discover_resume_files
-run_upload_resumes = run_resume_upload

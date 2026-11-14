@@ -29,6 +29,7 @@ Prepare all required startup resources so that database access, resume upload, a
 ## 4. Rules & Constraints
 
 - The process must accept the database initializer from the application composition root.
+- The application composition root must run the process before creating the CLI application.
 - The process must not import the database component, Database Service, Database Adapter, SQLAlchemy, or SQLite.
 - The process must initialize the database before creating the input and output folders.
 - The process must fail when database initialization fails.
@@ -115,4 +116,5 @@ This process follows the testing strategy by verifying observable startup outcom
 - [CLI Component Technical Specification](../technical-specification.md)
 - `app/cli/modules/paths.py`
 - [Development Application Startup Decision](../adr/11-07-26/development-startup-paths.md)
+- [Inject CLI Dependencies Explicitly](../adr/11-14-26/explicit-cli-dependencies.md)
 - [CLI Component ADL](../adr/ADL.md)

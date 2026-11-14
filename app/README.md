@@ -35,6 +35,7 @@ cv-brewer/
 │   │   │   └── systems/
 │   │   ├── modules/
 │   │   │   ├── __init__.py
+│   │   │   ├── context.py
 │   │   │   └── paths.py
 │   │   ├── commands/
 │   │   │   ├── __init__.py
@@ -164,6 +165,7 @@ cv-brewer/
 |`app/cli/docs/processes/`|Contains CLI component application-level and UI process documentation.|
 |`app/cli/docs/systems/`|Contains CLI component system documentation.|
 |`app/cli/app.py`|Defines the Typer application and no-command main menu callback.|
+|`app/cli/modules/context.py`|Defines the injected CLI dependencies and resume-listing capability.|
 |`app/cli/modules/paths.py`|Defines shared and development startup locations.|
 |`app/cli/commands/application_startup.py`|Coordinates database initialization and folder preparation during startup.|
 |`app/cli/commands/entry_page.py`|Coordinates the CLI entry page workflow.|
@@ -198,7 +200,7 @@ cv-brewer/
 |`app/llm/adapters/ollama/`|Contains the Ollama adapter implementation.|
 |`tests/`|Contains all test code organized by testing level (features, systems, processes, e2e).|
 |`tests/data/`|Contains generated test environment data; reset at test session start and ignored by version control.|
-|`main.py`|Application composition root that wires CLI startup and the CLI entry page.|
+|`main.py`|Application composition root that wires startup, services, and CLI dependencies.|
 |`run.sh`|Starts the application with `uv run python main.py`.|
 |`docs/`|Contains project-wide documentation.|
 |`pyproject.toml`|Defines the root uv workspace, test tooling, and pytest configuration.|

@@ -30,6 +30,8 @@ Describe the CLI main menu workflow. The process presents the CVBrewer main menu
 ## 4. Rules & Constraints
 
 - Display the `Import Resumes`, `Options`, and `Exit` items.
+- Receive startup paths and the resume processor through the CLI dependencies supplied by the application composition root.
+- Pass the same dependencies to the Resume Upload and Options menu processes.
 - Use an interactive selector when standard input and output are terminals.
 - Fall back to a numeric prompt when interactive selection is unavailable.
 - Default to `Exit` when the selection cannot be resolved.
@@ -69,6 +71,7 @@ flowchart TD
 
 - `app/cli/commands/menu.py` — Implements main menu rendering, selection, and action routing.
 - `app/cli/app.py` — Invokes the main menu when no command is supplied.
+- `app/cli/modules/context.py` — Defines the injected CLI dependencies.
 - `app/cli/commands/resume_upload.py` — Implements the resume upload action.
 - `app/cli/commands/options.py` — Implements the Options menu action.
 
@@ -99,7 +102,7 @@ Tests reside in `tests/processes/menu/`.
 ### 7.5 Test Dependencies
 
 - Use Typer's `CliRunner` with newline input.
-- Use temporary input folders and test doubles for the resume processor.
+- Use temporary input folders and explicit CLI dependencies with a test double for the resume processor.
 
 ### 7.6 Testing Rules Compliance
 

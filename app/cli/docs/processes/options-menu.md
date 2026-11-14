@@ -27,6 +27,8 @@ Provide a secondary interactive menu for CVBrewer options. The process must disp
 
 - The Options menu must include an `Imported Resume` item.
 - The Options menu must include a `Back` item.
+- The Options menu must use the resume-listing capability supplied through the CLI dependencies.
+- The Options menu must not access resume processor internals.
 - Selecting `Imported Resume` must display imported resumes when available.
 - An empty imported-resume list must be reported as a normal outcome.
 - Selecting `Back` must return to the calling menu.
@@ -55,7 +57,7 @@ flowchart TD
 ## 6. Modules
 
 - `app/cli/commands/options.py` — Implements the Options menu and Imported Resume action.
-- `app/cli/modules/paths.py` — Provides application paths used by menu actions.
+- `app/cli/modules/context.py` — Defines the injected CLI dependencies and resume-listing capability.
 
 ## 7. Testing
 
@@ -82,6 +84,7 @@ Tests reside in `tests/processes/options-menu/`.
 ### 7.5 Test Dependencies
 
 - Use Typer's test runner with newline input where applicable.
+- Use explicit CLI dependencies with a test double for the resume-listing capability.
 
 ### 7.6 Testing Rules Compliance
 

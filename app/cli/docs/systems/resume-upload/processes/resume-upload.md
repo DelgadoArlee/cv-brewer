@@ -30,7 +30,8 @@ Define how the CLI prepares the input folder, reads resume files, delegates proc
 
 ## 4. Rules & Constraints
 
-- Use the resume input folder from the CLI startup paths.
+- Receive the startup paths and resume processor from the caller.
+- Use the resume input folder from the supplied CLI startup paths.
 - Create the folder with parent directories when missing.
 - Reject paths that are not directories.
 - Discover regular files only, ordered by file name.
@@ -68,16 +69,17 @@ flowchart TD
 
 ### Steps
 
-1. Resolve the input folder from the startup paths.
-2. Create the folder when it does not exist and verify it is a directory.
-3. Discover regular files and order them by file name.
-4. Return a normal empty-folder result when no files are present.
-5. Read the bytes of every discovered file.
-6. Create a `ResumeInput` for each readable file.
-7. Process each input through the Core, forwarding stage notifications.
-8. Record processing-failure outcomes for unreadable files.
-9. Display the result table with stored, duplicate, and failed counts.
-10. Return to the main menu.
+1. Receive the startup paths and resume processor as required dependencies.
+2. Resolve the input folder from the startup paths.
+3. Create the folder when it does not exist and verify it is a directory.
+4. Discover regular files and order them by file name.
+5. Return a normal empty-folder result when no files are present.
+6. Read the bytes of every discovered file.
+7. Create a `ResumeInput` for each readable file.
+8. Process each input through the Core, forwarding stage notifications.
+9. Record processing-failure outcomes for unreadable files.
+10. Display the result table with stored, duplicate, and failed counts.
+11. Return to the main menu.
 
 ## 6. Modules
 

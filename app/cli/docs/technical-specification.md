@@ -51,8 +51,11 @@ This document defines the technical organization of the CLI component within CVB
 ## 4. Rules & Constraints
 
 - The CLI must be orchestration-only and must coordinate work through the Core Processing Engine.
+- The CLI must receive its runtime dependencies from the application composition root.
+- The CLI must not construct, locate, or fall back to constructing its own runtime dependencies.
 - The CLI must initialize the embedded database on application startup through a database initializer injected by an application composition root.
 - The CLI must not import or call the Database Service, Database Adapter, or database implementation directly during startup.
+- The CLI may receive a resume-listing capability from the composition root without importing database or LLM implementations.
 - The CLI must ensure the resume input and generated output folders exist before workflows can begin.
 - The CLI must report startup failures and stop when database initialization or folder preparation fails.
 - The CLI must not scan the input folder automatically during startup.
@@ -103,6 +106,12 @@ This document defines the technical organization of the CLI component within CVB
 - **Description:** Application startup coordinates capabilities supplied by other components without depending on their implementations.
 - **Application:** The CLI accepts a database initializer callable from an application composition root, applies it during startup, and ensures the required input and output folders exist.
 
+### 5.6. Explicit Dependency Injection
+
+- **Name:** Explicit dependency injection.
+- **Description:** The CLI receives all runtime dependencies from the application composition root instead of creating or locating them internally.
+- **Application:** The application factory accepts an immutable `CLIDependencies` value containing the startup paths, resume processor, and resume-listing capability. Commands read these dependencies from the Typer context, and the CLI contains no global dependency state or fallback construction.
+
 ## 6. Systems
 
 | System | Description | Specification |
@@ -124,8 +133,10 @@ app/cli/
 │   ├── guidelines.md
 │   ├── adr/
 │   │   ├── ADL.md
-│   │   └── 11-07-26/
-│   │       └── development-startup-paths.md
+│   │   ├── 11-07-26/
+│   │   │   └── development-startup-paths.md
+│   │   └── 11-14-26/
+│   │       └── explicit-cli-dependencies.md
 │   ├── processes/
 │   │   ├── application-startup.md
 │   │   ├── entry-page.md
@@ -140,6 +151,7 @@ app/cli/
 ├── app.py
 ├── modules/
 │   ├── __init__.py
+│   ├── context.py
 │   └── paths.py
 ├── commands/
 │   ├── __init__.py
@@ -180,5 +192,7 @@ app/cli/
 - [Delete Resumes System Overview](../../../docs/system/delete-resumes/overview.md)
 - [Use Typer and Rich for a hybrid CLI](../../../docs/adr/Architecture/2026-11-04/cli-interface.md)
 - [Establish Development Application Startup](adr/11-07-26/development-startup-paths.md)
+- [Inject CLI Dependencies Explicitly](adr/11-14-26/explicit-cli-dependencies.md)
+- [Use Manual Dependency Injection with a Single Composition Root](../../../docs/adr/Architecture/2026-11-14/manual-dependency-injection.md)
 - [Use Python and uv for the CVBrewer implementation](../../../docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
 - [Package CVBrewer as per-OS single executables with PyInstaller](../../../docs/adr/Architecture/2026-11-04/cross-platform-packaging.md)

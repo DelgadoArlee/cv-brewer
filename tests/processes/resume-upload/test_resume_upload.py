@@ -92,7 +92,7 @@ def test_run_resume_upload_empty_folder(tmp_path: Path) -> None:
     folder = tmp_path / "resumes"
     folder.mkdir()
 
-    outcomes = run_resume_upload(input_folder=folder, console=console)
+    outcomes = run_resume_upload(folder, FakeProcessor(), console=console)
 
     assert outcomes == []
     assert "No resume files found" in console.export_text()
@@ -109,7 +109,7 @@ def test_run_resume_upload_processes_files(tmp_path: Path) -> None:
     processor = FakeProcessor()
     console = Console(record=True)
 
-    outcomes = run_resume_upload(input_folder=folder, processor=processor, console=console)
+    outcomes = run_resume_upload(folder, processor, console=console)
 
     assert len(outcomes) == 2
     assert {outcome.file_name for outcome in outcomes} == {"a.pdf", "b.pdf"}
@@ -117,15 +117,6 @@ def test_run_resume_upload_processes_files(tmp_path: Path) -> None:
     output = console.export_text()
     assert "Import complete" in output
     assert "2 imported" in output
-
-
-def test_run_resume_upload_requires_processor_for_nonempty_folder(tmp_path: Path) -> None:
-    folder = tmp_path / "resumes"
-    folder.mkdir()
-    (folder / "a.pdf").write_bytes(b"%PDF-a")
-
-    with pytest.raises(ResumeUploadError, match="resume processor is required"):
-        run_resume_upload(input_folder=folder, processor=None, console=None)
 
 
 def test_run_resume_upload_handles_unreadable_file(tmp_path: Path, monkeypatch) -> None:
@@ -147,7 +138,7 @@ def test_run_resume_upload_handles_unreadable_file(tmp_path: Path, monkeypatch) 
     processor = FakeProcessor()
     console = Console(record=True)
 
-    outcomes = run_resume_upload(input_folder=folder, processor=processor, console=console)
+    outcomes = run_resume_upload(folder, processor, console=console)
 
     assert len(outcomes) == 1
     assert outcomes[0].status is ResumeProcessingStatus.PROCESSING_FAILURE
@@ -164,7 +155,7 @@ def test_run_resume_upload_shows_processing_stage(tmp_path: Path) -> None:
     processor = FakeProcessor()
     console = Console(record=True)
 
-    outcomes = run_resume_upload(input_folder=folder, processor=processor, console=console)
+    outcomes = run_resume_upload(folder, processor, console=console)
 
     assert len(outcomes) == 1
     output = console.export_text()
