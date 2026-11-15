@@ -2,9 +2,12 @@ import json
 import re
 from typing import Any
 
-from llm.llm_service import ChatMessage, LLMService, StructuredGenerationRequest
-
 from core.errors import LlmProcessingError
+from core.services.llm import (
+    ChatMessage,
+    LLMService,
+    StructuredGenerationRequest,
+)
 from core.services.resume import load_resume_schema
 
 _EMAIL_PATTERN = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")

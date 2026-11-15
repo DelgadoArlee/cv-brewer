@@ -56,6 +56,12 @@ For implementation details, component responsibilities, and architectural constr
 - The Job Description may guide the selection, prioritization, and presentation of relevant resume information but must not be treated as a source of facts about the user.
 - Generated resume data must conform to the Generated Resume JSON schema.
 
+### 3.4 LLM Integration
+
+- Application-level LLM operations must be owned by the Core.
+- LLM adapters must implement the Core-owned `LLMPort` contract.
+- LLM-service-specific communication and implementation details must remain outside the Core.
+
 ## 4. Data Management
 
 ### 4.1 Data Categories
@@ -75,7 +81,7 @@ The system shall distinguish between:
 
 - CLI operation shall use a locally served LLM.
 - The CLI shall not require an external cloud-based LLM service for normal operation.
-- The LLM service and model files shall be deployed separately from the CLI/Core executable bundle.
+- The external LLM service and model files shall be deployed separately from the CLI/Core executable bundle.
 
 ## 6. Version Control
 

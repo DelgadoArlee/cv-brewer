@@ -3,16 +3,16 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from database import create_resume_service, initialize_database
-from llm.llm_service import (
-    LLMAdapter,
+from core.models import ResumeInput, ResumeProcessingStatus
+from core.pipeline import ResumeProcessor
+from core.services.llm import (
+    LLMPort,
     LLMService,
     ModelInfo,
     StructuredGenerationRequest,
 )
+from database import create_resume_service, initialize_database
 
-from core.models import ResumeInput, ResumeProcessingStatus
-from core.pipeline import ResumeProcessor
 from tests.fixtures.resumes.pdf_factory import build_pdf, encrypt_pdf
 
 _FORBIDDEN_IMPORT_PREFIXES = (
@@ -21,7 +21,7 @@ _FORBIDDEN_IMPORT_PREFIXES = (
     "httpx",
     "ollama",
     "database.adapters",
-    "llm.adapters",
+    "llm",
 )
 
 
@@ -51,7 +51,7 @@ def _llm_payload() -> dict[str, Any]:
     }
 
 
-class _FakeAdapter(LLMAdapter):
+class _FakeAdapter(LLMPort):
     def __init__(self) -> None:
         self.available = True
         self.models = [ModelInfo(name="model-a")]

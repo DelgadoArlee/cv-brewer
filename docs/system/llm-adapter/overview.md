@@ -21,7 +21,7 @@ The LLM Adapter implements LLM-service-specific operations for the LLM Service. 
 
 ### Out of Scope
 
-- Application-level LLM operation definitions, which belong to the LLM Service.
+- Application-level LLM operation definitions, which belong to the Core-owned LLM Service.
 - Prompt construction and JSON Schema selection.
 - Schema validation of generated content.
 - CLI workflows and LLM selection presentation.
@@ -35,7 +35,7 @@ See the [Verify Service Availability Process](processes/verify-service-availabil
 ## 5. Constraints
 
 - All LLM-service-specific implementation details must remain inside the adapter.
-- Application-level LLM operation rules must remain in the LLM Service.
+- Application-level LLM operation rules must remain in the Core-owned LLM Service.
 - The adapter must not construct prompts or validate content against application schemas.
 
 ## 6. Rules
@@ -56,4 +56,5 @@ See the [Verify Service Availability Process](processes/verify-service-availabil
 - [LLM Component Technical Specification](../../../app/llm/docs/technical-specification.md)
 - [LLM Adapter Technical Specification](../../../app/llm/docs/systems/llm-adapter/overview.md)
 - [Ollama Adapter Foundation ADR](../../../app/llm/docs/adr/11-11-26/ollama-adapter-foundation.md)
+- [Retain LLM Adapters as the LLM Component Boundary](../../../app/llm/docs/adr/11-14-26/adapter-only-boundary.md)
 - [Use an LLM Service abstraction with pluggable LLM adapters](../../adr/Architecture/2026-11-11/llm-service-abstraction.md)

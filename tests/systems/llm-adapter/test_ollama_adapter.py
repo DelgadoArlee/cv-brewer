@@ -1,10 +1,9 @@
+import json
 from collections.abc import Callable
 
 import httpx
 import pytest
-
-import json
-
+from core.services.llm import ChatMessage, StructuredGenerationRequest
 from llm.adapters.ollama import (
     LLMAdapterConnectionError,
     LLMAdapterModelNotFoundError,
@@ -14,7 +13,6 @@ from llm.adapters.ollama import (
     OllamaConfig,
     create_ollama_client,
 )
-from llm.llm_service import ChatMessage, StructuredGenerationRequest
 
 Handler = Callable[[httpx.Request], httpx.Response]
 

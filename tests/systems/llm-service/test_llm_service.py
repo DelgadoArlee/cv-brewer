@@ -1,18 +1,17 @@
 from typing import Any
 
 import pytest
-
-from llm.adapters.ollama import LLMAdapterResponseError
-from llm.llm_service import (
+from core.services.llm import (
     ChatMessage,
-    LLMAdapter,
+    LLMPort,
     LLMService,
     ModelInfo,
     StructuredGenerationRequest,
 )
+from llm.adapters.ollama import LLMAdapterResponseError
 
 
-class _FakeAdapter(LLMAdapter):
+class _FakeAdapter(LLMPort):
     def __init__(self) -> None:
         self.requests: list[StructuredGenerationRequest] = []
         self.available: bool = True

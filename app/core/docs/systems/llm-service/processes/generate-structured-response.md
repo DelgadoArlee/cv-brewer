@@ -47,8 +47,8 @@ flowchart TD
 
 ## 6. Modules
 
-- `app/llm/llm_service/modules/generation/service.py` — Implements request verification and delegation.
-- `app/llm/llm_service/modules/generation/models.py` — Defines the generation request records.
+- `app/core/services/llm/service.py` — Implements request verification and delegation.
+- `app/core/services/llm/models.py` — Defines the generation request records.
 
 ## 7. Testing
 
@@ -73,4 +73,4 @@ Tests must verify completeness rejection and unchanged delegation.
 
 - [LLM Service Technical System Specification](../overview.md)
 - [LLM Service System Overview](../../../../../../docs/system/llm-service/overview.md)
-- [Generate Structured Response Adapter Technical Process](../../llm-adapter/processes/generate-structured-response.md)
+- [Generate Structured Response Adapter Technical Process](../../../../../../app/llm/docs/systems/llm-adapter/processes/generate-structured-response.md)

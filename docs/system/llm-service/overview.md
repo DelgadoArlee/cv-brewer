@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-The LLM Service provides the application-level operations used to perform language-processing tasks with an external LLM service. It defines what LLM operations are available while delegating service-specific communication to an LLM Adapter.
+The LLM Service provides the application-level operations used to perform language-processing tasks with an external LLM service. It defines what LLM operations are available while delegating service-specific communication to an LLM Adapter. The service is owned by the Core application layer; the LLM component supplies adapters.
 
 ## 2. Objectives
 
@@ -58,5 +58,6 @@ See the [Check LLM Availability Process](processes/check-llm-availability.md), t
 ## 8. References
 
 - [LLM Component Technical Specification](../../../app/llm/docs/technical-specification.md)
-- [LLM Service Technical Specification](../../../app/llm/docs/systems/llm-service/overview.md)
+- [LLM Service Technical Specification](../../../app/core/docs/systems/llm-service/overview.md)
+- [Move the LLM Service into Core](../../adr/Architecture/2026-11-14/llm-service-to-core.md)
 - [Use an LLM Service abstraction with pluggable LLM adapters](../../adr/Architecture/2026-11-11/llm-service-abstraction.md)

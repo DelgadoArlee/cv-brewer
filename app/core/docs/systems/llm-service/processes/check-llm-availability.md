@@ -41,7 +41,7 @@ flowchart TD
 
 ## 6. Modules
 
-- `app/llm/llm_service/modules/generation/service.py` — Implements the availability operation.
+- `app/core/services/llm/service.py` — Implements the availability operation.
 
 ## 7. Testing
 
@@ -64,4 +64,4 @@ Tests must verify delegation and outcome reporting.
 
 - [LLM Service Technical System Specification](../overview.md)
 - [LLM Service System Overview](../../../../../../docs/system/llm-service/overview.md)
-- [Verify Service Availability Technical Process](../../llm-adapter/processes/verify-service-availability.md)
+- [Verify Service Availability Technical Process](../../../../../../app/llm/docs/systems/llm-adapter/processes/verify-service-availability.md)

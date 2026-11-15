@@ -9,9 +9,9 @@ This document defines the directory and file structure of the CVBrewery monorepo
 | Component | Description |
 |---|---|
 | CLI | Handles user interaction, local file management, workflow coordination, and result reporting. |
-| Core | Handles resume processing, job description processing, validation, resume generation, and application-level resume data operations. |
+| Core | Handles resume processing, job description processing, validation, resume generation, and application-level resume data and language-model operations. |
 | Database | Implements database-specific operations and adapters for Core-owned data contracts. |
-| LLM | Provides application-level language-model operations through pluggable LLM adapters. |
+| LLM | Implements language-model-service-specific operations and adapters for Core-owned LLM contracts. |
 
 ## 3. Repository Structure
 
@@ -74,6 +74,11 @@ cv-brewer/
 │   │   │   ├── pdf/
 │   │   │   │   ├── __init__.py
 │   │   │   │   └── service.py
+│   │   │   ├── llm/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── port.py
+│   │   │   │   └── service.py
 │   │   │   └── resume/
 │   │   │       ├── __init__.py
 │   │   │       ├── models.py
@@ -115,14 +120,6 @@ cv-brewer/
 │       │   ├── guidelines.md
 │       │   ├── adr/
 │       │   └── systems/
-│       ├── llm_service/
-│       │   ├── __init__.py
-│       │   └── modules/
-│       │       └── generation/
-│       │           ├── __init__.py
-│       │           ├── models.py
-│       │           ├── adapter.py
-│       │           └── service.py
 │       └── adapters/
 │           ├── __init__.py
 │           └── ollama/
@@ -181,6 +178,7 @@ cv-brewer/
 |`app/core/pipeline/`|Contains resume-processing pipeline orchestration.|
 |`app/core/services/metadata/`|Contains the resume metadata service.|
 |`app/core/services/parsing/`|Contains the resume parsing service.|
+|`app/core/services/llm/`|Contains LLM-specific records, the LLM port contract, and LLM service operations.|
 |`app/core/services/pdf/`|Contains the PDF processing and validation service.|
 |`app/core/services/resume/`|Contains resume-specific records, repository contracts, service operations, and validation functions.|
 |`app/core/services/resume/validation/`|Contains resume validation models and JSON Schemas.|
@@ -195,7 +193,6 @@ cv-brewer/
 |`app/llm/docs/`|Contains LLM component technical documentation.|
 |`app/llm/docs/adr/`|Contains LLM component-level architecture decisions.|
 |`app/llm/docs/systems/`|Contains LLM component system documentation.|
-|`app/llm/llm_service/`|Contains the LLM Service package.|
 |`app/llm/adapters/`|Contains LLM adapter implementations.|
 |`app/llm/adapters/ollama/`|Contains the Ollama adapter implementation.|
 |`tests/`|Contains all test code organized by testing level (features, systems, processes, e2e).|

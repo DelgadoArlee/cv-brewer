@@ -2,6 +2,11 @@ import json
 from typing import Any
 
 import httpx
+from core.services.llm import (
+    LLMPort,
+    ModelInfo,
+    StructuredGenerationRequest,
+)
 
 from llm.adapters.ollama.config import OllamaConfig
 from llm.adapters.ollama.errors import (
@@ -9,10 +14,6 @@ from llm.adapters.ollama.errors import (
     LLMAdapterModelNotFoundError,
     LLMAdapterResponseError,
     LLMAdapterTimeoutError,
-)
-from llm.llm_service.modules.generation.models import (
-    ModelInfo,
-    StructuredGenerationRequest,
 )
 
 
@@ -60,7 +61,7 @@ def _parse_structured_content(content: str) -> dict[str, Any]:
     return parsed
 
 
-class OllamaAdapter:
+class OllamaAdapter(LLMPort):
     def __init__(self, client: httpx.Client) -> None:
         self._client = client
 

@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from llm.llm_service.modules.generation.models import (
+from core.services.llm.models import (
     ModelInfo,
     StructuredGenerationRequest,
 )
 
 
-class LLMAdapter(ABC):
+class LLMPort(ABC):
     @abstractmethod
     def check_availability(self) -> bool:
         raise NotImplementedError

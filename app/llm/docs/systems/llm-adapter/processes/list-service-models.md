@@ -72,4 +72,4 @@ Tests must verify listing, empty listing, and failure translation.
 
 - [LLM Adapter Technical System Specification](../overview.md)
 - [LLM Adapter System Overview](../../../../../../docs/system/llm-adapter/overview.md)
-- [List Available Models Technical Process](../../llm-service/processes/list-available-models.md)
+- [List Available Models Technical Process](../../../../../../app/core/docs/systems/llm-service/processes/list-available-models.md)

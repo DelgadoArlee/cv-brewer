@@ -1,10 +1,10 @@
 from typing import Any
 
-from llm.llm_service.modules.generation.adapter import LLMAdapter
-from llm.llm_service.modules.generation.models import (
+from core.services.llm.models import (
     ModelInfo,
     StructuredGenerationRequest,
 )
+from core.services.llm.port import LLMPort
 
 
 def _validate_generation_request(request: StructuredGenerationRequest) -> None:
@@ -17,15 +17,15 @@ def _validate_generation_request(request: StructuredGenerationRequest) -> None:
 
 
 class LLMService:
-    def __init__(self, adapter: LLMAdapter) -> None:
-        self._adapter = adapter
+    def __init__(self, port: LLMPort) -> None:
+        self._port = port
 
     def check_availability(self) -> bool:
-        return self._adapter.check_availability()
+        return self._port.check_availability()
 
     def list_models(self) -> list[ModelInfo]:
-        return self._adapter.list_models()
+        return self._port.list_models()
 
     def generate_structured(self, request: StructuredGenerationRequest) -> dict[str, Any]:
         _validate_generation_request(request)
-        return self._adapter.generate_structured(request)
+        return self._port.generate_structured(request)

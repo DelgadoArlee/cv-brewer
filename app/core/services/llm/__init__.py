@@ -1,14 +1,14 @@
-from llm.llm_service.modules.generation import (
+from core.services.llm.models import (
     ChatMessage,
-    LLMAdapter,
-    LLMService,
     ModelInfo,
     StructuredGenerationRequest,
 )
+from core.services.llm.port import LLMPort
+from core.services.llm.service import LLMService
 
 __all__ = [
     "ChatMessage",
-    "LLMAdapter",
+    "LLMPort",
     "LLMService",
     "ModelInfo",
     "StructuredGenerationRequest",

@@ -70,8 +70,8 @@ flowchart TD
 - `app/core/services/parsing/service.py` — Implements model selection, deterministic extraction, LLM enhancement, and merging.
 - `app/core/pipeline/resume_processing.py` — Invokes parsing after text extraction.
 - `app/core/errors.py` — Defines the LLM processing error.
-- `app/llm/llm_service/modules/generation/service.py` — Provides availability, model listing, and structured generation.
-- `app/llm/llm_service/modules/generation/models.py` — Defines generation request records.
+- `app/core/services/llm/service.py` — Provides availability, model listing, and structured generation.
+- `app/core/services/llm/models.py` — Defines generation request records.
 
 ## 7. Data
 

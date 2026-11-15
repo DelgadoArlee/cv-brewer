@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-This document defines the technical organization of the Core Processing Engine component within CVBrewer. It describes how the Core is structured and bounded so resume processing and generation workflows can operate without coupling to specific database or LLM implementations. The Core owns the application-level resume data operations and delegates database-specific work to the Database component.
+This document defines the technical organization of the Core Processing Engine component within CVBrewer. It describes how the Core is structured and bounded so resume processing and generation workflows can operate without coupling to specific database or LLM implementations. The Core owns the application-level resume data operations and language-model operations and delegates database-specific and LLM-service-specific work to the Database and LLM components.
 
 ## 2. Objective
 
@@ -12,7 +12,8 @@ This document defines the technical organization of the Core Processing Engine c
 - Generate and validate tailored resume data using stored resume data and a job description.
 - Render generated resume content as Markdown for the MVP.
 - Own application-level resume data operations and record definitions as the Database Service.
-- Depend on the LLM Service interface rather than a concrete implementation.
+- Own application-level language-model operations, request record definitions, and the adapter port as the LLM Service.
+- Depend on the LLM Service interface rather than a concrete LLM implementation.
 - Remain part of the single Python distribution used by the application.
 
 ## 3. Scope
@@ -26,6 +27,7 @@ This document defines the technical organization of the Core Processing Engine c
 - Deterministic and LLM-assisted resume data extraction and parsing.
 - Resume, job description, and generated resume schema validation.
 - Application-level resume data operations, record definitions, and repository contracts.
+- Application-level language-model operations, request record definitions, and the adapter port.
 - Generation of tailored resume data from stored resume data and a job description.
 - Resume template mapping and Markdown rendering.
 - Coordination with the Database Service and LLM Service.
@@ -47,6 +49,7 @@ This document defines the technical organization of the Core Processing Engine c
 - The Core must operate on file bytes supplied by the CLI and must not access the file system directly.
 - The Core must not import SQLAlchemy or SQLite directly and must perform database operations through the Database Service.
 - The Core must not import database adapters; adapters implement Core-owned repository contracts.
+- The Core must not import LLM adapters; adapters implement the Core-owned LLM port contract.
 - The Core must communicate with LLMs through the LLM Service and must not depend on a specific LLM implementation.
 - Only PDF resumes that are not encrypted or password-protected and that contain sufficient readable content may be processed.
 - Parsed resume data must conform to the Resume JSON schema before storage.
@@ -62,7 +65,7 @@ This document defines the technical organization of the Core Processing Engine c
 
 - **Name:** Interface-based component boundaries.
 - **Description:** The Core interacts with persistence and language-processing capabilities through application-level interfaces.
-- **Application:** The Core owns the Database Service for structured data operations and uses the LLM Service for language-processing tasks, without depending on their concrete implementations.
+- **Application:** The Core owns the Database Service for structured data operations and the LLM Service for language-processing tasks, without depending on their concrete implementations.
 
 ### 5.2. Validation-First Processing
 
@@ -94,6 +97,7 @@ This document defines the technical organization of the Core Processing Engine c
 | --- | --- | --- |
 | Resume Processing | Validates uploaded files and PDFs, extracts and parses resume data, and validates it against the Resume JSON schema. | [Resume Processing](systems/resume-processing/overview.md) |
 | Database Service | Defines application-level resume data operations and delegates persistence to a Database Adapter. | [Database Service](systems/database-service/overview.md) |
+| LLM Service | Defines application-level language-model operations and delegates communication to an LLM Adapter. | [LLM Service](systems/llm-service/overview.md) |
 | Resume Generation | Generates and validates tailored resume data from stored resume data and a job description, then renders Markdown output. | Not yet documented |
 
 ## 7. File Structure
@@ -113,6 +117,7 @@ app/core/
 │   │   │   ├── processing-service-packages.md
 │   │   │   └── resume-service-package.md
 │   │   └── 11-14-26/
+│   │       ├── llm-service-package.md
 │   │       └── processing-and-validation-service-packages.md
 │   └── systems/
 │       ├── database-service/
@@ -120,6 +125,12 @@ app/core/
 │       │   └── processes/
 │       │       ├── retrieve-resume.md
 │       │       └── store-resume.md
+│       ├── llm-service/
+│       │   ├── overview.md
+│       │   └── processes/
+│       │       ├── check-llm-availability.md
+│       │       ├── generate-structured-response.md
+│       │       └── list-available-models.md
 │       └── resume-processing/
 │           ├── overview.md
 │           └── processes/
@@ -141,6 +152,11 @@ app/core/
 │   └── resume_processing.py
 ├── services/
 │   ├── __init__.py
+│   ├── llm/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── port.py
+│   │   └── service.py
 │   ├── metadata/
 │   │   ├── __init__.py
 │   │   └── service.py
@@ -169,7 +185,7 @@ app/core/
 
 - The Core is included in the single CLI/Core executable and is not independently deployable.
 - The Python runtime and dependencies are bundled into per-OS executables built with PyInstaller.
-- The Core includes the Database Service and uses the LLM Service within the application; the LLM service itself is installed and operated separately by the user.
+- The Core includes the Database Service and the LLM Service within the application; the external LLM service itself is installed and operated separately by the user.
 
 ## 9. References
 
@@ -183,10 +199,15 @@ app/core/
 - [Resume Processing Technical Process](systems/resume-processing/processes/resume-processing.md)
 - [Database Service Technical System Specification](systems/database-service/overview.md)
 - [Database Service System Overview](../../../docs/system/database-service/overview.md)
+- [LLM Service Technical System Specification](systems/llm-service/overview.md)
+- [LLM Service System Overview](../../../docs/system/llm-service/overview.md)
 - [Move the Database Service into Core](../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md)
+- [Move the LLM Service into Core](../../../docs/adr/Architecture/2026-11-14/llm-service-to-core.md)
 - [Establish the resume service package](adr/11-13-26/resume-service-package.md)
+- [Establish the LLM service package](adr/11-14-26/llm-service-package.md)
 - [Organize processing modules as services](adr/11-13-26/processing-service-packages.md)
 - [Organize processing and validation code by service packages](adr/11-14-26/processing-and-validation-service-packages.md)
+- [Use an LLM Service abstraction with pluggable LLM adapters](../../../docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)
 - [Resume Generation System Overview](../../../docs/system/resume-generation/overview.md)
 - [Use Python and uv for the CVBrewer implementation](../../../docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
 - [Package CVBrewer as per-OS single executables with PyInstaller](../../../docs/adr/Architecture/2026-11-04/cross-platform-packaging.md)

@@ -68,4 +68,4 @@ Tests must verify reachable, unreachable, and timeout outcomes.
 
 - [LLM Adapter Technical System Specification](../overview.md)
 - [LLM Adapter System Overview](../../../../../../docs/system/llm-adapter/overview.md)
-- [Check LLM Availability Technical Process](../../llm-service/processes/check-llm-availability.md)
+- [Check LLM Availability Technical Process](../../../../../../app/core/docs/systems/llm-service/processes/check-llm-availability.md)

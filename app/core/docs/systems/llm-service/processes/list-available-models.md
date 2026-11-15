@@ -41,7 +41,7 @@ flowchart TD
 
 ## 6. Modules
 
-- `app/llm/llm_service/modules/generation/service.py` — Implements the model listing operation.
+- `app/core/services/llm/service.py` — Implements the model listing operation.
 
 ## 7. Testing
 
@@ -64,4 +64,4 @@ Tests must verify delegation and empty-listing behavior.
 
 - [LLM Service Technical System Specification](../overview.md)
 - [LLM Service System Overview](../../../../../../docs/system/llm-service/overview.md)
-- [List Service Models Technical Process](../../llm-adapter/processes/list-service-models.md)
+- [List Service Models Technical Process](../../../../../../app/llm/docs/systems/llm-adapter/processes/list-service-models.md)

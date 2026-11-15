@@ -1,15 +1,13 @@
 from typing import Any
 
 import pytest
-
-from llm.llm_service import (
-    LLMAdapter,
+from core.errors import LlmProcessingError
+from core.services.llm import (
+    LLMPort,
     LLMService,
     ModelInfo,
     StructuredGenerationRequest,
 )
-
-from core.errors import LlmProcessingError
 from core.services.parsing import (
     extract_deterministic_data,
     merge_resume_payloads,
@@ -59,7 +57,7 @@ def _llm_payload() -> dict[str, Any]:
     }
 
 
-class _FakeAdapter(LLMAdapter):
+class _FakeAdapter(LLMPort):
     def __init__(self) -> None:
         self.available = True
         self.models = [ModelInfo(name="model-a"), ModelInfo(name="model-b")]

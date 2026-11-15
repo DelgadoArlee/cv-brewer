@@ -1,5 +1,6 @@
+from core.services.llm import LLMService
+
 from llm.adapters.ollama import OllamaAdapter, OllamaConfig, create_ollama_client
-from llm.llm_service import LLMService
 
 
 def create_llm_service(config: OllamaConfig | None = None) -> LLMService:
@@ -7,10 +8,4 @@ def create_llm_service(config: OllamaConfig | None = None) -> LLMService:
     return LLMService(OllamaAdapter(client))
 
 
-__all__ = [
-    "LLMService",
-    "OllamaAdapter",
-    "OllamaConfig",
-    "create_llm_service",
-    "create_ollama_client",
-]
+__all__ = ["create_llm_service"]

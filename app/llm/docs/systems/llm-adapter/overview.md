@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-Defines the service-specific implementation of LLM operations for the LLM component. The adapter owns `httpx` communication, Ollama configuration, response parsing, and error translation.
+Defines the service-specific implementation of LLM operations for the LLM component. The adapter implements the Core-owned `LLMPort` contract and owns `httpx` communication, Ollama configuration, response parsing, and error translation.
 
 ## 2. Objective
 
@@ -23,7 +23,7 @@ Defines the service-specific implementation of LLM operations for the LLM compon
 
 ### Out of Scope
 
-- Application-level operation definitions.
+- Application-level operation definitions, which belong to the Core-owned LLM Service.
 - Prompt construction and JSON Schema selection.
 - Schema validation of generated content.
 - CLI and workflow behavior.
@@ -52,8 +52,8 @@ Defines the service-specific implementation of LLM operations for the LLM compon
 | Name | Type | Purpose |
 | --- | --- | --- |
 | `httpx` | External library | Synchronous HTTP client for Ollama communication. |
-| `LLMAdapter` | Internal interface | Defines the adapter contract implemented by the Ollama adapter. |
-| `StructuredGenerationRequest`, `ChatMessage`, `ModelInfo` | Internal records | Application-level data handled by the adapter. |
+| `LLMPort` | Core-owned interface | Defines the adapter contract implemented by the Ollama adapter. |
+| `StructuredGenerationRequest`, `ChatMessage`, `ModelInfo` | Core-owned records | Application-level data handled by the adapter. |
 
 ## 7. Test Cases
 
@@ -74,7 +74,7 @@ Defines the service-specific implementation of LLM operations for the LLM compon
 
 ````mermaid
 flowchart LR
-    Service[LLMService] --> Port[LLMAdapter]
+    Service[LLMService] --> Port[LLMPort]
     Port --> Adapter[OllamaAdapter]
     Adapter --> Client[httpx.Client]
     Client --> Ollama[(Ollama Service)]
@@ -84,18 +84,21 @@ flowchart LR
 
 | ADR | Decision Summary |
 | --- | --- |
+| [Retain LLM Adapters as the LLM component boundary](../../adr/11-14-26/adapter-only-boundary.md) | Keep adapters in the LLM component and implement the Core-owned `LLMPort` contract. |
 | [Establish the Ollama adapter foundation](../../adr/11-11-26/ollama-adapter-foundation.md) | Use synchronous `httpx`, adapter-local configuration and errors, and structured outputs through the chat endpoint. |
 | [Use an LLM Service abstraction with pluggable LLM adapters](../../../../../docs/adr/Architecture/2026-11-11/llm-service-abstraction.md) | Define application-level LLM operations behind an LLM Service that adapters implement. |
+| [Move the LLM Service into Core](../../../../../docs/adr/Architecture/2026-11-14/llm-service-to-core.md) | Own application-level language-model operations in Core while LLM retains adapters. |
 
 ## 10. Data
 
-The adapter handles application-level records defined in `app/llm/llm_service/modules/generation/models.py`.
+The adapter handles Core-owned records defined in `app/core/services/llm/models.py`.
 
 ## 11. References
 
 - [LLM Adapter System Overview](../../../../../docs/system/llm-adapter/overview.md)
 - [LLM Component Technical Specification](../../technical-specification.md)
 - `app/llm/adapters/ollama/adapter.py` — Implements Ollama communication.
-- `app/llm/llm_service/modules/generation/adapter.py` — Defines the adapter contract.
+- `app/core/services/llm/port.py` — Defines the adapter contract.
+- [Retain LLM Adapters as the LLM component boundary](../../adr/11-14-26/adapter-only-boundary.md)
 - [Ollama Adapter Foundation ADR](../../adr/11-11-26/ollama-adapter-foundation.md)
 - [Ollama API Documentation](https://github.com/ollama/ollama/blob/main/docs/api.md)

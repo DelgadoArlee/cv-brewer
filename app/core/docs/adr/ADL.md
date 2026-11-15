@@ -4,6 +4,7 @@ This log indexes the component-level Architecture Decision Records (ADRs) for th
 
 | Date | Decision | Status |
 | --- | --- | --- |
+| 2026-11-14 | [Establish the LLM service package](11-14-26/llm-service-package.md) — Place all LLM-specific records, the `LLMPort` contract, and service operations under `app/core/services/llm/`. | Accepted |
 | 2026-11-14 | [Organize processing and validation code by service packages](11-14-26/processing-and-validation-service-packages.md) — Place processing and validation functions under the owning service package, with only validation models and schemas under `validation/`. | Accepted |
 | 2026-11-13 | [Organize processing modules as services](11-13-26/processing-service-packages.md) — Place each non-validation processing module under its own service package. | Superseded |
 | 2026-11-13 | [Establish the resume service package](11-13-26/resume-service-package.md) — Place all resume-specific records, repository contracts, and service operations under `app/core/services/resume/`. | Accepted |

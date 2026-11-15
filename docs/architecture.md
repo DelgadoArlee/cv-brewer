@@ -32,9 +32,9 @@ CV Brewer is a CLI-based application for processing resumes and generating tailo
 | Component   | Responsibility                                                                                 |
 | ----------- | ---------------------------------------------------------------------------------------------- |
 | CLI         | Handles user interaction and local file management.                                             |
-| Core        | Handles resume processing, job description processing, resume generation, and application-level resume data operations. |
+| Core        | Handles resume processing, job description processing, resume generation, and application-level resume data and language-model operations. |
 | Database    | Implements database-specific operations and adapters for Core-owned data contracts.              |
-| LLM         | Provides application-level language-model operations through pluggable LLM adapters.            |
+| LLM         | Implements language-model-service-specific operations and adapters for Core-owned LLM contracts. |
 
 External resources:
 
@@ -75,8 +75,9 @@ flowchart LR
 - Handles resume generation and template rendering.
 - Constructs prompts and JSON Schemas for language-processing requests.
 - Owns the Database Service and application-level resume data operations.
+- Owns the LLM Service and application-level language-model operations.
 - Uses the Database component through Core-owned repository contracts.
-- Uses the LLM Service for language-processing tasks.
+- Uses the LLM component through the Core-owned LLM port contract.
 - Does not own local file-system management or depend on a specific database or LLM implementation.
 
 **Database**
@@ -88,11 +89,10 @@ flowchart LR
 
 **LLM**
 
-- Defines the application-level language-model operations used by the Core.
-- Defines the plug-in boundary that LLM adapters implement.
-- Verifies LLM service availability and lists available models.
-- Generates structured responses for language-processing tasks.
-- Implements service-specific communication through pluggable LLM adapters.
+- Implements the Core-owned LLM port contract.
+- Implements language-model-service-specific operations, including communication, configuration, response parsing, and error translation.
+- Keeps LLM-service implementation details separate from application logic.
+- Does not define application-level operations or record structures.
 - Does not contain or bundle the LLM.
 
 **External LLM Service**
@@ -120,12 +120,13 @@ flowchart LR
 CV Brewer follows a monorepo structure.
 
 - Application components are located under `app/`: `app/cli`, `app/core`, `app/database`, and `app/llm`.
-- The Core application layer contains the Database Service under `app/core/services/resume/`.
+- The Core application layer contains the Database Service under `app/core/services/resume/` and the LLM Service under `app/core/services/llm/`.
 - Database adapters remain under `app/database/adapters/`.
+- LLM adapters remain under `app/llm/adapters/`.
 - The components are packaged as modules of the single `app/` Python project.
 - CLI and Core share the same repository.
 - Database is maintained in the monorepo.
-- LLM Service and LLM adapter implementations are maintained in the monorepo.
+- LLM adapter implementations are maintained in the monorepo.
 - Documentation is maintained alongside source code.
 - Logical architecture boundaries do not require separate repositories.
 - The component summary and repository structure are documented in `app/README.md`.

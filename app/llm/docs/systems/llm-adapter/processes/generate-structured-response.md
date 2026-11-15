@@ -54,7 +54,7 @@ The process does not construct or modify prompts and does not validate content a
 ## 6. Modules
 
 - `app/llm/adapters/ollama/adapter.py` — Implements structured generation.
-- `app/llm/llm_service/modules/generation/models.py` — Defines the generation request records.
+- `app/core/services/llm/models.py` — Defines the generation request records.
 
 ## 7. Testing
 
@@ -81,5 +81,5 @@ Tests must verify request payload construction, response parsing, and failure tr
 
 - [LLM Adapter Technical System Specification](../overview.md)
 - [LLM Adapter System Overview](../../../../../../docs/system/llm-adapter/overview.md)
-- [Generate Structured Response Technical Process](../../llm-service/processes/generate-structured-response.md)
+- [Generate Structured Response Technical Process](../../../../../../app/core/docs/systems/llm-service/processes/generate-structured-response.md)
 - [Ollama Adapter Foundation ADR](../../../adr/11-11-26/ollama-adapter-foundation.md)
