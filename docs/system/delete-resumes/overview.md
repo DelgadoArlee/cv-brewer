@@ -1,4 +1,4 @@
-# Delete Resumes Feature Overview
+# Delete Resumes System Overview
 
 ## 1. Purpose
 
@@ -19,9 +19,8 @@ This feature allows users to delete all saved resume records from the system's s
 
 - Deleting ALL parsed resume data from storage/database
 - Displaying confirmation dialog before deletion
-- Validating user authorization for deletion operation
+- Informing the user that deletion affects only the database and not input folder files
 - Providing success/error feedback messages
-- Maintaining audit trail of deletion operations
 - Enforcing all-or-nothing deletion policy
 
 ### Out of Scope
@@ -38,14 +37,14 @@ This feature allows users to delete all saved resume records from the system's s
 
 The feature follows this workflow:
 
-1. User initiates delete all saved resumes action
-2. System displays confirmation prompt with clear indication that ALL resumes will be deleted
+1. User initiates the Delete Imported Resumes action
+2. System displays a confirmation prompt explaining that all imported resumes will be deleted from the database, input folder files are not deleted, and deleted resumes cannot be recovered
 3. User confirms or cancels deletion
 4. If confirmed, system deletes ALL parsed resume records (no selective deletion)
 5. System validates deletion completion
 6. System displays appropriate success or error message
 
-See [User Journey Diagram](../../user-journey/delete-saved-resumes.md) for visual representation.
+See the [Uploaded Resume Management Feature](../../features/uploaded-resume-management.md) for the user journey.
 
 ## 5. Constraints
 
@@ -53,7 +52,6 @@ See [User Journey Diagram](../../user-journey/delete-saved-resumes.md) for visua
 - Original PDF files in the input folder are never modified or deleted
 - No file system write/edit/delete permissions beyond stored resume storage
 - Deletion requires explicit user confirmation
-- Only one deletion operation per session (no batch partial deletions)
 - **All resumes must be deleted together - selective or partial deletion is not supported**
 
 ## 6. Error Handling
@@ -61,9 +59,8 @@ See [User Journey Diagram](../../user-journey/delete-saved-resumes.md) for visua
 The feature handles these error scenarios:
 
 - **Deletion fails**: Display error message with appropriate details
-- **No resumes to delete**: Inform user that no saved resumes exist
+- **No resumes to delete**: Inform user that no imported resumes were deleted
 - **Permission denied**: Report if storage access is unavailable
-- **Partial deletion failure**: Report which records failed and why (if any)
 
 ## 7. Data Management
 
@@ -74,8 +71,9 @@ This feature operates on:
 - **Generated resumes**: Not affected by this deletion operation
 - **Job descriptions**: Not affected by this deletion operation
 
-## 8 References
+## 8. References
 
 - [Requirements Document](../../requirements.md) - Section 4.1 Data Categories
-- [User Journey Diagram](../../user-journey/delete-saved-resumes.md)
-- [System Rules](../../rules/system-rules.md) - File system access constraints
+- [Uploaded Resume Management Feature](../../features/uploaded-resume-management.md)
+- [Delete All Resumes Process](processes/delete-all-resumes.md)
+- [System Rules](../../system-rules.md) - File system access constraints

@@ -4,9 +4,10 @@ from rich.table import Table
 from rich.text import Text
 from rich.prompt import Prompt
 
+from cli.commands.delete_resumes import run_delete_imported_resumes
 from cli.modules.context import CLIDependencies, ResumeLister
 
-_OPTIONS_MENU_OPTIONS = ["Imported Resume", "Back"]
+_OPTIONS_MENU_OPTIONS = ["Imported Resume", "Delete Imported Resumes", "Back"]
 
 
 def _questionary_select(options: list[str]) -> int:
@@ -108,11 +109,16 @@ def run_options_menu(
         )
         selection = _select_option(active_console, _OPTIONS_MENU_OPTIONS)
 
-        if selection == 1:
+        if selection == 2:
             return
         if selection == 0:
             try:
                 run_imported_resume(dependencies, console=active_console)
+            except Exception as exc:  # noqa: BLE001
+                active_console.print(f"[red]Error:[/red] {exc}")
+        elif selection == 1:
+            try:
+                run_delete_imported_resumes(dependencies, console=active_console)
             except Exception as exc:  # noqa: BLE001
                 active_console.print(f"[red]Error:[/red] {exc}")
         else:

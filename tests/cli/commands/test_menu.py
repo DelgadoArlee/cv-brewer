@@ -26,6 +26,7 @@ def _dependencies(tmp_path: Path) -> CLIDependencies:
         paths,
         _NoopProcessor(),
         SimpleNamespace(list_resumes=lambda: []),
+        SimpleNamespace(delete_all_resumes=lambda: 0),
     )
 
 
@@ -34,7 +35,11 @@ def test_main_menu_options_include_required_items() -> None:
 
 
 def test_options_menu_options_include_required_items() -> None:
-    assert _OPTIONS_MENU_OPTIONS == ["Imported Resume", "Back"]
+    assert _OPTIONS_MENU_OPTIONS == [
+        "Imported Resume",
+        "Delete Imported Resumes",
+        "Back",
+    ]
 
 
 def test_main_menu_exits_on_enter(tmp_path: Path) -> None:
@@ -51,7 +56,7 @@ def test_main_menu_can_open_options_and_return(tmp_path: Path) -> None:
     runner = CliRunner()
     app = create_app(_dependencies(tmp_path))
 
-    result = runner.invoke(app, [], input="2\n2\n3\n")
+    result = runner.invoke(app, [], input="2\n3\n3\n")
 
     assert result.exit_code == 0
     assert "Options" in result.output

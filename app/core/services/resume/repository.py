@@ -22,3 +22,7 @@ class ResumeRepository(ABC):
     @abstractmethod
     def list_all(self) -> list[ResumeRecord]:
         raise NotImplementedError
+
+    @abstractmethod
+    def delete_all(self) -> int:
+        raise NotImplementedError

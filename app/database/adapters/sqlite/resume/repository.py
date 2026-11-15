@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session, sessionmaker
 
 from database.adapters.sqlite.engine import session_scope
@@ -249,3 +249,8 @@ class SqliteResumeRepository(ResumeRepository):
             statement = select(Resume).order_by(Resume.created_at)
             models = session.scalars(statement).all()
             return [_to_record(model) for model in models]
+
+    def delete_all(self) -> int:
+        with session_scope(self._session_factory) as session:
+            result = session.execute(delete(Resume))
+            return result.rowcount or 0

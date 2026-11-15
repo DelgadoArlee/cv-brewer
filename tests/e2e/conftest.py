@@ -40,7 +40,12 @@ def e2e_application(e2e_startup_paths: StartupPaths) -> SimpleNamespace:
 
     resume_service = create_resume_service(paths.database)
     processor = ResumeProcessor(resume_service, llm_service)
-    dependencies = CLIDependencies(paths, processor, resume_service)
+    dependencies = CLIDependencies(
+        paths,
+        processor,
+        resume_service,
+        resume_service,
+    )
     return SimpleNamespace(
         paths=paths,
         processor=processor,

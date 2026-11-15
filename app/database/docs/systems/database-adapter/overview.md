@@ -9,6 +9,7 @@ Defines the database-specific implementation of resume persistence for the datab
 - Implement the Core-owned resume repository contract using SQLite and SQLAlchemy.
 - Persist complete resume records and ordered child data.
 - Retrieve resume records by identifier, content fingerprint, and listing.
+- Delete every stored resume record and its child data.
 - Enforce database constraints for relationships and unique fingerprints.
 - Provide migration infrastructure for the resume schema.
 
@@ -20,6 +21,7 @@ Defines the database-specific implementation of resume persistence for the datab
 - SQLite resume repository under `app/database/adapters/sqlite/resume/`.
 - Alembic migration for resume tables.
 - Mapping between application records and ORM models.
+- Delete-all resume operations and cascade behavior.
 - Transaction handling and adapter error translation.
 
 ### Out of Scope
@@ -27,7 +29,7 @@ Defines the database-specific implementation of resume persistence for the datab
 - Application-level operation definitions, which are owned by the Core.
 - Resume validation and parsing.
 - CLI and upload workflow behavior.
-- Delete-all resume behavior.
+- Soft-delete behavior.
 
 ## 4. Rules & Constraints
 
@@ -36,6 +38,7 @@ Defines the database-specific implementation of resume persistence for the datab
 - Resume child records must preserve `position_order`.
 - Child foreign keys must use `ON DELETE CASCADE`.
 - `resumes.content_fingerprint` must be unique.
+- Delete-all must remove every resume row in one transaction and return the deleted count.
 - Database exceptions must be translated through the adapter error hierarchy.
 - Mapping code must not mutate the service-layer records.
 
@@ -45,6 +48,7 @@ Defines the database-specific implementation of resume persistence for the datab
 | --- | --- | --- |
 | Persist Resume | Maps and stores a complete resume record in SQLite. | [Persist Resume](processes/persist-resume.md) |
 | Load Resume | Maps stored SQLite rows into application-level resume records. | [Load Resume](processes/load-resume.md) |
+| Delete All Resumes | Deletes every stored resume row and relies on cascades for child records. | [Delete All Resumes](processes/delete-all-resumes.md) |
 
 ## 6. Dependencies
 
@@ -64,6 +68,7 @@ Defines the database-specific implementation of resume persistence for the datab
 | DB-ADP-003 | Persist a duplicate content fingerprint. | An adapter integrity failure is raised and no duplicate is stored. | Unique fingerprint rule |
 | DB-ADP-004 | Load a missing resume. | `None` is returned. | Missing record rule |
 | DB-ADP-005 | Delete a resume row directly. | Child rows are removed by cascade. | Cascade rule |
+| DB-ADP-006 | Delete all resumes with child records. | All root and child rows are removed and the deleted count is returned. | Delete-all rule |
 
 ## 8. Diagrams
 

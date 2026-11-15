@@ -12,6 +12,10 @@ def _run_upload(application: SimpleNamespace) -> Any:
     return CliRunner().invoke(application.app, [], input="1\n3\n")
 
 
+def _run_delete_all(application: SimpleNamespace) -> Any:
+    return CliRunner().invoke(application.app, [], input="2\n2\ny\n3\n3\n")
+
+
 def _write_resume(
     application: SimpleNamespace,
     file_name: str,
@@ -136,6 +140,27 @@ def test_upload_imports_multiple_resumes_across_runs(
     assert records["sequential-second.pdf"].parsed_data.personal_info.email == (
         "dave.second@example.com"
     )
+
+
+def test_delete_all_imported_resumes_keeps_input_file(
+    e2e_cli: SimpleNamespace,
+) -> None:
+    input_file = _write_resume(
+        e2e_cli,
+        "delete-all.pdf",
+        "Frank Delete\nfrank.delete@example.com\nSkills: Python",
+    )
+    upload_result = _run_upload(e2e_cli)
+
+    assert upload_result.exit_code == 0
+    assert _records_by_file_name(e2e_cli)["delete-all.pdf"].resume_id
+
+    delete_result = _run_delete_all(e2e_cli)
+
+    assert delete_result.exit_code == 0
+    assert "Deleted" in delete_result.output
+    assert e2e_cli.resume_service.list_resumes() == []
+    assert input_file.exists()
 
 
 def test_upload_reports_duplicate_on_reimport(e2e_cli: SimpleNamespace) -> None:

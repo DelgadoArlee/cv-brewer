@@ -1,19 +1,12 @@
 from pathlib import Path
 
 from rich.console import Console
-from rich.progress import (
-    BarColumn,
-    Progress,
-    SpinnerColumn,
-    TaskProgressColumn,
-    TextColumn,
-    TimeElapsedColumn,
-)
 
 from core.models import ResumeInput, ResumeProcessingOutcome, ResumeProcessingStatus
 from core.pipeline import ResumeProcessor
 
 from cli.modules.paths import StartupPaths
+from cli.ui.progress import create_progress
 from cli.ui.resume_upload import (
     format_stage_description,
     render_empty_folder,
@@ -109,14 +102,7 @@ def run_resume_upload(
             file_contents.append((path, exc))
 
     if active_console is not None:
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            BarColumn(),
-            TaskProgressColumn(),
-            TimeElapsedColumn(),
-            console=active_console,
-        ) as progress:
+        with create_progress(active_console) as progress:
             task = progress.add_task("Importing resumes", total=len(file_contents))
             for index, (path, content) in enumerate(file_contents, start=1):
                 progress.update(

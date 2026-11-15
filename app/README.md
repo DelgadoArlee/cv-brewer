@@ -40,13 +40,16 @@ cv-brewer/
 │   │   ├── commands/
 │   │   │   ├── __init__.py
 │   │   │   ├── application_startup.py
+│   │   │   ├── delete_resumes.py
 │   │   │   ├── entry_page.py
 │   │   │   ├── menu.py
 │   │   │   ├── options.py
 │   │   │   └── resume_upload.py
 │   │   └── ui/
 │   │       ├── __init__.py
+│   │       ├── delete_resumes.py
 │   │       ├── entry_page.py
+│   │       ├── progress.py
 │   │       └── resume_upload.py
 │   ├── core/
 │   │   ├── README.md
@@ -163,12 +166,13 @@ cv-brewer/
 |`app/cli/docs/processes/`|Contains CLI component application-level and UI process documentation.|
 |`app/cli/docs/systems/`|Contains CLI component system documentation.|
 |`app/cli/app.py`|Defines the Typer application and no-command main menu callback.|
-|`app/cli/modules/context.py`|Defines the injected CLI dependencies and resume-listing capability.|
+|`app/cli/modules/context.py`|Defines the injected CLI dependencies and resume-listing and deletion capabilities.|
 |`app/cli/modules/paths.py`|Defines shared and development startup locations.|
 |`app/cli/commands/application_startup.py`|Coordinates database initialization and folder preparation during startup.|
+|`app/cli/commands/delete_resumes.py`|Coordinates confirmation and deletion of all imported resumes.|
 |`app/cli/commands/entry_page.py`|Coordinates the CLI entry page workflow.|
 |`app/cli/commands/menu.py`|Coordinates the CLI main menu and action routing.|
-|`app/cli/commands/options.py`|Coordinates the CLI Options menu and imported resume display.|
+|`app/cli/commands/options.py`|Coordinates the CLI Options menu and imported resume actions.|
 |`app/cli/commands/resume_upload.py`|Coordinates resume folder preparation, discovery, and Core delegation.|
 |`app/cli/ui/`|Contains all CLI UI-related code.|
 |`app/core/`|Contains the Core Processing Engine component module.|

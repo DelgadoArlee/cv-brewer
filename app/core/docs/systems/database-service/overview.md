@@ -6,7 +6,7 @@ Defines the application-level resume data operations exposed by the Core applica
 
 ## 2. Objective
 
-- Provide resume persistence and retrieval operations without database-specific coupling.
+- Provide resume persistence, retrieval, and deletion operations without database-specific coupling.
 - Define resume record structures used across the service boundary.
 - Generate record identifiers and creation timestamps when omitted.
 - Delegate all persistence work to a repository implemented by the Database Adapter.
@@ -18,14 +18,14 @@ Defines the application-level resume data operations exposed by the Core applica
 - Resume module under `app/core/services/resume/`.
 - Application-level resume record definitions.
 - Resume repository abstraction.
-- Resume service operations for save, get, find by fingerprint, and list.
+- Resume service operations for save, get, find by fingerprint, list, and delete all.
 
 ### Out of Scope
 
 - SQLAlchemy models, SQLite queries, transactions, and migrations.
 - Resume parsing, validation, and generation.
 - Upload workflow orchestration.
-- Delete-all resume behavior.
+- Soft-delete behavior.
 
 ## 4. Rules & Constraints
 
@@ -36,6 +36,7 @@ Defines the application-level resume data operations exposed by the Core applica
 - Child resume data order must be preserved by the adapter.
 - Duplicate content fingerprints must be surfaced from the adapter as failures.
 - Lookups that find no record must return `None`.
+- Delete-all must remove every stored resume record in one operation and return the deleted count.
 
 ## 5. Process
 
@@ -43,6 +44,7 @@ Defines the application-level resume data operations exposed by the Core applica
 | --- | --- | --- |
 | Store Resume | Creates a stored resume record from application-level resume data. | [Store Resume](processes/store-resume.md) |
 | Retrieve Resume | Retrieves stored resume records by identifier, fingerprint, or listing. | [Retrieve Resume](processes/retrieve-resume.md) |
+| Delete All Resumes | Deletes every stored resume record through the repository. | [Delete All Resumes](processes/delete-all-resumes.md) |
 
 ## 6. Dependencies
 
@@ -64,6 +66,8 @@ Defines the application-level resume data operations exposed by the Core applica
 | DB-SVC-005 | Retrieve a missing resume by ID. | `None` is returned. | Missing record rule |
 | DB-SVC-006 | Find a resume by content fingerprint. | The matching resume record is returned. | Retrieve operation |
 | DB-SVC-007 | List stored resumes. | All stored resume records are returned. | List operation |
+| DB-SVC-008 | Delete all stored resumes. | All stored resume records are deleted and the deleted count is returned. | Delete-all operation |
+| DB-SVC-009 | Delete all resumes when none exist. | The operation returns a count of zero. | Delete-all operation |
 
 ## 8. Diagrams
 

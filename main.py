@@ -12,7 +12,7 @@ def build_dependencies(paths: StartupPaths) -> CLIDependencies:
     resume_service = create_resume_service(prepared_paths.database)
     llm_service = create_llm_service()
     processor = ResumeProcessor(resume_service, llm_service)
-    return CLIDependencies(prepared_paths, processor, resume_service)
+    return CLIDependencies(prepared_paths, processor, resume_service, resume_service)
 
 
 def main() -> None:

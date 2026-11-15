@@ -261,6 +261,50 @@ def test_list_resumes_returns_all_records(tmp_path: Path) -> None:
         engine.dispose()
 
 
+def test_delete_all_resumes_removes_records_and_children(tmp_path: Path) -> None:
+    database_path = tmp_path / "delete_all.db"
+    service, engine = _create_service(database_path)
+
+    try:
+        service.save_resume(
+            _new_resume(
+                content_fingerprint="fingerprint-1",
+                resume_id="00000000-0000-0000-0000-000000000001",
+                created_at=datetime(2026, 1, 1, 10, 0, 0),
+            )
+        )
+        service.save_resume(
+            _new_resume(
+                content_fingerprint="fingerprint-2",
+                resume_id="00000000-0000-0000-0000-000000000002",
+                created_at=datetime(2026, 1, 2, 10, 0, 0),
+            )
+        )
+
+        assert service.delete_all_resumes() == 2
+        assert service.list_resumes() == []
+
+        with engine.connect() as connection:
+            for table in _RESUME_TABLES:
+                count = connection.execute(
+                    text(f"SELECT COUNT(*) FROM {table}")
+                ).scalar_one()
+                assert count == 0
+    finally:
+        engine.dispose()
+
+
+def test_delete_all_resumes_returns_zero_for_empty_database(tmp_path: Path) -> None:
+    database_path = tmp_path / "delete_all_empty.db"
+    service, engine = _create_service(database_path)
+
+    try:
+        assert service.delete_all_resumes() == 0
+        assert service.list_resumes() == []
+    finally:
+        engine.dispose()
+
+
 def test_deleting_resume_cascades_child_records(tmp_path: Path) -> None:
     database_path = tmp_path / "cascade.db"
     service, engine = _create_service(database_path)

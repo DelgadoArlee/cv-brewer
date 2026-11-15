@@ -55,7 +55,7 @@ This document defines the technical organization of the CLI component within CVB
 - The CLI must not construct, locate, or fall back to constructing its own runtime dependencies.
 - The CLI must initialize the embedded database on application startup through a database initializer injected by an application composition root.
 - The CLI must not import or call the Database Service, Database Adapter, or database implementation directly during startup.
-- The CLI may receive a resume-listing capability from the composition root without importing database or LLM implementations.
+- The CLI may receive resume-listing and resume-deletion capabilities from the composition root without importing database or LLM implementations.
 - The CLI must ensure the resume input and generated output folders exist before workflows can begin.
 - The CLI must report startup failures and stop when database initialization or folder preparation fails.
 - The CLI must not scan the input folder automatically during startup.
@@ -110,7 +110,7 @@ This document defines the technical organization of the CLI component within CVB
 
 - **Name:** Explicit dependency injection.
 - **Description:** The CLI receives all runtime dependencies from the application composition root instead of creating or locating them internally.
-- **Application:** The application factory accepts an immutable `CLIDependencies` value containing the startup paths, resume processor, and resume-listing capability. Commands read these dependencies from the Typer context, and the CLI contains no global dependency state or fallback construction.
+- **Application:** The application factory accepts an immutable `CLIDependencies` value containing the startup paths, resume processor, and resume-listing and resume-deletion capabilities. Commands read these dependencies from the Typer context, and the CLI contains no global dependency state or fallback construction.
 
 ## 6. Systems
 
@@ -156,13 +156,16 @@ app/cli/
 ├── commands/
 │   ├── __init__.py
 │   ├── application_startup.py
+│   ├── delete_resumes.py
 │   ├── entry_page.py
 │   ├── menu.py
 │   ├── options.py
 │   └── resume_upload.py
 └── ui/
     ├── __init__.py
+    ├── delete_resumes.py
     ├── entry_page.py
+    ├── progress.py
     └── resume_upload.py
 ````
 

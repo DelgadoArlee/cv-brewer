@@ -13,7 +13,7 @@ def _record_console() -> Console:
     return Console(record=True, file=io.StringIO())
 
 
-def _dependencies(list_resumes) -> CLIDependencies:
+def _dependencies(list_resumes, delete_all_resumes=None) -> CLIDependencies:
     paths = StartupPaths(
         database=Path("/tmp/cvbrewer.db"),
         resumes=Path("/tmp/resumes"),
@@ -23,16 +23,21 @@ def _dependencies(list_resumes) -> CLIDependencies:
         paths,
         SimpleNamespace(),
         SimpleNamespace(list_resumes=list_resumes),
+        SimpleNamespace(delete_all_resumes=delete_all_resumes or (lambda: 0)),
     )
 
 
 def test_options_menu_constant() -> None:
-    assert options_module._OPTIONS_MENU_OPTIONS == ["Imported Resume", "Back"]
+    assert options_module._OPTIONS_MENU_OPTIONS == [
+        "Imported Resume",
+        "Delete Imported Resumes",
+        "Back",
+    ]
 
 
 def test_options_menu_back_returns(monkeypatch) -> None:
     console = _record_console()
-    monkeypatch.setattr(options_module, "_select_option", lambda _console, _options: 1)
+    monkeypatch.setattr(options_module, "_select_option", lambda _console, _options: 2)
 
     options_module.run_options_menu(
         _dependencies(lambda: []),
@@ -44,7 +49,7 @@ def test_options_menu_back_returns(monkeypatch) -> None:
 
 def test_options_menu_imported_resume_then_back(monkeypatch) -> None:
     console = _record_console()
-    selections = iter([0, 1])
+    selections = iter([0, 2])
     monkeypatch.setattr(options_module, "_select_option", lambda _console, _options: next(selections))
 
     options_module.run_options_menu(
@@ -53,9 +58,32 @@ def test_options_menu_imported_resume_then_back(monkeypatch) -> None:
     )
 
     output = console.export_text()
-    print(output)
     assert "Options" in output
     assert "No imported resumes found." in output
+
+
+def test_options_menu_delete_imported_resumes_then_back(monkeypatch) -> None:
+    console = _record_console()
+    deleted = []
+    selections = iter([1, 2])
+    monkeypatch.setattr(
+        options_module,
+        "_select_option",
+        lambda _console, _options: next(selections),
+    )
+    monkeypatch.setattr(
+        options_module,
+        "run_delete_imported_resumes",
+        lambda _dependencies, console: deleted.append(console),
+    )
+
+    options_module.run_options_menu(
+        _dependencies(lambda: []),
+        console=console,
+    )
+
+    assert deleted == [console]
+    assert "Options" in console.export_text()
 
 
 def test_run_imported_resume_empty_service() -> None:

@@ -100,6 +100,7 @@ app/database/
 │       └── database-adapter/
 │           ├── overview.md
 │           └── processes/
+│               ├── delete-all-resumes.md
 │               ├── load-resume.md
 │               └── persist-resume.md
 ├── __init__.py

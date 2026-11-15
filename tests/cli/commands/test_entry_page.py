@@ -23,6 +23,7 @@ def _dependencies(tmp_path: Path) -> CLIDependencies:
         paths,
         _NoopProcessor(),
         SimpleNamespace(list_resumes=lambda: []),
+        SimpleNamespace(delete_all_resumes=lambda: 0),
     )
 
 

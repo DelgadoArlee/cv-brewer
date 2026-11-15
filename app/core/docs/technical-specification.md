@@ -123,6 +123,7 @@ app/core/
 │       ├── database-service/
 │       │   ├── overview.md
 │       │   └── processes/
+│       │       ├── delete-all-resumes.md
 │       │       ├── retrieve-resume.md
 │       │       └── store-resume.md
 │       ├── llm-service/

@@ -145,3 +145,6 @@ class ResumeService:
 
     def list_resumes(self) -> list[ResumeRecord]:
         return self._repository.list_all()
+
+    def delete_all_resumes(self) -> int:
+        return self._repository.delete_all()
