@@ -41,26 +41,34 @@ Tests are organized around the application's architecture:
 
 All tests must reside in the repository-level `tests/` directory.
 
+Non-end-to-end tests are grouped by application component and mirror the package structure of the component under test.
+
 ```text
 tests/
 ├── conftest.py
 ├── data/
 ├── fixtures/
-├── features/
-├── systems/
-│   └── <system-name>/
-│       └── processes/
+├── cli/
+│   ├── commands/
+│   └── modules/
+├── core/
+│   ├── pipeline/
+│   └── services/
+├── database/
+│   └── adapters/
+├── llm/
+│   └── adapters/
 └── e2e/
     └── data/
 ```
 
-- `features/`: Feature acceptance tests.
-- `systems/`: System integration and behavior tests.
-- `processes/`: Individual process behavior tests.
+- `cli/`, `core/`, `database/`, `llm/`: Non-end-to-end tests grouped by component. Each component folder mirrors the package path under `app/<component>/` for the code under test.
 - `e2e/`: Full-application CLI tests.
 - `fixtures/`: Shared test data and resources.
 - `data/`: Generated test environment data that is reset at the start of every test session.
 - `e2e/data/`: Generated end-to-end test environment data that is reset at the start of every test session.
+
+Test levels describe the scope and responsibility of a test. They do not determine the test folder location.
 
 Full test runs order items as follows:
 
@@ -105,10 +113,11 @@ The testing component does not have separate documentation. The tests themselves
 
 ## 10. Test Execution Scripts
 
-- `scripts/test-features.sh` runs feature tests.
-- `scripts/test-processes.sh` runs process tests.
-- `scripts/test-systems.sh` runs system tests.
+- `scripts/test-cli.sh` runs CLI component tests.
+- `scripts/test-core.sh` runs Core component tests.
+- `scripts/test-database.sh` runs Database component tests.
+- `scripts/test-llm.sh` runs LLM component tests.
 - `scripts/test-e2e.sh` runs end-to-end tests.
-- `scripts/test-all.sh` runs each test level in a separate session, with end-to-end tests last.
+- `scripts/test-all.sh` runs each component in a separate session, with end-to-end tests last.
 - Each script forwards additional arguments to pytest.
-- `scripts/test-all.sh` continues through all levels, treats pytest exit code 5 as no collected tests, and returns a nonzero exit code if any level fails.
+- `scripts/test-all.sh` continues through all components, treats pytest exit code 5 as no collected tests, and returns a nonzero exit code if any component fails.

@@ -3,4 +3,4 @@ set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-uv run pytest tests/processes "$@"
+uv run pytest tests/cli "$@"

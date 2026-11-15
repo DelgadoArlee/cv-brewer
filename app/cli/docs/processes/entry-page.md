@@ -79,7 +79,7 @@ This process is tested at the **Process** level according to the testing strateg
 
 ### 7.4 Test Organization
 
-Tests reside in `tests/processes/entry-page/`.
+Tests reside in `tests/cli/commands/test_entry_page.py`.
 
 ### 7.5 Test Dependencies
 

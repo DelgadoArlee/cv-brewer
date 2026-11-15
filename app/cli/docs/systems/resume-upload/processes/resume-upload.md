@@ -114,7 +114,7 @@ This process should be tested at the **Process** level according to the testing 
 
 ### 7.4 Test Organization
 
-Tests reside in `tests/processes/resume-upload/`.
+Tests reside in `tests/cli/commands/test_resume_upload.py`.
 
 ### 7.5 Test Dependencies
 

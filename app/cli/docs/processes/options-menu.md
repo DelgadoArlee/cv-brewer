@@ -79,7 +79,7 @@ This process is tested at the **Process** level according to the testing strateg
 
 ### 7.4 Test Organization
 
-Tests reside in `tests/processes/options-menu/`.
+Tests reside in `tests/cli/commands/test_options_menu.py`.
 
 ### 7.5 Test Dependencies
 

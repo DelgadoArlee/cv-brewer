@@ -96,7 +96,7 @@ This process is tested at the **Process** level according to the testing strateg
 
 ### 8.4 Test Organization
 
-Tests reside in `tests/processes/application-startup/`.
+Tests reside in `tests/cli/commands/test_application_startup.py`.
 
 The tests are marked `application_startup` and run before all other tests.
 

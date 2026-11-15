@@ -5,7 +5,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 overall_status=0
 
-for script in test-features.sh test-processes.sh test-systems.sh test-e2e.sh; do
+for script in test-cli.sh test-core.sh test-database.sh test-llm.sh test-e2e.sh; do
     echo "Running ${script}..."
     status=0
     "./scripts/${script}" "$@" || status=$?

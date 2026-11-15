@@ -131,9 +131,10 @@ cv-brewer/
 │   ├── conftest.py
 │   ├── data/
 │   ├── fixtures/
-│   ├── features/
-│   ├── systems/
-│   ├── processes/
+│   ├── cli/
+│   ├── core/
+│   ├── database/
+│   ├── llm/
 │   └── e2e/
 ├── docs/
 ├── main.py
@@ -195,7 +196,7 @@ cv-brewer/
 |`app/llm/docs/systems/`|Contains LLM component system documentation.|
 |`app/llm/adapters/`|Contains LLM adapter implementations.|
 |`app/llm/adapters/ollama/`|Contains the Ollama adapter implementation.|
-|`tests/`|Contains all test code organized by testing level (features, systems, processes, e2e).|
+|`tests/`|Contains all test code. Non-end-to-end tests are grouped by component and mirror the package structure under `app/`; end-to-end tests reside under `tests/e2e/`.|
 |`tests/data/`|Contains generated test environment data; reset at test session start and ignored by version control.|
 |`main.py`|Application composition root that wires startup, services, and CLI dependencies.|
 |`run.sh`|Starts the application with `uv run python main.py`.|
