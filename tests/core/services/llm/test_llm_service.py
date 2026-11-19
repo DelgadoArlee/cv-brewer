@@ -3,6 +3,7 @@ from typing import Any
 import pytest
 from core.services.llm import (
     ChatMessage,
+    GenerationResult,
     LLMPort,
     LLMService,
     ModelInfo,
@@ -16,7 +17,7 @@ class _FakeAdapter(LLMPort):
         self.requests: list[StructuredGenerationRequest] = []
         self.available: bool = True
         self.models: list[ModelInfo] = []
-        self.response: dict[str, Any] = {}
+        self.response = GenerationResult(content={}, response_content="{}")
         self.failure: Exception | None = None
 
     def check_availability(self) -> bool:
@@ -27,7 +28,10 @@ class _FakeAdapter(LLMPort):
             raise self.failure
         return self.models
 
-    def generate_structured(self, request: StructuredGenerationRequest) -> dict[str, Any]:
+    def generate_structured(
+        self,
+        request: StructuredGenerationRequest,
+    ) -> GenerationResult:
         if self.failure is not None:
             raise self.failure
         self.requests.append(request)
@@ -70,7 +74,10 @@ def test_list_models_returns_empty_listing() -> None:
 
 def test_generate_structured_delegates_complete_request() -> None:
     adapter = _FakeAdapter()
-    adapter.response = {"name": "Ada Lovelace"}
+    adapter.response = GenerationResult(
+        content={"name": "Ada Lovelace"},
+        response_content='{"name": "Ada Lovelace"}',
+    )
     request = _complete_request()
 
     response = LLMService(adapter).generate_structured(request)

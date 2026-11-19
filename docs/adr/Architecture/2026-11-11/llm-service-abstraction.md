@@ -31,4 +31,4 @@ Replace the LLM Provider layer with an LLM Service abstraction modeled on the Da
 - Users must still install and run Ollama for normal operation.
 - Ollama API or model behavior changes may require adapter updates.
 - Structured output support depends on the configured Ollama model and version.
-- This decision supersedes the Provider/Adapter split described in [Integrate local LLMs through a native Ollama adapter](../2026-11-04/llm-integration.md).
+- This decision supersedes the Provider/Adapter split described in [Integrate local LLMs through a native Ollama adapter](/docs/adr/Architecture/2026-11-04/llm-integration.md).

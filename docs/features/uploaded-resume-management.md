@@ -15,7 +15,7 @@ This feature provides users with the ability to manage their uploaded resumes, s
 
 ## 3. User Journey
 
-```mermaid
+````mermaid
 flowchart TD
     A([Start]) --> B[User selects Delete Imported Resumes]
     B --> C[System displays deletion confirmation]
@@ -32,19 +32,19 @@ flowchart TD
 
     G -- Yes --> I[Display deletion success]
     I --> Z([End])
-```
+````
 
 ## 4. Systems
 
 | System | Description |
 |---|---|
-| [Delete Resumes System](../system/delete-resumes/overview.md) | Handles the deletion of parsed resume data from storage with security constraints |
+| [Delete Resumes System](/docs/system/delete-resumes/overview.md) | Handles the deletion of parsed resume data from storage with security constraints |
 
 ## 5. References
 
-- [Requirements Document](../requirements.md) - Section 4.1 Data Categories
+- [Requirements Document](/docs/requirements.md) - Section 4.1 Data Categories
 - [User Journey Diagram](#3-user-journey)
-- [System Rules](../system-rules.md) - File system access constraints
+- [System Rules](/docs/system-rules.md) - File system access constraints
 
 ## 6. Acceptance Criteria
 

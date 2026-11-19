@@ -8,7 +8,7 @@ The Core Processing Engine stores successfully parsed resume data and associated
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 sequenceDiagram
     actor User
     participant CLI
@@ -57,7 +57,7 @@ sequenceDiagram
 
         CLI-->>User: Upload operation complete
     end
-```
+````
 
 ## 3. Rules
 
@@ -92,6 +92,6 @@ sequenceDiagram
 
 ## 5. References
 
-- [Input Folder Initialization](1-input-folder-initialization.md)
-- [Input Folder Initialiation](1-input-folder-initialization.md)
-- [File Metadata Model](resume-file-metadata.md)
+- [Input Folder Initialization](/docs/system/resume-upload/processes/1-input-folder-initialization.md)
+- [Input Folder Initialiation](/docs/system/resume-upload/processes/1-input-folder-initialization.md)
+- [File Metadata Model](/docs/data/user-resume.md)

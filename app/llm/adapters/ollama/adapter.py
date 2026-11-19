@@ -3,6 +3,8 @@ from typing import Any
 
 import httpx
 from core.services.llm import (
+    GenerationResult,
+    GenerationUsage,
     LLMPort,
     ModelInfo,
     StructuredGenerationRequest,
@@ -40,13 +42,40 @@ def _parse_model_listing(payload: Any) -> list[ModelInfo]:
     return models
 
 
-def _extract_message_content(body: Any) -> str:
+def _extract_response_content(body: Any) -> str:
     if not isinstance(body, dict):
         raise LLMAdapterResponseError("Ollama generation response is malformed.")
     message = body.get("message")
     if not isinstance(message, dict) or not isinstance(message.get("content"), str):
         raise LLMAdapterResponseError("Ollama generation response is missing message content.")
     return message["content"]
+
+
+def _extract_optional_int(body: dict[str, Any], key: str) -> int | None:
+    value = body.get(key)
+    if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+        return value
+    return None
+
+
+def _extract_generation_usage(body: dict[str, Any]) -> GenerationUsage:
+    input_tokens = _extract_optional_int(body, "prompt_eval_count")
+    output_tokens = _extract_optional_int(body, "eval_count")
+    total_tokens = (
+        input_tokens + output_tokens
+        if input_tokens is not None and output_tokens is not None
+        else None
+    )
+    return GenerationUsage(
+        input_tokens=input_tokens,
+        output_tokens=output_tokens,
+        total_tokens=total_tokens,
+    )
+
+
+def _extract_finish_reason(body: dict[str, Any]) -> str | None:
+    reason = body.get("done_reason")
+    return reason if isinstance(reason, str) else None
 
 
 def _parse_structured_content(content: str) -> dict[str, Any]:
@@ -95,7 +124,10 @@ class OllamaAdapter(LLMPort):
             ) from exc
         return _parse_model_listing(payload)
 
-    def generate_structured(self, request: StructuredGenerationRequest) -> dict[str, Any]:
+    def generate_structured(
+        self,
+        request: StructuredGenerationRequest,
+    ) -> GenerationResult:
         payload = {
             "model": request.model,
             "messages": [
@@ -129,5 +161,12 @@ class OllamaAdapter(LLMPort):
             raise LLMAdapterResponseError(
                 "Ollama generation response is not valid JSON."
             ) from exc
-        content = _extract_message_content(body)
-        return _parse_structured_content(content)
+        if not isinstance(body, dict):
+            raise LLMAdapterResponseError("Ollama generation response is malformed.")
+        response_content = _extract_response_content(body)
+        return GenerationResult(
+            content=_parse_structured_content(response_content),
+            response_content=response_content,
+            finish_reason=_extract_finish_reason(body),
+            usage=_extract_generation_usage(body),
+        )

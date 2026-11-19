@@ -6,7 +6,7 @@ The resume generation process creates tailored resume documents by combining a u
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A([Start: Output Folder Initialization]) --> B{Output Folder Exists?}
     B -->|No| C[Create Output Folder]
@@ -44,7 +44,7 @@ flowchart TD
     Y --> G
     
     X --> Z([End Process])
-```
+````
 
 ## 3. Rules
 
@@ -69,9 +69,9 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Generation Feature Overview](docs/system/resume-generation/overview.md)
-- [Job Description Parsing Process](2-job-description-parsing.md)
-- [Parsed Job Description Validation Process](3-parsed-job-description-validation.md)
-- [Resume Content Generation Process](4-resume-content-generation.md)
-- [Generated Resume Validation Process](5-generated-resume-validation.md)
-- [Output Rendering Process](6-output-rendering.md)
+- [Resume Generation Feature Overview](/docs/system/resume-generation/overview.md)
+- [Job Description Parsing Process](/docs/system/resume-generation/processes/2-job-description-parsing.md)
+- [Parsed Job Description Validation Process](/docs/system/resume-generation/processes/3-parsed-job-description-validation.md)
+- [Resume Content Generation Process](/docs/system/resume-generation/processes/4-resume-content-generation.md)
+- [Generated Resume Validation Process](/docs/system/resume-generation/processes/5-generated-resume-validation.md)
+- [Output Rendering Process](/docs/system/resume-generation/processes/6-output-rendering.md)

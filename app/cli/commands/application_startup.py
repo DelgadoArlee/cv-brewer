@@ -28,6 +28,7 @@ def initialize_application(
     try:
         database_initializer(paths.database)
     except Exception as exc:
+        print(exc)
         raise StartupError(
             f"Failed to initialize the database at {paths.database}"
         ) from exc

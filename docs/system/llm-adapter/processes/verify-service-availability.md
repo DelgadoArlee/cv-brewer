@@ -30,6 +30,6 @@ flowchart TD
 
 ## 5. References
 
-- [LLM Adapter System Overview](../overview.md)
-- [Verify Service Availability Technical Process](../../../../app/llm/docs/systems/llm-adapter/processes/verify-service-availability.md)
-- [Check LLM Availability Process](../../llm-service/processes/check-llm-availability.md)
+- [LLM Adapter System Overview](/docs/system/llm-adapter/overview.md)
+- [Verify Service Availability Technical Process](/app/llm/docs/system/llm-adapter/processes/verify-service-availability.md)
+- [Check LLM Availability Process](/docs/system/llm-service/processes/check-llm-availability.md)

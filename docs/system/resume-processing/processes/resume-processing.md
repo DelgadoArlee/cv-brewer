@@ -61,12 +61,12 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing System Overview](../overview.md)
-- [File Type Verification Process](1-file-type-verification.md)
-- [Metadata Extraction Process](2-metadata-extraction.md)
-- [Deduplication Process](3-deduplication.md)
-- [PDF Validation Process](4-pdf-validation.md)
-- [PDF Extraction Process](5-pdf-extraction.md)
-- [Data Parsing Process](6-data-parsing.md)
-- [Schema Validation Process](7-schema-validation.md)
-- [User Resume Data Model](../../../data/user-resume.md)
+- [Resume Processing System Overview](/docs/system/resume-processing/overview.md)
+- [File Type Verification Process](/docs/system/resume-processing/processes/1-file-type-verification.md)
+- [Metadata Extraction Process](/docs/system/resume-processing/processes/2-metadata-extraction.md)
+- [Deduplication Process](/docs/system/resume-processing/processes/3-deduplication.md)
+- [PDF Validation Process](/docs/system/resume-processing/processes/4-pdf-validation.md)
+- [PDF Extraction Process](/docs/system/resume-processing/processes/5-pdf-extraction.md)
+- [Data Parsing Process](/docs/system/resume-processing/processes/6-data-parsing.md)
+- [Schema Validation Process](/docs/system/resume-processing/processes/7-schema-validation.md)
+- [User Resume Data Model](/docs/data/user-resume.md)

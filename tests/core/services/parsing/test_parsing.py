@@ -1,8 +1,10 @@
+import json
 from typing import Any
 
 import pytest
 from core.errors import LlmProcessingError
 from core.services.llm import (
+    GenerationResult,
     LLMPort,
     LLMService,
     ModelInfo,
@@ -74,11 +76,14 @@ class _FakeAdapter(LLMPort):
     def generate_structured(
         self,
         request: StructuredGenerationRequest,
-    ) -> dict[str, Any]:
+    ) -> GenerationResult:
         if self.failure is not None:
             raise self.failure
         self.requests.append(request)
-        return self.response
+        return GenerationResult(
+            content=self.response,
+            response_content=json.dumps(self.response),
+        )
 
 
 def test_extract_deterministic_data_extracts_contact_and_sections() -> None:

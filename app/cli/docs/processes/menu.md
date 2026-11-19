@@ -110,9 +110,9 @@ This process follows the testing strategy by verifying observable menu behavior 
 
 ## 8. References
 
-- [CLI Component Technical Specification](../technical-specification.md)
-- [CLI Entry Page Technical Process](entry-page.md)
-- [CLI Options Menu Technical Process](options-menu.md)
-- [Resume Upload Technical Process](../systems/resume-upload/processes/resume-upload.md)
-- [CLI Component Coding Guidelines](../guidelines.md)
-- [Use Typer and Rich for a hybrid CLI](../../../../docs/adr/Architecture/2026-11-04/cli-interface.md)
+- [CLI Component Technical Specification](/app/cli/docs/technical-specification.md)
+- [CLI Entry Page Technical Process](/app/cli/docs/processes/entry-page.md)
+- [CLI Options Menu Technical Process](/app/cli/docs/processes/options-menu.md)
+- [Resume Upload Technical Process](/app/cli/docs/system/resume-upload/processes/resume-upload.md)
+- [CLI Component Coding Guidelines](/app/cli/docs/guidelines.md)
+- [Use Typer and Rich for a hybrid CLI](/docs/adr/Architecture/2026-11-04/cli-interface.md)

@@ -10,7 +10,9 @@ from cli.modules.context import CLIDependencies
 from cli.modules.paths import StartupPaths, startup_paths
 from cli.commands.application_startup import initialize_application
 from core.pipeline import ResumeProcessor
-from database import create_resume_service, initialize_database
+from core.services.logger import LoggerService
+from core.services.llm.logger import LLMLogger
+from database import create_llm_log_service, create_resume_service, initialize_database
 from llm import create_llm_service
 from tests.fixtures.environment import E2E_DATA_PATH
 
@@ -28,7 +30,10 @@ def e2e_startup_paths(e2e_environment_path: Path) -> StartupPaths:
 @pytest.fixture(scope="session")
 def e2e_application(e2e_startup_paths: StartupPaths) -> SimpleNamespace:
     paths = initialize_application(e2e_startup_paths, initialize_database)
-    llm_service = create_llm_service()
+    llm_log_repository = create_llm_log_service(paths.database)
+    logger_service = LoggerService([llm_log_repository])
+    llm_logger = LLMLogger("ollama", logger_service)
+    llm_service = create_llm_service(logger=llm_logger)
 
     if not llm_service.check_availability():
         pytest.fail(
@@ -50,6 +55,7 @@ def e2e_application(e2e_startup_paths: StartupPaths) -> SimpleNamespace:
         paths=paths,
         processor=processor,
         resume_service=resume_service,
+        llm_log_querier=llm_log_repository,
         dependencies=dependencies,
     )
 
@@ -61,6 +67,7 @@ def e2e_cli(e2e_application: SimpleNamespace) -> Iterator[SimpleNamespace]:
         paths=e2e_application.paths,
         processor=e2e_application.processor,
         resume_service=e2e_application.resume_service,
+        llm_log_querier=e2e_application.llm_log_querier,
         dependencies=e2e_application.dependencies,
         app=create_app(e2e_application.dependencies),
     )

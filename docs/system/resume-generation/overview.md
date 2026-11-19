@@ -50,7 +50,7 @@ The resume generation workflow follows these major steps:
 10. **Markdown Rendering**: Template is rendered as Markdown
 11. **Output Storage**: Final Markdown file is saved to the output folder
 
-Reference: [Resume Generation Process](processes/resume-generation-process.md)
+Reference: [Resume Generation Process](/docs/system/resume-generation/processes/resume-generation.md)
 
 ## 5. Constraints
 
@@ -87,9 +87,9 @@ This feature uses the following data models:
 
 | Data Model | Purpose | Documentation Link |
 |------------|---------|-------------------|
-| Resume Data Model | Stores parsed resume information for reuse | [Resume Data Model](user-resume.md) |
-| Job Description Schema | Defines structure for job description input | [Job Description Schema](../schema/job-description-schema.md) |
-| Generated Resume Schema | Validates generated resume output | [Generated Resume Schema](../schema/generated-resume-schema.md) |
+| Resume Data Model | Stores parsed resume information for reuse | [Resume Data Model](/docs/data/user-resume.md) |
+| Job Description Schema | Defines structure for job description input | [Job Description Schema](/docs/data/job-description.md) |
+| Generated Resume Schema | Validates generated resume output | [Generated Resume Schema](/docs/data/generated-resume.md) |
 
 ## 9. Error Handling
 
@@ -105,8 +105,8 @@ The feature handles the following error scenarios:
 
 ## 12. References
 
-- [System Architecture](../../../architecture.md)
-- [Functional Requirements](../../../requirements.md)
-- [General System Rules](docs/system-rules.md)
-- [Feature Overview Format Rules](docs/rules/format/system-rules.md)
-- [Resume Generation Process](processes/resume-generation-process.md)
+- [System Architecture](/docs/architecture.md)
+- [Functional Requirements](/docs/requirements.md)
+- [General System Rules](/docs/system-rules.md)
+- [Feature Overview Format Rules](/docs/rules/system.md)
+- [Resume Generation Process](/docs/system/resume-generation/processes/resume-generation.md)

@@ -32,7 +32,7 @@ docs/
 ├── adr/
 ├── rules/
 ├── features/
-├── systems/
+├── system/
 └── data/
 
 Each category has a distinct documentation responsibility.
@@ -109,7 +109,7 @@ Systems are documented independently to establish clear boundaries and responsib
 
 Directory Structure:
 
-docs/systems/<system-name>/
+docs/system/<system-name>/
 
 Each system must have its own directory containing its corresponding documentation.
 

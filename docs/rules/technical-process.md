@@ -86,12 +86,12 @@ Document test scenarios using the **Given–When–Then** pattern:
 
 Tests for this process should reside in the repository-level `tests/` directory:
 
-```text
+````text
 tests/
 └── <component>/
     └── <package-path>/
         └── test_<process>.py
-```
+````
 
 - `<component>` matches the application component that owns the implementation.
 - `<package-path>` mirrors the implementation package path under `app/<component>/`.

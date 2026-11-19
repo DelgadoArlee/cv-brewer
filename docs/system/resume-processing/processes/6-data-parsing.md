@@ -6,7 +6,7 @@ This process parses extracted text content from validated PDF resumes into struc
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A[Extracted Text Content] --> B[Apply Deterministic Extraction]
     B --> C{Deterministic Extraction Complete?}
@@ -20,7 +20,7 @@ flowchart TD
     H -->|Yes| J[Combine Deterministic and LLM Results]
     J --> K[Generate Structured Resume Data]
     K --> F
-```
+````
 
 ## 3. Rules
 
@@ -45,6 +45,6 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing System Overview](../overview.md)
-- [PDF Extraction Process](5-pdf-extraction.md)
-- [Schema Validation Process](7-schema-validation.md)
+- [Resume Processing System Overview](/docs/system/resume-processing/overview.md)
+- [PDF Extraction Process](/docs/system/resume-processing/processes/5-pdf-extraction.md)
+- [Schema Validation Process](/docs/system/resume-processing/processes/7-schema-validation.md)

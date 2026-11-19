@@ -33,5 +33,5 @@ Indexes:
 
 ## 6. References
 
-- [SQLite Database Overview](../overview.md)
-- [User Resume Data Model](../../../../../docs/data/user-resume.md)
+- [SQLite Database Overview](/app/database/docs/sqlite/overview.md)
+- [User Resume Data Model](/docs/data/user-resume.md)

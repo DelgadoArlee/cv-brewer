@@ -6,7 +6,7 @@
 
 ## Status
 
-Superseded by [Organize processing modules as services](../11-13-26/processing-service-packages.md).
+Superseded by [Organize processing modules as services](/app/core/docs/adr/11-13-26/processing-service-packages.md).
 
 ## Context
 
@@ -21,7 +21,7 @@ The Core resume-processing implementation was organized under a single `app/core
 - Keep shared Core errors in `app/core/errors.py`.
 - Define package structure rules in `app/core/docs/guidelines.md`.
 
-This supersedes the single-package organization in the [Resume-processing foundation](resume-processing-foundation.md).
+This supersedes the single-package organization in the [Resume-processing foundation](/app/core/docs/adr/11-12-26/resume-processing-foundation.md).
 
 ## Consequences
 

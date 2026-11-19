@@ -10,7 +10,7 @@ Accepted
 
 ## Context
 
-The LLM Service application layer is now owned by the Core under the [Move the LLM Service into the Core application layer](../../../../../docs/adr/Architecture/2026-11-14/llm-service-to-core.md) decision. All LLM request records, the adapter contract, and LLM service operations previously lived under the LLM component. Core needs a package location that keeps LLM-specific application logic together without reintroducing a generic LLM abstraction that has no shared use yet.
+The LLM Service application layer is now owned by the Core under the [Move the LLM Service into the Core application layer](/docs/adr/Architecture/2026-11-14/llm-service-to-core.md) decision. All LLM request records, the adapter contract, and LLM service operations previously lived under the LLM component. Core needs a package location that keeps LLM-specific application logic together without reintroducing a generic LLM abstraction that has no shared use yet.
 
 ## Decision
 

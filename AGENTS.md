@@ -112,8 +112,8 @@ CVBrewery uses four conceptual levels:
 
     ### Low-level Component Documentation (Technical & Implementation):
         - Technical Specification Document: `app/<component>/docs/technical-specification.md`
-        - Technical System Documentation: `app/<component>/docs/systems/<system-name>/`
-        - Technical Process Documentation: `app/<component>/docs/systems/<system-name>/processes/<process-name>.md
+        - Technical System Documentation: `app/<component>/docs/system/<system-name>/`
+        - Technical Process Documentation: `app/<component>/docs/system/<system-name>/processes/<process-name>.md
         - Technical Schema Documentation: `app/<component>/docs/schemas/<schema-name>.md`
 
     ### Database-specific Documentation

@@ -1,4 +1,5 @@
 import ast
+import json
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -6,6 +7,7 @@ from typing import Any
 from core.models import ResumeInput, ResumeProcessingStatus
 from core.pipeline import ResumeProcessor
 from core.services.llm import (
+    GenerationResult,
     LLMPort,
     LLMService,
     ModelInfo,
@@ -67,9 +69,12 @@ class _FakeAdapter(LLMPort):
     def generate_structured(
         self,
         request: StructuredGenerationRequest,
-    ) -> dict[str, Any]:
+    ) -> GenerationResult:
         self.requests.append(request)
-        return self.response
+        return GenerationResult(
+            content=self.response,
+            response_content=json.dumps(self.response),
+        )
 
 
 class _FailingResumeService:

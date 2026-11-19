@@ -10,7 +10,7 @@ Accepted
 
 ## Context
 
-The LLM Service requires a first adapter implementation that communicates with the user's locally served Ollama service. The adapter must own all Ollama-specific communication, configuration, and error handling while remaining behind the LLM Service boundary, as established by the [LLM Service abstraction decision](../../../../../docs/adr/Architecture/2026-11-11/llm-service-abstraction.md).
+The LLM Service requires a first adapter implementation that communicates with the user's locally served Ollama service. The adapter must own all Ollama-specific communication, configuration, and error handling while remaining behind the LLM Service boundary, as established by the [LLM Service abstraction decision](/docs/adr/Architecture/2026-11-11/llm-service-abstraction.md).
 
 ## Decision
 

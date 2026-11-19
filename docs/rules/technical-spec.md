@@ -84,14 +84,14 @@ Include a directory tree with brief descriptions of important directories and fi
 
 Example:
 
-```text
+````text
 component/
 ├── system-a/
 │   └── Description of the system
 ├── system-b/
 │   └── Description of the system
 └── README.md
-```
+````
 
 Rules:
 
@@ -155,9 +155,9 @@ Use descriptive links instead of raw URLs.
 
 All Technical Specification documents must be located at:
 
-```
+````
 app/<component>/docs/technical-specification.md
-```
+````
 
 Where `<component>` is the name of the component directory (e.g., `database`, `resume-generation`, etc.).
 
@@ -185,9 +185,9 @@ Rules:
 
 All Technical Specification documents must follow this exact path format:
 
-```
+````
 app/<component>/docs/technical-specification.md
-```
+````
 
 Where `<component>` is the name of the component directory (e.g., `database`, `resume-generation`, etc.).
 

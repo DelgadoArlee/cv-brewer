@@ -68,20 +68,23 @@ This document does not replace the ADRs, requirements, architecture, or system d
 
 | Decision                                           | ADR                                                                          |
 | -------------------------------------------------- | ---------------------------------------------------------------------------- |
-| Use Python and `uv`                                | [Python runtime and tooling](adr/Architecture/2026-11-04/python-runtime-and-tooling.md)   |
-| Package per-OS single executables with PyInstaller | [Cross-platform packaging](adr/Architecture/2026-11-04/cross-platform-packaging.md)       |
-| Use `pypdf` and `pdfplumber` for PDF processing    | [PDF processing](adr/Architecture/2026-11-04/pdf-processing.md)                           |
-| Use JSON Schema and Pydantic for validation        | [Schema validation](adr/Architecture/2026-11-04/schema-validation.md)                     |
-| Use SQLite through SQLAlchemy and Alembic          | [Database persistence](adr/Architecture/2026-11-04/database-persistence.md)               |
-| Use an LLM Service abstraction with pluggable adapters | [LLM Service abstraction](adr/Architecture/2026-11-11/llm-service-abstraction.md)       |
-| Integrate LLMs through an adapter pattern           | [LLM integration](adr/Architecture/2026-11-04/llm-integration.md) — superseded by the LLM Service abstraction |
-| Generate Markdown resumes for the MVP              | [Markdown output MVP](adr/Architecture/2026-11-04/markdown-output-mvp.md)                 |
-| Use Typer and Rich for a hybrid CLI                | [CLI interface](adr/Architecture/2026-11-04/cli-interface.md)                             |
-| Core owns file-type and PDF validation             | [Validation responsibilities](adr/Architecture/2026-11-04/validation-responsibilities.md) |
+| Use Python and `uv`                                | [Python runtime and tooling](/docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)   |
+| Package per-OS single executables with PyInstaller | [Cross-platform packaging](/docs/adr/Architecture/2026-11-04/cross-platform-packaging.md)       |
+| Use `pypdf` and `pdfplumber` for PDF processing    | [PDF processing](/docs/adr/Architecture/2026-11-04/pdf-processing.md)                           |
+| Use JSON Schema and Pydantic for validation        | [Schema validation](/docs/adr/Architecture/2026-11-04/schema-validation.md)                     |
+| Use SQLite through SQLAlchemy and Alembic          | [Database persistence](/docs/adr/Architecture/2026-11-04/database-persistence.md)               |
+| Use an LLM Service abstraction with pluggable adapters | [LLM Service abstraction](/docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)       |
+| Integrate LLMs through an adapter pattern           | [LLM integration](/docs/adr/Architecture/2026-11-04/llm-integration.md) — superseded by the LLM Service abstraction |
+| Generate Markdown resumes for the MVP              | [Markdown output MVP](/docs/adr/Architecture/2026-11-04/markdown-output-mvp.md)                 |
+| Use Typer and Rich for a hybrid CLI                | [CLI interface](/docs/adr/Architecture/2026-11-04/cli-interface.md)                             |
+| Own a reusable Logger Service in Core              | [Core-owned Logger Service](/docs/adr/Architecture/2026-11-19/core-logger-service.md)           |
+| Log LLM activities to the database                 | [LLM activity logging](/docs/adr/Architecture/2026-11-19/llm-activity-logging.md)               |
+| Provide a separate Logger CLI entry point          | [Logger CLI entry point](/docs/adr/Architecture/2026-11-19/logger-cli-entry-point.md)           |
+| Core owns file-type and PDF validation             | [Validation responsibilities](/docs/adr/Architecture/2026-11-04/validation-responsibilities.md) |
 
 ## 8. References
 
-- [System Architecture](architecture.md)
-- [Requirements](requirements.md)
-- [General System Rules](system-rules.md)
-- [Architecture Decision Log](adr/ADL.md)
+- [System Architecture](/docs/architecture.md)
+- [Requirements](/docs/requirements.md)
+- [General System Rules](/docs/system-rules.md)
+- [Architecture Decision Log](/docs/adr/ADL.md)

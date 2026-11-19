@@ -8,7 +8,7 @@ This process operates after metadata extraction and before resume extraction and
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A([Start Deduplication]) --> B[Calculate Raw-Byte Fingerprint]
     B --> C{Fingerprint Calculation Complete?}
@@ -22,7 +22,7 @@ flowchart TD
     G -->|No| J[Mark as Unique]
     J --> K[Proceed to Resume Extraction and Parsing]
     K --> E
-```
+````
 
 ## 3. Rules
 
@@ -46,5 +46,5 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing System Overview](../overview.md)
-- [Metadata Extraction Process](2-metadata-extraction.md)
+- [Resume Processing System Overview](/docs/system/resume-processing/overview.md)
+- [Metadata Extraction Process](/docs/system/resume-processing/processes/2-metadata-extraction.md)

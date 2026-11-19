@@ -31,8 +31,8 @@ CV Brewer is a CLI-based application for processing resumes and generating tailo
 
 | Component   | Responsibility                                                                                 |
 | ----------- | ---------------------------------------------------------------------------------------------- |
-| CLI         | Handles user interaction and local file management.                                             |
-| Core        | Handles resume processing, job description processing, resume generation, and application-level resume data and language-model operations. |
+| CLI         | Handles user interaction, local file management, and log review.                                 |
+| Core        | Handles resume processing, job description processing, resume generation, application-level resume data and language-model operations, and logging. |
 | Database    | Implements database-specific operations and adapters for Core-owned data contracts.              |
 | LLM         | Implements language-model-service-specific operations and adapters for Core-owned LLM contracts. |
 
@@ -44,10 +44,12 @@ External resources:
 
 ### 2.2. Architecture Overview
 
-```mermaid
+````mermaid
 flowchart LR
     User[User] <--> CLI[CLI]
+    User <--> LoggerCLI[Logger CLI]
     CLI <--> Core[Core]
+    LoggerCLI --> Core
 
     Core <--> Database[Database]
     Database <--> DBImpl[Database Implementation]
@@ -57,7 +59,7 @@ flowchart LR
     LLMAdapter <--> LLMService[External LLM Service]
 
     CLI <--> FS[Local File System]
-```
+````
 
 ### 2.3. Component Boundaries
 

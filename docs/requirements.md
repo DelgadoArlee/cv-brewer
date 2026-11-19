@@ -73,6 +73,7 @@ The system shall distinguish between:
 - **Job description data:** Validated and structured information derived from a provided job description.
 - **Generated resume data:** Structured output produced by the Core and validated against the Generated Resume JSON schema.
 - **Generated resume documents:** Rendered Markdown files saved in the output folder.
+- **LLM activity logs:** Structured records of LLM generation calls stored locally for review.
 
 
 ## 5. Deployment Requirements

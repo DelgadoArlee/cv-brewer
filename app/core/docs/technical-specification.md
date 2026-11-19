@@ -95,9 +95,11 @@ This document defines the technical organization of the Core Processing Engine c
 
 | System | Description | Specification |
 | --- | --- | --- |
-| Resume Processing | Validates uploaded files and PDFs, extracts and parses resume data, and validates it against the Resume JSON schema. | [Resume Processing](systems/resume-processing/overview.md) |
-| Database Service | Defines application-level resume data operations and delegates persistence to a Database Adapter. | [Database Service](systems/database-service/overview.md) |
-| LLM Service | Defines application-level language-model operations and delegates communication to an LLM Adapter. | [LLM Service](systems/llm-service/overview.md) |
+| Resume Processing | Validates uploaded files and PDFs, extracts and parses resume data, and validates it against the Resume JSON schema. | [Resume Processing](/app/core/docs/system/resume-processing/overview.md) |
+| Database Service | Defines application-level resume data operations and delegates persistence to a Database Adapter. | [Database Service](/app/core/docs/system/database-service/overview.md) |
+| LLM Service | Defines application-level language-model operations and delegates communication to an LLM Adapter. | [LLM Service](/app/core/docs/system/llm-service/overview.md) |
+| Logger Service | Defines generic log records, performance measurement, and delivery to configured sinks. | [Logger Service](/app/core/docs/system/logger-service/overview.md) |
+| LLM Logger | Defines LLM activity log records and builds them from observed generation calls. | [LLM Logger](/app/core/docs/system/llm-logger/overview.md) |
 | Resume Generation | Generates and validates tailored resume data from stored resume data and a job description, then renders Markdown output. | Not yet documented |
 
 ## 7. File Structure
@@ -116,10 +118,12 @@ app/core/
 │   │   ├── 11-13-26/
 │   │   │   ├── processing-service-packages.md
 │   │   │   └── resume-service-package.md
-│   │   └── 11-14-26/
-│   │       ├── llm-service-package.md
-│   │       └── processing-and-validation-service-packages.md
-│   └── systems/
+│   │   ├── 11-14-26/
+│   │   │   ├── llm-service-package.md
+│   │   │   └── processing-and-validation-service-packages.md
+│   │   └── 11-19-26/
+│   │       └── logger-service-package.md
+│   └── system/
 │       ├── database-service/
 │       │   ├── overview.md
 │       │   └── processes/
@@ -132,6 +136,14 @@ app/core/
 │       │       ├── check-llm-availability.md
 │       │       ├── generate-structured-response.md
 │       │       └── list-available-models.md
+│       ├── logger-service/
+│       │   ├── overview.md
+│       │   └── processes/
+│       │       └── emit-log-entry.md
+│       ├── llm-logger/
+│       │   ├── overview.md
+│       │   └── processes/
+│       │       └── record-llm-call.md
 │       └── resume-processing/
 │           ├── overview.md
 │           └── processes/
@@ -155,7 +167,16 @@ app/core/
 │   ├── __init__.py
 │   ├── llm/
 │   │   ├── __init__.py
+│   │   ├── log_models.py
+│   │   ├── logger.py
+│   │   ├── log_port.py
 │   │   ├── models.py
+│   │   ├── port.py
+│   │   └── service.py
+│   ├── logger/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── performance.py
 │   │   ├── port.py
 │   │   └── service.py
 │   ├── metadata/
@@ -190,30 +211,30 @@ app/core/
 
 ## 9. References
 
-- [System Architecture](../../../docs/architecture.md)
-- [Repository Architecture](../../README.md)
-- [Tech Stack](../../../docs/tech-stack.md)
-- [Requirements](../../../docs/requirements.md)
-- [General System Rules](../../../docs/system-rules.md)
-- [Resume Processing System Overview](../../../docs/system/resume-processing/overview.md)
-- [Resume Processing Technical System Specification](systems/resume-processing/overview.md)
-- [Resume Processing Technical Process](systems/resume-processing/processes/resume-processing.md)
-- [Database Service Technical System Specification](systems/database-service/overview.md)
-- [Database Service System Overview](../../../docs/system/database-service/overview.md)
-- [LLM Service Technical System Specification](systems/llm-service/overview.md)
-- [LLM Service System Overview](../../../docs/system/llm-service/overview.md)
-- [Move the Database Service into Core](../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md)
-- [Move the LLM Service into Core](../../../docs/adr/Architecture/2026-11-14/llm-service-to-core.md)
-- [Establish the resume service package](adr/11-13-26/resume-service-package.md)
-- [Establish the LLM service package](adr/11-14-26/llm-service-package.md)
-- [Organize processing modules as services](adr/11-13-26/processing-service-packages.md)
-- [Organize processing and validation code by service packages](adr/11-14-26/processing-and-validation-service-packages.md)
-- [Use an LLM Service abstraction with pluggable LLM adapters](../../../docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)
-- [Resume Generation System Overview](../../../docs/system/resume-generation/overview.md)
-- [Use Python and uv for the CVBrewer implementation](../../../docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
-- [Package CVBrewer as per-OS single executables with PyInstaller](../../../docs/adr/Architecture/2026-11-04/cross-platform-packaging.md)
-- [Use pypdf and pdfplumber for PDF processing](../../../docs/adr/Architecture/2026-11-04/pdf-processing.md)
-- [Use JSON Schema and Pydantic for data validation](../../../docs/adr/Architecture/2026-11-04/schema-validation.md)
-- [Integrate local LLMs through a native Ollama adapter](../../../docs/adr/Architecture/2026-11-04/llm-integration.md)
-- [Generate Markdown resumes for the MVP](../../../docs/adr/Architecture/2026-11-04/markdown-output-mvp.md)
-- [Core owns file-type and PDF validation](../../../docs/adr/Architecture/2026-11-04/validation-responsibilities.md)
+- [System Architecture](/docs/architecture.md)
+- [Repository Architecture](/app/README.md)
+- [Tech Stack](/docs/tech-stack.md)
+- [Requirements](/docs/requirements.md)
+- [General System Rules](/docs/system-rules.md)
+- [Resume Processing System Overview](/docs/system/resume-processing/overview.md)
+- [Resume Processing Technical System Specification](/app/core/docs/system/resume-processing/overview.md)
+- [Resume Processing Technical Process](/app/core/docs/system/resume-processing/processes/resume-processing.md)
+- [Database Service Technical System Specification](/app/core/docs/system/database-service/overview.md)
+- [Database Service System Overview](/docs/system/database-service/overview.md)
+- [LLM Service Technical System Specification](/app/core/docs/system/llm-service/overview.md)
+- [LLM Service System Overview](/docs/system/llm-service/overview.md)
+- [Move the Database Service into Core](/docs/adr/Architecture/2026-11-13/database-service-to-core.md)
+- [Move the LLM Service into Core](/docs/adr/Architecture/2026-11-14/llm-service-to-core.md)
+- [Establish the resume service package](/app/core/docs/adr/11-13-26/resume-service-package.md)
+- [Establish the LLM service package](/app/core/docs/adr/11-14-26/llm-service-package.md)
+- [Organize processing modules as services](/app/core/docs/adr/11-13-26/processing-service-packages.md)
+- [Organize processing and validation code by service packages](/app/core/docs/adr/11-14-26/processing-and-validation-service-packages.md)
+- [Use an LLM Service abstraction with pluggable LLM adapters](/docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)
+- [Resume Generation System Overview](/docs/system/resume-generation/overview.md)
+- [Use Python and uv for the CVBrewer implementation](/docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
+- [Package CVBrewer as per-OS single executables with PyInstaller](/docs/adr/Architecture/2026-11-04/cross-platform-packaging.md)
+- [Use pypdf and pdfplumber for PDF processing](/docs/adr/Architecture/2026-11-04/pdf-processing.md)
+- [Use JSON Schema and Pydantic for data validation](/docs/adr/Architecture/2026-11-04/schema-validation.md)
+- [Integrate local LLMs through a native Ollama adapter](/docs/adr/Architecture/2026-11-04/llm-integration.md)
+- [Generate Markdown resumes for the MVP](/docs/adr/Architecture/2026-11-04/markdown-output-mvp.md)
+- [Core owns file-type and PDF validation](/docs/adr/Architecture/2026-11-04/validation-responsibilities.md)

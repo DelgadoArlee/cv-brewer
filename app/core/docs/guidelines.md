@@ -9,6 +9,7 @@
 5. Place only validation Pydantic models in `app/core/services/<service-name>/validation/models/` and JSON Schemas in `app/core/services/<service-name>/validation/schemas/`.
 6. Place non-validation models in `app/core/models/`.
 7. Keep shared Core errors in `app/core/errors.py`.
+8. Place generic logging code in `app/core/services/logger/` and LLM-specific log records, logger, and repository contract in `app/core/services/llm/`.
 
 ## Rules
 
@@ -18,7 +19,8 @@
 - Do not place processing code in an `app/core/modules/` package.
 - Keep all resume-specific records, repository contracts, and service operations under `services/resume/`.
 - Keep all LLM-specific records, the LLM port contract, and service operations under `services/llm/`.
-- Do not create reusable database or LLM abstractions until a concrete shared need exists.
+- Keep all LLM-specific records, the LLM port contract, service operations, and LLM logging under `services/llm/`.
+- Do not create reusable database or LLM abstractions until a concrete shared need exists; the generic Logger Service is an approved exception.
 - Place validation functions in the owning service's `service.py`; do not create separate validation modules for functions.
 - Place only validation Pydantic models and JSON Schemas under the owning service's `validation/` package.
 - Import validation functions from the owning service package public API, not from validation subpackages.

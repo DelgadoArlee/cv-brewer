@@ -32,7 +32,7 @@ The Database Service provides the application-level operations used to manage st
 
 The service receives application-level resume operations, prepares the record for persistence, delegates the request to the configured Database Adapter, and returns the resulting record or lookup outcome.
 
-See the [Store Resume Process](processes/store-resume.md) and [Retrieve Resume Process](processes/retrieve-resume.md).
+See the [Store Resume Process](/docs/system/database-service/processes/store-resume.md) and [Retrieve Resume Process](/docs/system/database-service/processes/retrieve-resume.md).
 
 ## 5. Constraints
 
@@ -51,7 +51,7 @@ See the [Store Resume Process](processes/store-resume.md) and [Retrieve Resume P
 
 ## 7. Data Management
 
-The service manages resume records based on the [User Resume Data Model](../../data/user-resume.md). The initial operations store and retrieve metadata, parsed resume data, validation status, and processing history.
+The service manages resume records based on the [User Resume Data Model](/docs/data/user-resume.md). The initial operations store and retrieve metadata, parsed resume data, validation status, and processing history.
 
 ## 8. Error Handling
 
@@ -61,7 +61,7 @@ The service manages resume records based on the [User Resume Data Model](../../d
 
 ## 9. References
 
-- [Database Component Technical Specification](../../../app/database/docs/technical-specification.md)
-- [Database Service Technical Specification](../../../app/core/docs/systems/database-service/overview.md)
-- [Move the Database Service into Core](../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md)
-- [User Resume Data Model](../../data/user-resume.md)
+- [Database Component Technical Specification](/app/database/docs/technical-specification.md)
+- [Database Service Technical Specification](/app/core/docs/system/database-service/overview.md)
+- [Move the Database Service into Core](/docs/adr/Architecture/2026-11-13/database-service-to-core.md)
+- [User Resume Data Model](/docs/data/user-resume.md)

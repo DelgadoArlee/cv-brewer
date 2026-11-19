@@ -92,7 +92,7 @@ This process follows the testing strategy by verifying observable entry page beh
 
 ## 8. References
 
-- [CLI Component Technical Specification](../technical-specification.md)
+- [CLI Component Technical Specification](/app/cli/docs/technical-specification.md)
 - `app/cli/ui/entry_page.py`
-- [CLI Component Coding Guidelines](../guidelines.md)
-- [Use Typer and Rich for a hybrid CLI](../../../../docs/adr/Architecture/2026-11-04/cli-interface.md)
+- [CLI Component Coding Guidelines](/app/cli/docs/guidelines.md)
+- [Use Typer and Rich for a hybrid CLI](/docs/adr/Architecture/2026-11-04/cli-interface.md)

@@ -42,7 +42,8 @@ This document defines the technical organization of the LLM component within CVB
 - LLM-service-specific implementation details must remain isolated to adapter packages.
 - Structured responses must be returned as JSON objects; validation against application schemas is performed by the Core.
 - The application must not bundle a model or require a cloud service for normal operation.
-- LLM Adapter code organization must follow the [LLM Component Coding Guidelines](guidelines.md).
+- LLM Adapter code organization must follow the [LLM Component Coding Guidelines](/app/llm/docs/guidelines.md).
+- A logging adapter may wrap an LLM Adapter to observe generation calls, must implement the Core-owned `LLMPort`, and must not define application-level records.
 - The LLM component must remain part of the single Python distribution and must not be independently deployed.
 
 ## 5. Architectural & Design Approaches
@@ -69,7 +70,7 @@ This document defines the technical organization of the LLM component within CVB
 
 | System     | Description                                                                                          | Specification                                              |
 | ---------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| LLM Adapter | Implements the Core-owned LLM port contract, service-specific communication, configuration, response parsing, and error translation. | [LLM Adapter](systems/llm-adapter/overview.md)            |
+| LLM Adapter | Implements the Core-owned LLM port contract, service-specific communication, configuration, response parsing, and error translation. | [LLM Adapter](/app/llm/docs/system/llm-adapter/overview.md)            |
 
 ## 7. File Structure
 
@@ -83,18 +84,24 @@ app/llm/
 │   │   ├── ADL.md
 │   │   ├── 11-11-26/
 │   │   │   └── ollama-adapter-foundation.md
-│   │   └── 11-14-26/
-│   │       └── adapter-only-boundary.md
-│   └── systems/
+│   │   ├── 11-14-26/
+│   │   │   └── adapter-only-boundary.md
+│   │   └── 11-19-26/
+│   │       └── logging-adapter.md
+│   └── system/
 │       └── llm-adapter/
 │           ├── overview.md
 │           └── processes/
 │               ├── generate-structured-response.md
 │               ├── list-service-models.md
+│               ├── log-generation-call.md
 │               └── verify-service-availability.md
 ├── __init__.py
 └── adapters/
     ├── __init__.py
+    ├── logging/
+    │   ├── __init__.py
+    │   └── adapter.py
     └── ollama/
         ├── __init__.py
         ├── adapter.py
@@ -111,16 +118,18 @@ app/llm/
 
 ## 9. References
 
-- [System Architecture](../../../docs/architecture.md)
-- [Repository Architecture](../../README.md)
-- [Tech Stack](../../../docs/tech-stack.md)
-- [Requirements](../../../docs/requirements.md)
-- [General System Rules](../../../docs/system-rules.md)
-- [Core Component Technical Specification](../../core/docs/technical-specification.md)
-- [LLM Adapter System Overview](../../../docs/system/llm-adapter/overview.md)
-- [LLM Component Coding Guidelines](guidelines.md)
-- [LLM Adapter System Specification](systems/llm-adapter/overview.md)
-- [Move the LLM Service into Core](../../../docs/adr/Architecture/2026-11-14/llm-service-to-core.md)
-- [Retain LLM Adapters as the LLM Component Boundary](adr/11-14-26/adapter-only-boundary.md)
-- [Use an LLM Service abstraction with pluggable LLM adapters](../../../docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)
-- [Integrate local LLMs through a native Ollama adapter](../../../docs/adr/Architecture/2026-11-04/llm-integration.md) — superseded by the LLM Service abstraction
+- [System Architecture](/docs/architecture.md)
+- [Repository Architecture](/app/README.md)
+- [Tech Stack](/docs/tech-stack.md)
+- [Requirements](/docs/requirements.md)
+- [General System Rules](/docs/system-rules.md)
+- [Core Component Technical Specification](/app/core/docs/technical-specification.md)
+- [LLM Adapter System Overview](/docs/system/llm-adapter/overview.md)
+- [LLM Component Coding Guidelines](/app/llm/docs/guidelines.md)
+- [LLM Adapter System Specification](/app/llm/docs/system/llm-adapter/overview.md)
+- [Move the LLM Service into Core](/docs/adr/Architecture/2026-11-14/llm-service-to-core.md)
+- [Retain LLM Adapters as the LLM Component Boundary](/app/llm/docs/adr/11-14-26/adapter-only-boundary.md)
+- [Capture LLM Logs at the Adapter Boundary](/app/llm/docs/adr/11-19-26/logging-adapter.md)
+- [Log Generation Call Technical Process](/app/llm/docs/system/llm-adapter/processes/log-generation-call.md)
+- [Use an LLM Service abstraction with pluggable LLM adapters](/docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)
+- [Integrate local LLMs through a native Ollama adapter](/docs/adr/Architecture/2026-11-04/llm-integration.md) — superseded by the LLM Service abstraction

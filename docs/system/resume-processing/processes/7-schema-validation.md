@@ -6,7 +6,7 @@ This process validates parsed resume data against the Resume JSON schema to ensu
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A[Parsed Resume Data] --> B[Validate Against Schema]
     B --> C{Validation Complete?}
@@ -18,7 +18,7 @@ flowchart TD
     H --> F
     G -->|Yes| I[Pass Validation]
     I --> J[Proceed to Storage]
-```
+````
 
 ## 3. Rules
 
@@ -40,6 +40,6 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing System Overview](../overview.md)
-- [Data Parsing Process](6-data-parsing.md)
-- [User Resume Data Model](../../../data/user-resume.md)
+- [Resume Processing System Overview](/docs/system/resume-processing/overview.md)
+- [Data Parsing Process](/docs/system/resume-processing/processes/6-data-parsing.md)
+- [User Resume Data Model](/docs/data/user-resume.md)

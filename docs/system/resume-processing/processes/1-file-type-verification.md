@@ -6,7 +6,7 @@ This process validates that uploaded resume files are genuine PDF documents by v
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A[File Received] --> B{Verify File Type}
     B -->|Valid PDF type| C[Pass Validation]
@@ -14,7 +14,7 @@ flowchart TD
     C --> E[Proceed to Metadata Extraction]
     D --> F[Log Rejection Reason]
     F --> G[Skip Further Processing]
-```
+````
 
 ## 3. Rules
 
@@ -34,5 +34,5 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing System Overview](../overview.md)
+- [Resume Processing System Overview](/docs/system/resume-processing/overview.md)
 - `app/core/services/pdf/service.py` — Implements PDF signature verification.

@@ -6,7 +6,7 @@ This process extracts metadata from resume files that passed file type verificat
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A[File Bytes Passing Type Verification] --> B[Extract Metadata]
     B --> C{Metadata Extraction Complete?}
@@ -16,7 +16,7 @@ flowchart TD
     E --> G[Log Rejection Reason]
     F --> H[Proceed to Deduplication]
     G --> I[Skip Further Processing]
-```
+````
 
 ## 3. Rules
 
@@ -38,5 +38,5 @@ flowchart TD
 
 ## 5. References
 
-- [System Overview](../overview.md)
-- [File Type Verification Process](1-file-type-verification.md)
+- [System Overview](/docs/system/resume-processing/overview.md)
+- [File Type Verification Process](/docs/system/resume-processing/processes/1-file-type-verification.md)

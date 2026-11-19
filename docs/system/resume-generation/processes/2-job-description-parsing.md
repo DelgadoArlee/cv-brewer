@@ -6,7 +6,7 @@ The job description parsing process uses an LLM to extract structured informatio
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A([User Provides Job Description]) --> B[LLM Parses Job Description]
     B --> C{Parsing Succeeded?}
@@ -14,7 +14,7 @@ flowchart TD
     C -->|Failure| E[Report Failure to User and Process]
     E --> F[End Process]
     D --> G[End Process]
-```
+````
 
 ## 3. Rules
 
@@ -35,6 +35,6 @@ flowchart TD
 
 ## 5. References
 
-- [Job Description Schema](../../schema/job-description-schema.md)
-- [Resume Generation Feature Overview](docs/system/resume-generation/overview.md)
-- [Generated Resume Schema](../../schema/generated-resume-schema.md)
+- [Job Description Schema](/docs/data/job-description.md)
+- [Resume Generation Feature Overview](/docs/system/resume-generation/overview.md)
+- [Generated Resume Schema](/docs/data/generated-resume.md)

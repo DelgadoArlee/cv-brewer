@@ -18,6 +18,7 @@ SQLite is the default embedded database implementation. It is accessed by the Da
 | Resume Certification | `resume_certifications` | Stores ordered certification entries for a resume. |
 | Resume Skill | `resume_skills` | Stores ordered skills for a resume. |
 | Resume Processing History | `resume_processing_history` | Stores ordered processing-history entries for a resume. |
+| LLM Activity Log | `llm_logs` | Stores LLM generation requests, responses, usage, performance, and errors. |
 
 ## 4. Relationships
 
@@ -27,6 +28,7 @@ SQLite is the default embedded database implementation. It is accessed by the Da
 - One `resumes` record has zero or more `resume_skills` records.
 - One `resumes` record has zero or more `resume_processing_history` records.
 - All child records reference `resumes.resume_id` with `ON DELETE CASCADE`.
+- `llm_logs` has no relationship to other tables.
 
 ## 5. Database Diagram
 
@@ -84,6 +86,32 @@ erDiagram
         DATE start_date
         DATE end_date
     }
+
+    llm_logs {
+        TEXT id PK
+        TEXT provider
+        TEXT model
+        TEXT operation
+        TEXT status
+        TEXT system_prompt
+        TEXT prompt
+        JSON parameters
+        TEXT response_content
+        TEXT finish_reason
+        INTEGER input_tokens
+        INTEGER output_tokens
+        INTEGER total_tokens
+        DATETIME started_at
+        DATETIME completed_at
+        FLOAT duration_ms
+        INTEGER memory_before_bytes
+        INTEGER memory_after_bytes
+        INTEGER memory_peak_bytes
+        INTEGER memory_delta_bytes
+        TEXT error_type
+        TEXT error_message
+        DATETIME created_at
+    }
 ````
 
 ## 6. Mapping Rules
@@ -96,14 +124,18 @@ erDiagram
 - Child array indexes map to `position_order`.
 - Nullable data-model fields map to nullable columns.
 - `created_at` and `deleted_at` map to DATETIME columns.
+- LLM activity log nested objects map to flat columns on `llm_logs`, except `parameters`, which maps to a JSON column.
+- `status` maps to a checked TEXT column with values `success`, `failed`, and `timeout`.
 
 ## 7. References
 
-- [Database Component Technical Specification](../technical-specification.md)
-- [User Resume Data Model](../../../../docs/data/user-resume.md)
-- [Resume Table](schemas/resumes.md)
-- [Resume Experience Table](schemas/resume-experience.md)
-- [Resume Education Table](schemas/resume-education.md)
-- [Resume Certification Table](schemas/resume-certifications.md)
-- [Resume Skill Table](schemas/resume-skills.md)
-- [Resume Processing History Table](schemas/resume-processing-history.md)
+- [Database Component Technical Specification](/app/database/docs/technical-specification.md)
+- [User Resume Data Model](/docs/data/user-resume.md)
+- [Resume Table](/app/database/docs/sqlite/schemas/resumes.md)
+- [Resume Experience Table](/app/database/docs/sqlite/schemas/resume-experience.md)
+- [Resume Education Table](/app/database/docs/sqlite/schemas/resume-education.md)
+- [Resume Certification Table](/app/database/docs/sqlite/schemas/resume-certifications.md)
+- [Resume Skill Table](/app/database/docs/sqlite/schemas/resume-skills.md)
+- [Resume Processing History Table](/app/database/docs/sqlite/schemas/resume-processing-history.md)
+- [LLM Logs Table](/app/database/docs/sqlite/schemas/llm-logs.md)
+- [LLM Activity Log Data Model](/docs/data/llm-activity-log.md)

@@ -111,7 +111,7 @@ This process follows the testing strategy by verifying observable menu behavior.
 
 ## 8. References
 
-- [CLI Component Technical Specification](../technical-specification.md)
-- [CLI Component Coding Guidelines](../guidelines.md)
-- [CLI Main Menu Technical Process](menu.md)
-- [Delete Resumes System Overview](../../../../docs/system/delete-resumes/overview.md)
+- [CLI Component Technical Specification](/app/cli/docs/technical-specification.md)
+- [CLI Component Coding Guidelines](/app/cli/docs/guidelines.md)
+- [CLI Main Menu Technical Process](/app/cli/docs/processes/menu.md)
+- [Delete Resumes System Overview](/docs/system/delete-resumes/overview.md)

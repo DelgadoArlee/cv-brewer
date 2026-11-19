@@ -86,10 +86,10 @@ The following validation responsibilities apply:
 
 | Validation Step                              | Responsible Component | Reference                                                                     |
 | -------------------------------------------- | --------------------- | ----------------------------------------------------------------------------- |
-| File type signature verification             | Core                  | [File Type Verification Process](processes/1-file-type-verification.md)       |
-| PDF structural validity and encryption check | Core                  | [PDF Validation Process](processes/4-pdf-validation.md)                       |
-| Resume JSON schema validation                | Core                  | [Schema Validation Process](processes/7-schema-validation.md)                 |
-| Readable content verification                | Core                  | [PDF Extraction Process](processes/5-pdf-extraction.md)                       |
+| File type signature verification             | Core                  | [File Type Verification Process](/docs/system/resume-processing/processes/1-file-type-verification.md)       |
+| PDF structural validity and encryption check | Core                  | [PDF Validation Process](/docs/system/resume-processing/processes/4-pdf-validation.md)                       |
+| Resume JSON schema validation                | Core                  | [Schema Validation Process](/docs/system/resume-processing/processes/7-schema-validation.md)                 |
+| Readable content verification                | Core                  | [PDF Extraction Process](/docs/system/resume-processing/processes/5-pdf-extraction.md)                       |
 
 ## 8. Data Management
 
@@ -100,7 +100,7 @@ The system works with the following data categories:
 - **Parsed resume data**: Structured data stored through Database Service for reuse
 - **Resume JSON schema**: Contract for parsed resume data structure
 
-Refer to [User Resume Data Model](../../data/user-resume.md) for detailed data structure definitions.
+Refer to [User Resume Data Model](/docs/data/user-resume.md) for detailed data structure definitions.
 
 ## 9. Error Handling
 

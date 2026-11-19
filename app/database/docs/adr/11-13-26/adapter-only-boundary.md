@@ -10,7 +10,7 @@ Accepted
 
 ## Context
 
-The Database Service application layer moved into the Core under `app/core/services/resume/` as part of the [Move the Database Service into the Core application layer](../../../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md) decision. The database component must now define its boundary around database-specific adapters rather than application-level data operations. Resume persistence still requires a hybrid relational schema, ordered child data, unique content fingerprints, and SQLite repository implementations.
+The Database Service application layer moved into the Core under `app/core/services/resume/` as part of the [Move the Database Service into the Core application layer](/docs/adr/Architecture/2026-11-13/database-service-to-core.md) decision. The database component must now define its boundary around database-specific adapters rather than application-level data operations. Resume persistence still requires a hybrid relational schema, ordered child data, unique content fingerprints, and SQLite repository implementations.
 
 ## Decision
 
@@ -27,5 +27,5 @@ The Database Service application layer moved into the Core under `app/core/servi
 - The database component depends on Core-owned resume service contracts.
 - Adapter persistence code remains grouped by class, with the repository at the class directory root and models under `models/`.
 - Application-level resume behavior changes belong in Core, not in the database component.
-- This decision supersedes the service-placement portions of [Establish resume persistence](../11-10-26/resume-persistence.md).
+- This decision supersedes the service-placement portions of [Establish resume persistence](/app/database/docs/adr/11-10-26/resume-persistence.md).
 - Future database adapters must provide compatible implementations of the Core-owned resume repository contract.

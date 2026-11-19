@@ -30,7 +30,7 @@ The LLM Adapter implements LLM-service-specific operations for the LLM Service. 
 
 The adapter receives operations from the LLM Service, communicates with the external LLM service, parses responses, and returns the availability outcome, the available models, the generated structured response, or a translated adapter error.
 
-See the [Verify Service Availability Process](processes/verify-service-availability.md), the [List Service Models Process](processes/list-service-models.md), and the [Generate Structured Response Process](processes/generate-structured-response.md).
+See the [Verify Service Availability Process](/docs/system/llm-adapter/processes/verify-service-availability.md), the [List Service Models Process](/docs/system/llm-adapter/processes/list-service-models.md), and the [Generate Structured Response Process](/docs/system/llm-adapter/processes/generate-structured-response.md).
 
 ## 5. Constraints
 
@@ -53,8 +53,8 @@ See the [Verify Service Availability Process](processes/verify-service-availabil
 
 ## 8. References
 
-- [LLM Component Technical Specification](../../../app/llm/docs/technical-specification.md)
-- [LLM Adapter Technical Specification](../../../app/llm/docs/systems/llm-adapter/overview.md)
-- [Ollama Adapter Foundation ADR](../../../app/llm/docs/adr/11-11-26/ollama-adapter-foundation.md)
-- [Retain LLM Adapters as the LLM Component Boundary](../../../app/llm/docs/adr/11-14-26/adapter-only-boundary.md)
-- [Use an LLM Service abstraction with pluggable LLM adapters](../../adr/Architecture/2026-11-11/llm-service-abstraction.md)
+- [LLM Component Technical Specification](/app/llm/docs/technical-specification.md)
+- [LLM Adapter Technical Specification](/app/llm/docs/system/llm-adapter/overview.md)
+- [Ollama Adapter Foundation ADR](/app/llm/docs/adr/11-11-26/ollama-adapter-foundation.md)
+- [Retain LLM Adapters as the LLM Component Boundary](/app/llm/docs/adr/11-14-26/adapter-only-boundary.md)
+- [Use an LLM Service abstraction with pluggable LLM adapters](/docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)

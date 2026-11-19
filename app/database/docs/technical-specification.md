@@ -42,7 +42,7 @@ This document defines the technical organization of the database component withi
 - Database-specific implementation details must remain isolated to adapter packages.
 - Application-level data structures must follow the approved data model documentation.
 - Application-level data management rules must not be implemented in the Database Adapter.
-- Database Adapter code organization must follow the [Database Component Coding Guidelines](guidelines.md).
+- Database Adapter code organization must follow the [Database Component Coding Guidelines](/app/database/docs/guidelines.md).
 - The database component must remain part of the single Python distribution and must not be independently deployed.
 
 ## 5. Architectural & Design Approaches
@@ -69,7 +69,7 @@ This document defines the technical organization of the database component withi
 
 | System           | Description                                                                                                     | Specification                                                                        |
 | ---------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Database Adapter | Implements Core-owned repository contracts, database-specific operations, connections, ORM use, transactions, migrations, and error translation. | [Database Adapter](systems/database-adapter/overview.md)                             |
+| Database Adapter | Implements Core-owned repository contracts, database-specific operations, connections, ORM use, transactions, migrations, and error translation. | [Database Adapter](/app/database/docs/system/database-adapter/overview.md)                             |
 
 ## 7. File Structure
 
@@ -85,24 +85,28 @@ app/database/
 │   │   │   └── sqlite-adapter-foundation.md
 │   │   ├── 11-10-26/
 │   │   │   └── resume-persistence.md
-│   │   └── 11-13-26/
-│   │       └── adapter-only-boundary.md
+│   │   ├── 11-13-26/
+│   │   │   └── adapter-only-boundary.md
+│   │   └── 11-19-26/
+│   │       └── llm-log-persistence.md
 │   ├── sqlite/
 │   │   ├── overview.md
 │   │   └── schemas/
+│   │       ├── llm-logs.md
 │   │       ├── resume-certifications.md
 │   │       ├── resume-education.md
 │   │       ├── resume-experience.md
 │   │       ├── resume-processing-history.md
 │   │       ├── resume-skills.md
 │   │       └── resumes.md
-│   └── systems/
+│   └── system/
 │       └── database-adapter/
 │           ├── overview.md
 │           └── processes/
-│               ├── delete-all-resumes.md
-│               ├── load-resume.md
-│               └── persist-resume.md
+│           ├── delete-all-resumes.md
+│           ├── load-resume.md
+│           ├── persist-llm-log.md
+│           └── persist-resume.md
 ├── __init__.py
 └── adapters/
     ├── __init__.py
@@ -117,7 +121,14 @@ app/database/
         │   ├── env.py
         │   ├── script.py.mako
         │   └── versions/
-        │       └── 20261110_0001_create_resume_tables.py
+        │       ├── 20261110_0001_create_resume_tables.py
+        │       └── 20261119_0003_create_llm_logs.py
+        ├── llm_log/
+        │   ├── __init__.py
+        │   ├── repository.py
+        │   └── models/
+        │       ├── __init__.py
+        │       └── llm_log.py
         └── resume/
             ├── __init__.py
             ├── repository.py
@@ -140,16 +151,20 @@ app/database/
 
 ## 9. References
 
-- [System Architecture](../../../docs/architecture.md)
-- [Repository Architecture](../../README.md)
-- [Tech Stack](../../../docs/tech-stack.md)
-- [Core Component Technical Specification](../../core/docs/technical-specification.md)
-- [Database Component Coding Guidelines](guidelines.md)
-- [Database Adapter System Specification](systems/database-adapter/overview.md)
-- [SQLite Database Overview](sqlite/overview.md)
-- [Move the Database Service into Core](../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md)
-- [Retain Database Adapters as the Database Component Boundary](adr/11-13-26/adapter-only-boundary.md)
-- [Use SQLite through SQLAlchemy and Alembic](../../../docs/adr/Architecture/2026-11-04/database-persistence.md)
-- [Use Python and uv for the CVBrewer implementation](../../../docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
-- [User Resume Data Model](../../../docs/data/user-resume.md)
-- [General System Rules](../../../docs/system-rules.md)
+- [System Architecture](/docs/architecture.md)
+- [Repository Architecture](/app/README.md)
+- [Tech Stack](/docs/tech-stack.md)
+- [Core Component Technical Specification](/app/core/docs/technical-specification.md)
+- [Database Component Coding Guidelines](/app/database/docs/guidelines.md)
+- [Database Adapter System Specification](/app/database/docs/system/database-adapter/overview.md)
+- [SQLite Database Overview](/app/database/docs/sqlite/overview.md)
+- [Persist LLM Log Technical Process](/app/database/docs/system/database-adapter/processes/persist-llm-log.md)
+- [LLM Logs Table](/app/database/docs/sqlite/schemas/llm-logs.md)
+- [LLM Activity Log Data Model](/docs/data/llm-activity-log.md)
+- [Persist LLM activity logs in SQLite](/app/database/docs/adr/11-19-26/llm-log-persistence.md)
+- [Move the Database Service into Core](/docs/adr/Architecture/2026-11-13/database-service-to-core.md)
+- [Retain Database Adapters as the Database Component Boundary](/app/database/docs/adr/11-13-26/adapter-only-boundary.md)
+- [Use SQLite through SQLAlchemy and Alembic](/docs/adr/Architecture/2026-11-04/database-persistence.md)
+- [Use Python and uv for the CVBrewer implementation](/docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
+- [User Resume Data Model](/docs/data/user-resume.md)
+- [General System Rules](/docs/system-rules.md)

@@ -29,6 +29,6 @@ flowchart TD
 
 ## 5. References
 
-- [LLM Service System Overview](../overview.md)
-- [List Available Models Technical Process](../../../../app/core/docs/systems/llm-service/processes/list-available-models.md)
-- [List Service Models Process](../../llm-adapter/processes/list-service-models.md)
+- [LLM Service System Overview](/docs/system/llm-service/overview.md)
+- [List Available Models Technical Process](/app/core/docs/system/llm-service/processes/list-available-models.md)
+- [List Service Models Process](/docs/system/llm-adapter/processes/list-service-models.md)

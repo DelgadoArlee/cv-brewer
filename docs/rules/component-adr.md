@@ -75,7 +75,7 @@ Each component-level ADR must have its own Markdown file.
 
 **Example:**
 
-```
+````
 app/
 ├── core/
 │   └── docs/
@@ -90,7 +90,7 @@ app/
         └── adr/
             └── 11-05-26/
                 └── input-folder-discovery.md
-```
+````
 
 - Use the decision date as the directory name.
     
@@ -151,7 +151,7 @@ Each component must maintain its own ADL in a single Markdown file.
 
 **Example:**
 
-```
+````
 core/
 └── docs/
     └── adr/
@@ -161,7 +161,7 @@ core/
         │   └── resume-parser-strategy.md
         └── 11-05-26/
             └── schema-validation.md
-```
+````
 
 All individual ADRs belonging to the component must be linked from its ADL.
 

@@ -23,7 +23,7 @@ These patterns obscured required dependencies, duplicated composition, and made 
 - Provide imported-resume listing through the injected `ResumeLister` capability.
 - Remove `configure_application`, `get_startup_paths`, `get_resume_processor`, module-level dependency globals, fallback dependency resolution, and unused compatibility aliases.
 
-This implements the application-level decision in [Use Manual Dependency Injection with a Single Composition Root](../../../../../docs/adr/Architecture/2026-11-14/manual-dependency-injection.md).
+This implements the application-level decision in [Use Manual Dependency Injection with a Single Composition Root](/docs/adr/Architecture/2026-11-14/manual-dependency-injection.md).
 
 ## Consequences
 

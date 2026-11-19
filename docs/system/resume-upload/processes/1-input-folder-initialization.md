@@ -8,7 +8,7 @@ If the required directory cannot be accessed or the input folder cannot be creat
 
 ## 2. Process Flow
 
-```
+````
 flowchart TD
     A([Start Input Folder Creation]) --> B{Operating System?}
 
@@ -33,7 +33,7 @@ flowchart TD
     I --> L{Creation Successful?}
     L -->|No| F
     L -->|Yes| K
-```
+````
 
 ## 3. Rules
 
@@ -73,4 +73,4 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Upload System](docs/system/resume-upload/overview.md)
+- [Resume Upload System](/docs/system/resume-upload/overview.md)

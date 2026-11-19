@@ -6,7 +6,7 @@ This process extracts readable text content from validated PDF resume files to e
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A[Validated PDF File] --> B[Extract Text Content]
     B --> C{Content Extraction Complete?}
@@ -20,7 +20,7 @@ flowchart TD
     I --> F
     D --> F
     J --> K[Proceed to Data Parsing]
-```
+````
 
 ## 3. Rules
 
@@ -42,7 +42,7 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing System Overview](../overview.md)
-- [PDF Validation Process](4-pdf-validation.md)
+- [Resume Processing System Overview](/docs/system/resume-processing/overview.md)
+- [PDF Validation Process](/docs/system/resume-processing/processes/4-pdf-validation.md)
 - `app/core/services/pdf/service.py` — Implements PDF text extraction.
 

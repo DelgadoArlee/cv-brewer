@@ -42,6 +42,6 @@ flowchart TD
 
 ## 5. References
 
-- [Uploaded Resume Management Feature](../../../features/uploaded-resume-management.md)
-- [Delete Resumes System Overview](../overview.md)
-- [System Rules](../../../system-rules.md) - File system access constraints
+- [Uploaded Resume Management Feature](/docs/features/uploaded-resume-management.md)
+- [Delete Resumes System Overview](/docs/system/delete-resumes/overview.md)
+- [System Rules](/docs/system-rules.md) - File system access constraints

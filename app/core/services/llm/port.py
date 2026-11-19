@@ -1,10 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Any
 
-from core.services.llm.models import (
-    ModelInfo,
-    StructuredGenerationRequest,
-)
+from core.services.llm.models import GenerationResult, ModelInfo, StructuredGenerationRequest
 
 
 class LLMPort(ABC):
@@ -17,5 +13,8 @@ class LLMPort(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def generate_structured(self, request: StructuredGenerationRequest) -> dict[str, Any]:
+    def generate_structured(
+        self,
+        request: StructuredGenerationRequest,
+    ) -> GenerationResult:
         raise NotImplementedError

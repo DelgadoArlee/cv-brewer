@@ -43,7 +43,7 @@ All tests must reside in the repository-level `tests/` directory.
 
 Non-end-to-end tests are grouped by application component and mirror the package structure of the component under test.
 
-```text
+````text
 tests/
 ├── conftest.py
 ├── data/
@@ -60,13 +60,15 @@ tests/
 │   └── adapters/
 └── e2e/
     └── data/
-```
+````
 
 - `cli/`, `core/`, `database/`, `llm/`: Non-end-to-end tests grouped by component. Each component folder mirrors the package path under `app/<component>/` for the code under test.
 - `e2e/`: Full-application CLI tests.
 - `fixtures/`: Shared test data and resources.
 - `data/`: Generated test environment data that is reset at the start of every test session.
 - `e2e/data/`: Generated end-to-end test environment data that is reset at the start of every test session.
+
+Test-support scripts reside under `scripts/`. Use `scripts/query-test-logs.sh` to query LLM activity logs from `/tests/data/cvbrewer.db`.
 
 Test levels describe the scope and responsibility of a test. They do not determine the test folder location.
 

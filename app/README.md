@@ -26,22 +26,26 @@ cv-brewer/
 │   │   ├── README.md
 │   │   ├── __init__.py
 │   │   ├── app.py
+│   │   ├── logger_app.py
 │   │   ├── data/
 │   │   ├── docs/
 │   │   │   ├── technical-specification.md
 │   │   │   ├── guidelines.md
 │   │   │   ├── adr/
 │   │   │   ├── processes/
-│   │   │   └── systems/
+│   │   │   └── system/
 │   │   ├── modules/
 │   │   │   ├── __init__.py
 │   │   │   ├── context.py
+│   │   │   ├── logger_context.py
 │   │   │   └── paths.py
 │   │   ├── commands/
 │   │   │   ├── __init__.py
 │   │   │   ├── application_startup.py
 │   │   │   ├── delete_resumes.py
 │   │   │   ├── entry_page.py
+│   │   │   ├── llm_logs.py
+│   │   │   ├── llm_menu.py
 │   │   │   ├── menu.py
 │   │   │   ├── options.py
 │   │   │   └── resume_upload.py
@@ -49,8 +53,10 @@ cv-brewer/
 │   │       ├── __init__.py
 │   │       ├── delete_resumes.py
 │   │       ├── entry_page.py
+│   │       ├── llm_logs.py
 │   │       ├── progress.py
-│   │       └── resume_upload.py
+│   │       ├── resume_upload.py
+│   │       └── selection.py
 │   ├── core/
 │   │   ├── README.md
 │   │   ├── __init__.py
@@ -59,7 +65,7 @@ cv-brewer/
 │   │   │   ├── technical-specification.md
 │   │   │   ├── guidelines.md
 │   │   │   ├── adr/
-│   │   │   └── systems/
+│   │   │   └── system/
 │   │   ├── models/
 │   │   │   ├── __init__.py
 │   │   │   └── resume.py
@@ -79,7 +85,16 @@ cv-brewer/
 │   │   │   │   └── service.py
 │   │   │   ├── llm/
 │   │   │   │   ├── __init__.py
+│   │   │   │   ├── log_models.py
+│   │   │   │   ├── logger.py
+│   │   │   │   ├── log_port.py
 │   │   │   │   ├── models.py
+│   │   │   │   ├── port.py
+│   │   │   │   └── service.py
+│   │   │   ├── logger/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── performance.py
 │   │   │   │   ├── port.py
 │   │   │   │   └── service.py
 │   │   │   └── resume/
@@ -103,7 +118,7 @@ cv-brewer/
 │   │   │   ├── guidelines.md
 │   │   │   ├── adr/
 │   │   │   ├── sqlite/
-│   │   │   └── systems/
+│   │   │   └── system/
 │   │   └── adapters/
 │   │       ├── __init__.py
 │   │       └── sqlite/
@@ -114,6 +129,7 @@ cv-brewer/
 │   │           ├── errors.py
 │   │           ├── migrations.py
 │   │           ├── migrations/
+│   │           ├── llm_log/
 │   │           └── resume/
 │   └── llm/
 │       ├── README.md
@@ -122,9 +138,10 @@ cv-brewer/
 │       │   ├── technical-specification.md
 │       │   ├── guidelines.md
 │       │   ├── adr/
-│       │   └── systems/
+│       │   └── system/
 │       └── adapters/
 │           ├── __init__.py
+│           ├── logging/
 │           └── ollama/
 │               ├── __init__.py
 │               ├── adapter.py
@@ -139,9 +156,14 @@ cv-brewer/
 │   ├── database/
 │   ├── llm/
 │   └── e2e/
+├── scripts/
+│   ├── query-test-logs.sh
+│   └── query_test_logs.py
 ├── docs/
 ├── main.py
+├── logger_main.py
 ├── run.sh
+├── logger.sh
 ├── pyproject.toml
 ├── uv.lock
 ├── .python-version
@@ -164,9 +186,15 @@ cv-brewer/
 |`app/cli/docs/adr/`|Contains CLI component-level architecture decisions.|
 |`app/cli/docs/guidelines.md`|Contains CLI component-specific coding guidelines.|
 |`app/cli/docs/processes/`|Contains CLI component application-level and UI process documentation.|
-|`app/cli/docs/systems/`|Contains CLI component system documentation.|
+|`app/cli/docs/system/`|Contains CLI component system documentation.|
 |`app/cli/app.py`|Defines the Typer application and no-command main menu callback.|
+|`app/cli/logger_app.py`|Defines the separate logger CLI Typer application.|
 |`app/cli/modules/context.py`|Defines the injected CLI dependencies and resume-listing and deletion capabilities.|
+|`app/cli/modules/logger_context.py`|Defines the injected logger CLI dependencies and log-query capability.|
+|`app/cli/commands/llm_menu.py`|Coordinates the single-item logger CLI menu.|
+|`app/cli/commands/logger_menu.py`|Selects an available log source and prepares its logger CLI dependencies.|
+|`app/cli/commands/llm_logs.py`|Coordinates querying LLM activity logs for display.|
+|`app/cli/ui/llm_logs.py`|Renders LLM activity log records.|
 |`app/cli/modules/paths.py`|Defines shared and development startup locations.|
 |`app/cli/commands/application_startup.py`|Coordinates database initialization and folder preparation during startup.|
 |`app/cli/commands/delete_resumes.py`|Coordinates confirmation and deletion of all imported resumes.|
@@ -175,6 +203,8 @@ cv-brewer/
 |`app/cli/commands/options.py`|Coordinates the CLI Options menu and imported resume actions.|
 |`app/cli/commands/resume_upload.py`|Coordinates resume folder preparation, discovery, and Core delegation.|
 |`app/cli/ui/`|Contains all CLI UI-related code.|
+|`app/cli/ui/selection.py`|Provides shared menu-selection helpers used by both CLI entry points.|
+|`app/cli/ui/logger_sources.py`|Renders the logger CLI log source selection prompt.|
 |`app/core/`|Contains the Core Processing Engine component module.|
 |`app/core/README.md`|Provides the Core component overview.|
 |`app/core/docs/`|Contains Core component technical documentation.|
@@ -183,7 +213,8 @@ cv-brewer/
 |`app/core/pipeline/`|Contains resume-processing pipeline orchestration.|
 |`app/core/services/metadata/`|Contains the resume metadata service.|
 |`app/core/services/parsing/`|Contains the resume parsing service.|
-|`app/core/services/llm/`|Contains LLM-specific records, the LLM port contract, and LLM service operations.|
+|`app/core/services/llm/`|Contains LLM-specific records, the LLM port contract, LLM service operations, and LLM logging.|
+|`app/core/services/logger/`|Contains generic log records, performance measurement, the sink contract, and logging operations.|
 |`app/core/services/pdf/`|Contains the PDF processing and validation service.|
 |`app/core/services/resume/`|Contains resume-specific records, repository contracts, service operations, and validation functions.|
 |`app/core/services/resume/validation/`|Contains resume validation models and JSON Schemas.|
@@ -193,17 +224,24 @@ cv-brewer/
 |`app/database/docs/adr/`|Contains database component-level architecture decisions.|
 |`app/database/adapters/`|Contains database adapter implementations.|
 |`app/database/adapters/sqlite/`|Contains the SQLite adapter implementation and migrations.|
+|`app/database/adapters/sqlite/llm_log/`|Contains the SQLite LLM activity log repository and ORM model.|
 |`app/llm/`|Contains the LLM component module.|
 |`app/llm/README.md`|Provides the LLM component overview.|
 |`app/llm/docs/`|Contains LLM component technical documentation.|
 |`app/llm/docs/adr/`|Contains LLM component-level architecture decisions.|
-|`app/llm/docs/systems/`|Contains LLM component system documentation.|
+|`app/llm/docs/system/`|Contains LLM component system documentation.|
 |`app/llm/adapters/`|Contains LLM adapter implementations.|
 |`app/llm/adapters/ollama/`|Contains the Ollama adapter implementation.|
+|`app/llm/adapters/logging/`|Contains the LLM port logging wrapper.|
 |`tests/`|Contains all test code. Non-end-to-end tests are grouped by component and mirror the package structure under `app/`; end-to-end tests reside under `tests/e2e/`.|
 |`tests/data/`|Contains generated test environment data; reset at test session start and ignored by version control.|
+|`scripts/`|Contains test runner and test-inspection scripts.|
+|`scripts/query-test-logs.sh`|Queries LLM activity logs from the test database.|
+|`scripts/query_test_logs.py`|Reads and prints LLM activity log records from the test database as JSON.|
 |`main.py`|Application composition root that wires startup, services, and CLI dependencies.|
+|`logger_main.py`|Composition root that resolves available log sources and wires startup and log-query capabilities for the logger CLI.|
 |`run.sh`|Starts the application with `uv run python main.py`.|
+|`logger.sh`|Starts the logger CLI with `uv run python logger_main.py`.|
 |`docs/`|Contains project-wide documentation.|
 |`pyproject.toml`|Defines the root uv workspace, test tooling, and pytest configuration.|
 |`uv.lock`|Locks dependencies for the root workspace.|
@@ -214,4 +252,4 @@ cv-brewer/
 
 ## 5. References
 
-- [System Architecture](../docs/architecture.md)
+- [System Architecture](/docs/architecture.md)

@@ -44,7 +44,7 @@ The feature follows this workflow:
 5. System validates deletion completion
 6. System displays appropriate success or error message
 
-See the [Uploaded Resume Management Feature](../../features/uploaded-resume-management.md) for the user journey.
+See the [Uploaded Resume Management Feature](/docs/features/uploaded-resume-management.md) for the user journey.
 
 ## 5. Constraints
 
@@ -73,7 +73,7 @@ This feature operates on:
 
 ## 8. References
 
-- [Requirements Document](../../requirements.md) - Section 4.1 Data Categories
-- [Uploaded Resume Management Feature](../../features/uploaded-resume-management.md)
-- [Delete All Resumes Process](processes/delete-all-resumes.md)
-- [System Rules](../../system-rules.md) - File system access constraints
+- [Requirements Document](/docs/requirements.md) - Section 4.1 Data Categories
+- [Uploaded Resume Management Feature](/docs/features/uploaded-resume-management.md)
+- [Delete All Resumes Process](/docs/system/delete-resumes/processes/delete-all-resumes.md)
+- [System Rules](/docs/system-rules.md) - File system access constraints

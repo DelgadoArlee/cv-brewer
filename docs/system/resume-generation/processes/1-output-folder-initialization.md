@@ -39,4 +39,4 @@ flowchart TD
 
 ## 5. References
 
-- [Feature Overview](docs/system/resume-generation/overview.md)
+- [Feature Overview](/docs/system/resume-generation/overview.md)

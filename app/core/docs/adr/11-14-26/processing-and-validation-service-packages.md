@@ -24,7 +24,7 @@ Processing code is organized under `app/core/services/<service-name>/`, but vali
 - Remove the `app/core/validation/` package.
 - Keep pipeline processes under `app/core/pipeline/`, non-validation models under `app/core/models/`, and shared errors in `app/core/errors.py`.
 
-This supersedes the validation placement in [Organize processing modules as services](../11-13-26/processing-service-packages.md).
+This supersedes the validation placement in [Organize processing modules as services](/app/core/docs/adr/11-13-26/processing-service-packages.md).
 
 ## Consequences
 

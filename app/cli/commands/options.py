@@ -2,58 +2,16 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
-from rich.prompt import Prompt
 
 from cli.commands.delete_resumes import run_delete_imported_resumes
 from cli.modules.context import CLIDependencies, ResumeLister
+from cli.ui.selection import select_option
 
 _OPTIONS_MENU_OPTIONS = ["Imported Resume", "Delete Imported Resumes", "Back"]
 
 
-def _questionary_select(options: list[str]) -> int:
-    import questionary
-    from prompt_toolkit.styles import Style
-
-    answer = questionary.select(
-        "",
-        choices=options,
-        default=options[-1] if options else None,
-        pointer="»",
-        use_indicator=False,
-        qmark="",
-        instruction=" ",
-        style=Style([("selected", "noreverse"), ("highlighted", "noreverse"), ("pointer", "fg:#D9A441")]),
-    ).ask()
-    for index, option in enumerate(options):
-        if answer == option:
-            return index
-    return len(options) - 1
-
-
-def _text_select(active_console: Console, options: list[str]) -> int:
-    for index, option in enumerate(options, start=1):
-        active_console.print(f"  {index}. {option}")
-    choice = Prompt.ask(
-        "",
-        choices=[str(index) for index in range(1, len(options) + 1)],
-        default=str(len(options)),
-        console=active_console,
-    )
-    try:
-        return int(choice) - 1
-    except (TypeError, ValueError):
-        return len(options) - 1
-
-
 def _select_option(active_console: Console, options: list[str]) -> int:
-    import sys
-
-    if sys.stdin.isatty() and sys.stdout.isatty():
-        try:
-            return _questionary_select(options)
-        except Exception:  # noqa: BLE001
-            pass
-    return _text_select(active_console, options)
+    return select_option(active_console, options)
 
 
 def _list_imported_resumes(

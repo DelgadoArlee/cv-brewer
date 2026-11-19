@@ -101,7 +101,7 @@ Branch names must:
 
 Examples:
 
-```
+````
 feature/resume-upload
 feature/job-description-parser
 fix/pdf-validation
@@ -109,7 +109,7 @@ fix/resume-duplicate-check
 hotfix/file-permission-error
 release/1.0.0
 release/1.1.0
-```
+````
 
 ## Release Versioning
 
@@ -129,27 +129,27 @@ Beta and release candidate versions may use pre-release identifiers.
 
 Examples:
 
-```
+````
 v1.0.0-beta.1
 v1.0.0-rc.1
 v1.0.0
-```
+````
 
 ## Branch Workflow
 
 ### Standard Development Workflow
 
-```
+````
 flowchart TD
     A[dev] --> B[Create Feature or Fix Branch]
     B --> C[Development and Testing]
     C --> D[Merge into dev]
     D --> E[Development Deployment]
-```
+````
 
 ### Release Workflow
 
-```
+````
 flowchart TD
     A[dev] --> B[Create Release Branch]
     B --> C[Beta Testing and Validation]
@@ -160,18 +160,18 @@ flowchart TD
     F --> G[Create Version Tag]
     G --> H[Production Deployment]
     H --> I[Merge Release Changes Back into dev]
-```
+````
 
 ### Production Hotfix Workflow
 
-```
+````
 flowchart TD
     A[main] --> B[Create Hotfix Branch]
     B --> C[Apply and Test Fix]
     C --> D[Merge into main]
     D --> E[Production Deployment]
     D --> F[Merge Hotfix into dev]
-```
+````
 
 ## General Rules
 

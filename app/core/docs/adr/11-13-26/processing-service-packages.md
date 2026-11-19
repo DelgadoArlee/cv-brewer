@@ -6,7 +6,7 @@
 
 ## Status
 
-Superseded by [Organize processing and validation code by service packages](../11-14-26/processing-and-validation-service-packages.md).
+Superseded by [Organize processing and validation code by service packages](/app/core/docs/adr/11-14-26/processing-and-validation-service-packages.md).
 
 ## Context
 
@@ -22,7 +22,7 @@ Core processing code was split between `app/core/services/resume/` and `app/core
 - Remove the `app/core/modules/` package.
 - Keep pipeline processes under `app/core/pipeline/`, validation under `app/core/validation/`, non-validation models under `app/core/models/`, and shared errors in `app/core/errors.py`.
 
-This supersedes the `app/core/modules/` placement in [Organize Core packages by responsibility](../11-12-26/core-package-structure.md).
+This supersedes the `app/core/modules/` placement in [Organize Core packages by responsibility](/app/core/docs/adr/11-12-26/core-package-structure.md).
 
 ## Consequences
 

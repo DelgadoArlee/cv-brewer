@@ -6,7 +6,7 @@ The output rendering process maps the validated generated resume data to the sel
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A([Receive Validated Resume Data]) --> B[Map Data to Selected Template]
     B --> C[Render Markdown from Template]
@@ -15,7 +15,7 @@ flowchart TD
     D -->|Failure| F[Report Rendering Error to User]
     F --> G[End Process]
     E --> H[End Process]
-```
+````
 
 ## 3. Rules
 
@@ -36,6 +36,6 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Generation Feature Overview](docs/system/resume-generation/overview.md)
-- [Generated Resume Validation Process](5-generated-resume-validation.md)
-- [Output Folder Management](../../output-folder-management.md)
+- [Resume Generation Feature Overview](/docs/system/resume-generation/overview.md)
+- [Generated Resume Validation Process](/docs/system/resume-generation/processes/5-generated-resume-validation.md)
+- [Output Folder Management](/docs/system/resume-generation/processes/1-output-folder-initialization.md)

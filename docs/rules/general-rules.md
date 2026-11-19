@@ -29,7 +29,7 @@ Documentation Rules and Conventions
 1. Process Documentation
 
 - Application-level processes should be documented separately from System-specific processes.
-- System-Level Processes: Document processes under `docs/systems/<system-name>/processes/` to indicate which System they belong to.
+- System-Level Processes: Document processes under `docs/system/<system-name>/processes/` to indicate which System they belong to.
 - Application-Level Processes: Document processes under `docs/processes/` when they support the overall application and do not belong to a specific System.
 
 5. Data Schema Documentation

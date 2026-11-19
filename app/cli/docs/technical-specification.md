@@ -19,6 +19,7 @@ This document defines the technical organization of the CLI component within CVB
 - Report the current processing stage for each file during resume upload.
 - Support non-interactive flags for automation.
 - Remain part of the single executable used by the application.
+- Provide a separate log-review entry point that selects an available local log database before presenting a single `llm` menu item that lists stored LLM activity logs.
 
 ## 3. Scope
 
@@ -34,6 +35,7 @@ This document defines the technical organization of the CLI component within CVB
 - Saving generated Markdown files in the output folder.
 - Non-interactive flags for automation.
 - Component technical documentation.
+- The separate logger CLI entry point, its available log source selection, its single `llm` menu, and log-query presentation.
 
 ### Out of Scope
 
@@ -73,6 +75,8 @@ This document defines the technical organization of the CLI component within CVB
 - The CLI must use Typer for command definitions and Rich for prompts, tables, progress, and error output.
 - Input and output folder locations must follow the operating system conventions documented for the application.
 - The CLI must not be independently deployable and must remain part of the combined CLI/Core executable.
+- The logger CLI must expose only a single `llm` menu item preceded by log source selection and must not include main application commands or resume capabilities.
+- The logger CLI must receive available log sources with preparation factories from the composition root and must not access database implementations directly.
 
 ## 5. Architectural & Design Approaches
 
@@ -116,7 +120,7 @@ This document defines the technical organization of the CLI component within CVB
 
 | System | Description | Specification |
 | --- | --- | --- |
-| Resume Upload | Prepares the input folder, discovers files, delegates processing, and reports outcomes. | [Resume Upload System](systems/resume-upload/overview.md) |
+| Resume Upload | Prepares the input folder, discovers files, delegates processing, and reports outcomes. | [Resume Upload System](/app/cli/docs/system/resume-upload/overview.md) |
 
 ## 7. File Structure
 
@@ -135,29 +139,37 @@ app/cli/
 │   │   ├── ADL.md
 │   │   ├── 11-07-26/
 │   │   │   └── development-startup-paths.md
-│   │   └── 11-14-26/
-│   │       └── explicit-cli-dependencies.md
+│   │   ├── 11-14-26/
+│   │   │   └── explicit-cli-dependencies.md
+│   │   └── 11-19-26/
+│   │       └── logger-cli-entry-point.md
 │   ├── processes/
 │   │   ├── application-startup.md
 │   │   ├── entry-page.md
+│   │   ├── logger-cli.md
 │   │   ├── menu.md
 │   │   └── options-menu.md
-│   └── systems/
+│   └── system/
 │       └── resume-upload/
 │           ├── overview.md
 │           └── processes/
 │               └── resume-upload.md
 ├── __init__.py
 ├── app.py
+├── logger_app.py
 ├── modules/
 │   ├── __init__.py
 │   ├── context.py
+│   ├── logger_context.py
 │   └── paths.py
 ├── commands/
 │   ├── __init__.py
 │   ├── application_startup.py
 │   ├── delete_resumes.py
 │   ├── entry_page.py
+│   ├── llm_logs.py
+│   ├── llm_menu.py
+│   ├── logger_menu.py
 │   ├── menu.py
 │   ├── options.py
 │   └── resume_upload.py
@@ -165,37 +177,46 @@ app/cli/
     ├── __init__.py
     ├── delete_resumes.py
     ├── entry_page.py
+    ├── llm_logs.py
+    ├── logger_sources.py
     ├── progress.py
-    └── resume_upload.py
+    ├── resume_upload.py
+    └── selection.py
 ````
 
 ## 8. Deployment
 
 - The CLI is included in the combined CLI/Core executable and is not independently deployable.
+- The logger CLI is launched with `./logger.sh` and reviews existing development, test, and end-to-end data paths.
 - The Python runtime and dependencies are bundled into per-OS executables built with PyInstaller.
 - Builds run on their target operating system because PyInstaller does not cross-compile.
 - The CLI manages access to the local file system within the input and output folders.
 
 ## 9. References
 
-- [System Architecture](../../../docs/architecture.md)
-- [Repository Architecture](../../README.md)
-- [Tech Stack](../../../docs/tech-stack.md)
-- [Requirements](../../../docs/requirements.md)
-- [General System Rules](../../../docs/system-rules.md)
-- [CLI Component Coding Guidelines](guidelines.md)
-- [Application Startup Process](../../../docs/system/application-startup.md)
-- [Application Startup Technical Process](processes/application-startup.md)
-- [CLI Entry Page Technical Process](processes/entry-page.md)
-- [CLI Main Menu Technical Process](processes/menu.md)
-- [CLI Options Menu Technical Process](processes/options-menu.md)
-- [Resume Upload Technical System Specification](systems/resume-upload/overview.md)
-- [Resume Upload Feature Overview](../../../docs/system/resume-upload/overview.md)
-- [Resume Generation System Overview](../../../docs/system/resume-generation/overview.md)
-- [Delete Resumes System Overview](../../../docs/system/delete-resumes/overview.md)
-- [Use Typer and Rich for a hybrid CLI](../../../docs/adr/Architecture/2026-11-04/cli-interface.md)
-- [Establish Development Application Startup](adr/11-07-26/development-startup-paths.md)
-- [Inject CLI Dependencies Explicitly](adr/11-14-26/explicit-cli-dependencies.md)
-- [Use Manual Dependency Injection with a Single Composition Root](../../../docs/adr/Architecture/2026-11-14/manual-dependency-injection.md)
-- [Use Python and uv for the CVBrewer implementation](../../../docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
-- [Package CVBrewer as per-OS single executables with PyInstaller](../../../docs/adr/Architecture/2026-11-04/cross-platform-packaging.md)
+- [System Architecture](/docs/architecture.md)
+- [Repository Architecture](/app/README.md)
+- [Tech Stack](/docs/tech-stack.md)
+- [Requirements](/docs/requirements.md)
+- [General System Rules](/docs/system-rules.md)
+- [CLI Component Coding Guidelines](/app/cli/docs/guidelines.md)
+- [Application Startup Process](/docs/system/application-startup.md)
+- [Application Startup Technical Process](/app/cli/docs/processes/application-startup.md)
+- [Logger CLI Process](/docs/system/logger-cli.md)
+- [Logger CLI Technical Process](/app/cli/docs/processes/logger-cli.md)
+- [Separate Logger CLI Entry Point](/app/cli/docs/adr/11-19-26/logger-cli-entry-point.md)
+- [Select the Logger CLI Log Source](/app/cli/docs/adr/11-19-26/logger-log-source-selection.md)
+- [Select the Log Database in the Logger CLI](/docs/adr/Architecture/2026-11-19/logger-log-source-selection.md)
+- [CLI Entry Page Technical Process](/app/cli/docs/processes/entry-page.md)
+- [CLI Main Menu Technical Process](/app/cli/docs/processes/menu.md)
+- [CLI Options Menu Technical Process](/app/cli/docs/processes/options-menu.md)
+- [Resume Upload Technical System Specification](/app/cli/docs/system/resume-upload/overview.md)
+- [Resume Upload Feature Overview](/docs/system/resume-upload/overview.md)
+- [Resume Generation System Overview](/docs/system/resume-generation/overview.md)
+- [Delete Resumes System Overview](/docs/system/delete-resumes/overview.md)
+- [Use Typer and Rich for a hybrid CLI](/docs/adr/Architecture/2026-11-04/cli-interface.md)
+- [Establish Development Application Startup](/app/cli/docs/adr/11-07-26/development-startup-paths.md)
+- [Inject CLI Dependencies Explicitly](/app/cli/docs/adr/11-14-26/explicit-cli-dependencies.md)
+- [Use Manual Dependency Injection with a Single Composition Root](/docs/adr/Architecture/2026-11-14/manual-dependency-injection.md)
+- [Use Python and uv for the CVBrewer implementation](/docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)
+- [Package CVBrewer as per-OS single executables with PyInstaller](/docs/adr/Architecture/2026-11-04/cross-platform-packaging.md)

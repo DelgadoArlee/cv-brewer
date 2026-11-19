@@ -33,7 +33,7 @@ The LLM Service provides the application-level operations used to perform langua
 
 The service receives application-level LLM requests, verifies the request is complete, delegates the operation to the configured LLM Adapter, and returns the availability outcome, the available models, or the generated structured response.
 
-See the [Check LLM Availability Process](processes/check-llm-availability.md), the [List Available Models Process](processes/list-available-models.md), and the [Generate Structured Response Process](processes/generate-structured-response.md).
+See the [Check LLM Availability Process](/docs/system/llm-service/processes/check-llm-availability.md), the [List Available Models Process](/docs/system/llm-service/processes/list-available-models.md), and the [Generate Structured Response Process](/docs/system/llm-service/processes/generate-structured-response.md).
 
 ## 5. Constraints
 
@@ -57,7 +57,7 @@ See the [Check LLM Availability Process](processes/check-llm-availability.md), t
 
 ## 8. References
 
-- [LLM Component Technical Specification](../../../app/llm/docs/technical-specification.md)
-- [LLM Service Technical Specification](../../../app/core/docs/systems/llm-service/overview.md)
-- [Move the LLM Service into Core](../../adr/Architecture/2026-11-14/llm-service-to-core.md)
-- [Use an LLM Service abstraction with pluggable LLM adapters](../../adr/Architecture/2026-11-11/llm-service-abstraction.md)
+- [LLM Component Technical Specification](/app/llm/docs/technical-specification.md)
+- [LLM Service Technical Specification](/app/core/docs/system/llm-service/overview.md)
+- [Move the LLM Service into Core](/docs/adr/Architecture/2026-11-14/llm-service-to-core.md)
+- [Use an LLM Service abstraction with pluggable LLM adapters](/docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)

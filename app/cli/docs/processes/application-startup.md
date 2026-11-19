@@ -112,9 +112,9 @@ This process follows the testing strategy by verifying observable startup outcom
 
 ## 9. References
 
-- [Application Startup Process](../../../../docs/system/application-startup.md)
-- [CLI Component Technical Specification](../technical-specification.md)
+- [Application Startup Process](/docs/system/application-startup.md)
+- [CLI Component Technical Specification](/app/cli/docs/technical-specification.md)
 - `app/cli/modules/paths.py`
-- [Development Application Startup Decision](../adr/11-07-26/development-startup-paths.md)
-- [Inject CLI Dependencies Explicitly](../adr/11-14-26/explicit-cli-dependencies.md)
-- [CLI Component ADL](../adr/ADL.md)
+- [Development Application Startup Decision](/app/cli/docs/adr/11-07-26/development-startup-paths.md)
+- [Inject CLI Dependencies Explicitly](/app/cli/docs/adr/11-14-26/explicit-cli-dependencies.md)
+- [CLI Component ADL](/app/cli/docs/adr/ADL.md)

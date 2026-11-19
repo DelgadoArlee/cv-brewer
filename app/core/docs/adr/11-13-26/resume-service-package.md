@@ -10,7 +10,7 @@ Accepted
 
 ## Context
 
-The Database Service application layer is now owned by the Core under the [Move the Database Service into the Core application layer](../../../../../docs/adr/Architecture/2026-11-13/database-service-to-core.md) decision. All resume-specific records, the repository contract, and resume service operations previously lived under the database component. Core needs a package location that keeps resume-specific application logic together without reintroducing a generic database abstraction that has no shared use yet.
+The Database Service application layer is now owned by the Core under the [Move the Database Service into the Core application layer](/docs/adr/Architecture/2026-11-13/database-service-to-core.md) decision. All resume-specific records, the repository contract, and resume service operations previously lived under the database component. Core needs a package location that keeps resume-specific application logic together without reintroducing a generic database abstraction that has no shared use yet.
 
 ## Decision
 

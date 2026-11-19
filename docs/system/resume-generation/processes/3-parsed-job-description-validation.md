@@ -6,7 +6,7 @@ The parsed job description validation process validates the AI-extracted job des
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A([Receive Parsed Job Description]) --> B[Validate Against Job Description Schema]
     B --> C{Validation Passed?}
@@ -14,7 +14,7 @@ flowchart TD
     C -->|Failure| E[Report Validation Errors to User]
     E --> F[End Process]
     D --> G[End Process]
-```
+````
 
 ## 3. Rules
 
@@ -35,6 +35,6 @@ flowchart TD
 
 ## 5. References
 
-- [Job Description Schema](../../schema/job-description-schema.md)
-- [Resume Generation Feature Overview](docs/system/resume-generation/overview.md)
-- [Job Description Parsing Process](2-job-description-parsing.md)
+- [Job Description Schema](/docs/data/job-description.md)
+- [Resume Generation Feature Overview](/docs/system/resume-generation/overview.md)
+- [Job Description Parsing Process](/docs/system/resume-generation/processes/2-job-description-parsing.md)

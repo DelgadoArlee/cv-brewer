@@ -14,7 +14,7 @@ The resume generation feature creates tailored resume documents by combining a u
 
 ## 3. User Journey
 
-```mermaid
+````mermaid
 flowchart TD
     A[User selects Generate Resume] --> B[Check output folder availability]
     B --> C{Output folder exists?}
@@ -37,24 +37,24 @@ flowchart TD
     P -->|Yes| R[Save generated resume to output folder]
     Q --> S([Stop])
     R --> T([Complete])
-```
+````
 
 ## 4. Systems
 
 | System                                                              | Description                                                                                                       |
 | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| [Resume Generation System](../system/resume-generation/overview.md) | Handles the complete resume generation workflow including input validation, LLM integration, and output rendering |
+| [Resume Generation System](/docs/system/resume-generation/overview.md) | Handles the complete resume generation workflow including input validation, LLM integration, and output rendering |
 
 ## 5. References
 
-- [System Architecture](../../../architecture.md)
-- [Functional Requirements](../../../requirements.md)
-- [General System Rules](docs/system-rules.md)
-- [Feature Overview Format Rules](docs/rules/format/feature-rules.md)
-- [Resume Generation Process](processes/resume-generation-process.md)
-- [Job Description Schema](../schema/job-description-schema.md)
-- [Generated Resume Schema](../schema/generated-resume-schema.md)
-- [Resume Data Model](user-resume.md)
+- [System Architecture](/docs/architecture.md)
+- [Functional Requirements](/docs/requirements.md)
+- [General System Rules](/docs/system-rules.md)
+- [Feature Overview Format Rules](/docs/rules/feature.md)
+- [Resume Generation Process](/docs/system/resume-generation/processes/resume-generation.md)
+- [Job Description Schema](/docs/data/job-description.md)
+- [Generated Resume Schema](/docs/data/generated-resume.md)
+- [Resume Data Model](/docs/data/user-resume.md)
 
 ## 6. Acceptance Criteria
 

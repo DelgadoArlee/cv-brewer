@@ -68,7 +68,7 @@ Each ADR must have its own Markdown file.
 
 **Example:**
 
-```
+````
 docs/
 ├── release/
 │   ├── 2026-11-04/
@@ -82,7 +82,7 @@ docs/
 │   └── ...
 └── repositories/
     └── ...
-```
+````
 
 - Use the decision date as the directory name.
     

@@ -49,14 +49,14 @@ Describe the user's interaction with the feature from beginning to end.
 
 Use the following format:
 
-```
+````
 flowchart TD
     A[User starts] --> B[User performs an action]
     B --> C[System responds]
     C --> D{Successful?}
     D -->|Yes| E[Journey completed]
     D -->|No| F[Show error]
-```
+````
 
 Only Mermaid diagrams are permitted for documenting user journeys.
 

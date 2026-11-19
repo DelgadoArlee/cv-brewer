@@ -10,7 +10,7 @@ Accepted
 
 ## Context
 
-The LLM Service application layer moved into the Core under `app/core/services/llm/` as part of the [Move the LLM Service into the Core application layer](../../../../../docs/adr/Architecture/2026-11-14/llm-service-to-core.md) decision. The LLM component must now define its boundary around service-specific adapters rather than application-level language-model operations. Structured generation still requires service-specific communication, configuration, response parsing, and error translation through the Ollama adapter.
+The LLM Service application layer moved into the Core under `app/core/services/llm/` as part of the [Move the LLM Service into the Core application layer](/docs/adr/Architecture/2026-11-14/llm-service-to-core.md) decision. The LLM component must now define its boundary around service-specific adapters rather than application-level language-model operations. Structured generation still requires service-specific communication, configuration, response parsing, and error translation through the Ollama adapter.
 
 ## Decision
 
@@ -28,4 +28,4 @@ The LLM Service application layer moved into the Core under `app/core/services/l
 - Application-level LLM behavior changes belong in Core, not in the LLM component.
 - The former `app/llm/llm_service/` package is removed.
 - Future LLM adapters must provide compatible implementations of the Core-owned `LLMPort` contract.
-- This decision supersedes the service-placement portions of [Use an LLM Service abstraction with pluggable LLM adapters](../../../../../docs/adr/Architecture/2026-11-11/llm-service-abstraction.md).
+- This decision supersedes the service-placement portions of [Use an LLM Service abstraction with pluggable LLM adapters](/docs/adr/Architecture/2026-11-11/llm-service-abstraction.md).

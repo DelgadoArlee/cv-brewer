@@ -3,7 +3,11 @@ from collections.abc import Callable
 
 import httpx
 import pytest
-from core.services.llm import ChatMessage, StructuredGenerationRequest
+from core.services.llm import (
+    ChatMessage,
+    LLMTimeoutError,
+    StructuredGenerationRequest,
+)
 from llm.adapters.ollama import (
     LLMAdapterConnectionError,
     LLMAdapterModelNotFoundError,
@@ -175,7 +179,34 @@ def test_generate_structured_returns_parsed_json_object(make_adapter) -> None:
 
     response = adapter.generate_structured(_generation_request())
 
-    assert response == {"name": "Ada Lovelace"}
+    assert response.content == {"name": "Ada Lovelace"}
+    assert response.response_content == '{"name": "Ada Lovelace"}'
+    assert response.finish_reason is None
+    assert response.usage.input_tokens is None
+    assert response.usage.output_tokens is None
+    assert response.usage.total_tokens is None
+
+
+def test_generate_structured_extracts_usage_and_finish_reason(make_adapter) -> None:
+    adapter = make_adapter(
+        lambda request: httpx.Response(
+            200,
+            json={
+                "message": {"role": "assistant", "content": '{"name": "Ada Lovelace"}'},
+                "done": True,
+                "done_reason": "stop",
+                "prompt_eval_count": 20,
+                "eval_count": 7,
+            },
+        )
+    )
+
+    response = adapter.generate_structured(_generation_request())
+
+    assert response.finish_reason == "stop"
+    assert response.usage.input_tokens == 20
+    assert response.usage.output_tokens == 7
+    assert response.usage.total_tokens == 27
 
 
 def test_generate_structured_sends_messages_and_schema_unchanged(make_adapter) -> None:
@@ -258,8 +289,10 @@ def test_generate_structured_translates_timeouts(make_adapter) -> None:
 
     adapter = make_adapter(handler)
 
-    with pytest.raises(LLMAdapterTimeoutError):
+    with pytest.raises(LLMAdapterTimeoutError) as error:
         adapter.generate_structured(_generation_request())
+
+    assert isinstance(error.value, LLMTimeoutError)
 
 
 def test_generate_structured_translates_failed_responses(make_adapter) -> None:

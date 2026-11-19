@@ -33,8 +33,8 @@ flowchart TD
 
 ## 5. References
 
-- [LLM Service System Overview](../overview.md)
-- [Generate Structured Response Technical Process](../../../../app/core/docs/systems/llm-service/processes/generate-structured-response.md)
-- [Generate Structured Response Adapter Process](../../llm-adapter/processes/generate-structured-response.md)
-- [Job Description Parsing Process](../../resume-generation/processes/2-job-description-parsing.md)
-- [Resume Content Generation Process](../../resume-generation/processes/4-resume-content-generation.md)
+- [LLM Service System Overview](/docs/system/llm-service/overview.md)
+- [Generate Structured Response Technical Process](/app/core/docs/system/llm-service/processes/generate-structured-response.md)
+- [Generate Structured Response Adapter Process](/docs/system/llm-adapter/processes/generate-structured-response.md)
+- [Job Description Parsing Process](/docs/system/resume-generation/processes/2-job-description-parsing.md)
+- [Resume Content Generation Process](/docs/system/resume-generation/processes/4-resume-content-generation.md)

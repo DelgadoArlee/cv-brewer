@@ -6,7 +6,7 @@ The resume content generation process uses an LLM to create tailored resume cont
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A([Receive Parsed Resume and Job Description]) --> B[Send Generation Request to LLM via Adapter]
     B --> C{LLM Response Received?}
@@ -15,7 +15,7 @@ flowchart TD
     E --> F[End Process]
     D --> G[Return Generated Content for Schema Validation]
     G --> H[End Process]
-```
+````
 
 ## 3. Rules
 
@@ -37,6 +37,6 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Generation Feature Overview](docs/system/resume-generation/overview.md)
-- [Job Description Parsing Process](2-job-description-parsing.md)
-- [Generated Resume Schema](../../schema/generated-resume-schema.md)
+- [Resume Generation Feature Overview](/docs/system/resume-generation/overview.md)
+- [Job Description Parsing Process](/docs/system/resume-generation/processes/2-job-description-parsing.md)
+- [Generated Resume Schema](/docs/data/generated-resume.md)

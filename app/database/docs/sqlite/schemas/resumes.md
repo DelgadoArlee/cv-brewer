@@ -57,6 +57,6 @@ Indexes:
 
 ## 6. References
 
-- [SQLite Database Overview](../overview.md)
-- [User Resume Data Model](../../../../../docs/data/user-resume.md)
-- [Database Component Technical Specification](../../technical-specification.md)
+- [SQLite Database Overview](/app/database/docs/sqlite/overview.md)
+- [User Resume Data Model](/docs/data/user-resume.md)
+- [Database Component Technical Specification](/app/database/docs/technical-specification.md)

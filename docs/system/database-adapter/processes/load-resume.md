@@ -36,6 +36,6 @@ flowchart TD
 
 ## 5. References
 
-- [Database Adapter System Overview](../overview.md)
-- [User Resume Data Model](../../../data/user-resume.md)
-- [Load Resume Technical Process](../../../../app/database/docs/systems/database-adapter/processes/load-resume.md)
+- [Database Adapter System Overview](/docs/system/database-adapter/overview.md)
+- [User Resume Data Model](/docs/data/user-resume.md)
+- [Load Resume Technical Process](/app/database/docs/system/database-adapter/processes/load-resume.md)

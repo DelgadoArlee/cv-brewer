@@ -13,6 +13,7 @@ from database.adapters.sqlite.errors import (
     AdapterProgrammingError,
     to_adapter_error,
 )
+from database.adapters.sqlite.llm_log import SqliteLLMLogRepository
 from database.adapters.sqlite.migrations import (
     initialize_database,
     upgrade_database,
@@ -27,6 +28,7 @@ __all__ = [
     "AdapterOperationalError",
     "AdapterProgrammingError",
     "SqliteConfig",
+    "SqliteLLMLogRepository",
     "SqliteResumeRepository",
     "create_session_factory",
     "create_sqlite_engine",

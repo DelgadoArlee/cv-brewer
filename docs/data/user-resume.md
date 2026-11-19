@@ -6,7 +6,7 @@ This document defines the data model for user-uploaded resumes in the CVBrewer s
 
 ## 2. JSON Model
 
-```json
+````json
 {
   "resume_id": "string",
   "original_file_path": "string",
@@ -74,7 +74,7 @@ This document defines the data model for user-uploaded resumes in the CVBrewer s
   "created_at": "datetime",
   "deleted_at": "datetime"
 }
-```
+````
 
 ## 3. Data Fields
 
@@ -190,5 +190,5 @@ This document defines the data model for user-uploaded resumes in the CVBrewer s
 
 ## 5. References
 
-- [Data Model Format Rules](../../rules/format/data-model-rules.md)
-- [Resume Processing Feature Overview](../resume-processing/feature-overview.md)
+- [Data Model Format Rules](/docs/rules/data.md)
+- [Resume Processing Feature Overview](/docs/features/resume-generation.md)

@@ -5,6 +5,7 @@ from typing import Any
 import pytest
 from typer.testing import CliRunner
 
+from core.services.logger import LogStatus
 from tests.fixtures.resumes.pdf_factory import build_pdf
 
 
@@ -60,6 +61,22 @@ def test_upload_imports_single_resume(e2e_cli: SimpleNamespace) -> None:
     assert record.parsed_data.personal_info.name == "Alice Single"
     assert record.parsed_data.personal_info.email == "alice.single@example.com"
     assert record.validation_status.schema_validation_passed is True
+
+
+def test_upload_records_llm_activity(e2e_cli: SimpleNamespace) -> None:
+    _write_resume(
+        e2e_cli,
+        "logged.pdf",
+        "Grace Log\ngrace.log@example.com\nSkills: Python",
+    )
+    before = len(e2e_cli.llm_log_querier.list_all())
+
+    result = _run_upload(e2e_cli)
+
+    assert result.exit_code == 0
+    logs = e2e_cli.llm_log_querier.list_all()
+    assert len(logs) > before
+    assert any(log.status == LogStatus.SUCCESS for log in logs[before:])
 
 
 def test_upload_handles_mixed_valid_and_invalid_files(

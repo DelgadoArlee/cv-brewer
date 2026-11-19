@@ -6,7 +6,7 @@ The generated resume validation process validates the AI-generated resume conten
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A([Receive Generated Resume Content]) --> B[Validate Against Generated Resume Schema]
     B --> C{Validation Passed?}
@@ -14,7 +14,7 @@ flowchart TD
     C -->|Failure| E[Report Validation Errors to User]
     E --> F[End Process]
     D --> G[End Process]
-```
+````
 
 ## 3. Rules
 
@@ -35,6 +35,6 @@ flowchart TD
 
 ## 5. References
 
-- [Generated Resume Schema](../../schema/generated-resume-schema.md)
-- [Resume Generation Feature Overview](docs/system/resume-generation/overview.md)
-- [Resume Content Generation Process](4-resume-content-generation.md)
+- [Generated Resume Schema](/docs/data/generated-resume.md)
+- [Resume Generation Feature Overview](/docs/system/resume-generation/overview.md)
+- [Resume Content Generation Process](/docs/system/resume-generation/processes/4-resume-content-generation.md)

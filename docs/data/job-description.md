@@ -6,7 +6,7 @@ This document defines the general data model for job description information ext
 
 ## 2. JSON Model
 
-```json
+````json
 {
   "jobTitle": "Software Engineer",
   "companyName": "Tech Corp",
@@ -47,7 +47,7 @@ This document defines the general data model for job description information ext
   "applicationDeadline": null,
   "sourceUrl": null
 }
-```
+````
 
 ## 3. Data Fields
 
@@ -117,4 +117,4 @@ This document defines the general data model for job description information ext
 
 ## 5. References
 
-- [Data Model Format Rules](../rules/format/data-model-rules.md)
+- [Data Model Format Rules](/docs/rules/data.md)

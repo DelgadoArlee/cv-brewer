@@ -88,7 +88,7 @@ These responsibilities are handled by the Core Processing Engine, other relevant
 
 ## 4. Feature Workflow
 
-For detailed interactions between components, refer to the [Resume Upload Sequence Diagram](processes/resume-upload.md).
+For detailed interactions between components, refer to the [Resume Upload Sequence Diagram](/docs/system/resume-upload/processes/resume-upload.md).
 
 1. Check whether the input folder exists and is accessible.
     
@@ -184,7 +184,7 @@ This section identifies the validation responsibilities of the Resume Upload fea
 
 | Validation                               | Purpose                                                                              |
 | ---------------------------------------- | ------------------------------------------------------------------------------------ |
-| [File Type Validation](/docs/validation) | File type validation is handled by the Core Processing Engine, not this feature.     |
+| [File Type Validation](/docs/system/resume-upload/overview.md) | File type validation is handled by the Core Processing Engine, not this feature.     |
 
 
 PDF document integrity, encryption, password protection, readable-content checks, resume parsing, and Resume JSON schema validation belong to the Core Processing Engine. Refer to its validation documentation for these responsibilities.

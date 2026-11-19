@@ -28,4 +28,4 @@ class LLMService:
 
     def generate_structured(self, request: StructuredGenerationRequest) -> dict[str, Any]:
         _validate_generation_request(request)
-        return self._port.generate_structured(request)
+        return self._port.generate_structured(request).content

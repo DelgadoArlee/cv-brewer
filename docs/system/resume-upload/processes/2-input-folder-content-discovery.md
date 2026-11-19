@@ -8,7 +8,7 @@ This process checks the contents of the input folder after initialization to dis
 
 The following diagram represents the file discovery flow within the iteration. This process iterates through all discovered files in the input folder. The iteration continues until every discovered file has been checked for existence. Once all files have been processed, the iteration ends and the process determines whether any files were found to proceed to the Core Processing Engine or report that no eligible files exist.
 
-```mermaid
+````mermaid
 flowchart TD
     A([Start: After Input Folder Initialization]) --> B{Discovery: Check if Folder Has Files?}
     B -->|No| C[End Discovery: No files in folder]
@@ -22,7 +22,7 @@ flowchart TD
     C --> J([Process Complete])
     H --> J
     I --> J
-```
+````
 
 ## 3. Rules
 
@@ -46,5 +46,5 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Upload](docs/system/resume-upload/overview.md)
-- [Input Folder Initialization](1-input-folder-initialization.md)
+- [Resume Upload](/docs/system/resume-upload/overview.md)
+- [Input Folder Initialization](/docs/system/resume-upload/processes/1-input-folder-initialization.md)

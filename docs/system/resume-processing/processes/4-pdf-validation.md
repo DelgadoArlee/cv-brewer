@@ -6,7 +6,7 @@ This process validates that PDF resume files are structurally sound and not encr
 
 ## 2. Process Flow
 
-```mermaid
+````mermaid
 flowchart TD
     A[File Passed Deduplication] --> B[Check PDF Encryption Status]
     B --> C{PDF Encrypted?}
@@ -19,7 +19,7 @@ flowchart TD
     G --> I
     H --> J[Proceed to Content Extraction]
     I --> K[Skip Further Processing]
-```
+````
 
 ## 3. Rules
 
@@ -42,7 +42,7 @@ flowchart TD
 
 ## 5. References
 
-- [Resume Processing System Overview](../overview.md)
+- [Resume Processing System Overview](/docs/system/resume-processing/overview.md)
 - `app/core/services/pdf/service.py` — Implements PDF validation.
-- [Deduplication Process](3-deduplication.md)
-- [Use pypdf and pdfplumber for PDF processing](../../../adr/Architecture/2026-11-04/pdf-processing.md)
+- [Deduplication Process](/docs/system/resume-processing/processes/3-deduplication.md)
+- [Use pypdf and pdfplumber for PDF processing](/docs/adr/Architecture/2026-11-04/pdf-processing.md)

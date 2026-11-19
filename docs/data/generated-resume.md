@@ -6,7 +6,7 @@ This document defines the general data model for generated resume output produce
 
 ## 2. JSON Model
 
-```json
+````json
 {
   "personalInfo": {
     "fullName": "John Doe",
@@ -125,7 +125,7 @@ This document defines the general data model for generated resume output produce
   "templateId": "modern-professional",
   "generatedDate": "2024-01-15T10:30:00Z"
 }
-```
+````
 
 ## 3. Data Fields
 
@@ -245,5 +245,5 @@ This document defines the general data model for generated resume output produce
 
 ## 5. References
 
-- [Data Model Format Rules](../rules/format/data-model-rules.md)
-- [Resume Generation Feature Overview](docs/system/resume-generation/overview.md)
+- [Data Model Format Rules](/docs/rules/data.md)
+- [Resume Generation Feature Overview](/docs/system/resume-generation/overview.md)
