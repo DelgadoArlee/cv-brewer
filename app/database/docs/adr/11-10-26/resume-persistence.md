@@ -10,7 +10,7 @@ Superseded by [Retain Database Adapters as the Database Component Boundary](/app
 
 ## Context
 
-The database component contains the SQLite adapter foundation and an empty Database Service package. Resume processing requires validated resume data to be stored for later retrieval and generation. The user resume data model defines nested metadata, parsed resume content, validation status, and processing history.
+The database component contains the SQLite adapter foundation and an empty Database Service package. Resume processing requires validated resume data to be stored for later retrieval and generation. The user resume data model defines nested metadata, parsed resume content, and validation status.
 
 The Database Service must expose application-level operations while the Database Adapter owns SQLAlchemy models, SQLite queries, transactions, and migrations. The component coding guidelines require service modules under `database_service/modules/` and organize adapter repositories and models by class under `adapters/<adapter-name>/<class-name>/`.
 
@@ -18,7 +18,7 @@ The Database Service must expose application-level operations while the Database
 
 - Persist resume data using a hybrid relational schema.
 - Store resume root data, personal information, metadata, and validation status on the `resumes` table.
-- Store experience, education, certifications, skills, and processing history in ordered child tables.
+- Store experience, education, certifications, and skills in ordered child tables.
 - Enforce a unique `content_fingerprint` on resume records.
 - Include a nullable `deleted_at` column as defined by the user resume data model.
 - Define resume operations in the Database Service module `database_service/modules/resume/`.

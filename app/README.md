@@ -38,22 +38,35 @@ cv-brewer/
 │   │   │   ├── __init__.py
 │   │   │   ├── context.py
 │   │   │   ├── logger_context.py
+│   │   │   ├── logger_records.py
 │   │   │   └── paths.py
 │   │   ├── commands/
 │   │   │   ├── __init__.py
+│   │   │   ├── all_logs.py
 │   │   │   ├── application_startup.py
 │   │   │   ├── delete_resumes.py
 │   │   │   ├── entry_page.py
+│   │   │   ├── error_logs.py
 │   │   │   ├── llm_logs.py
 │   │   │   ├── llm_menu.py
 │   │   │   ├── menu.py
 │   │   │   ├── options.py
-│   │   │   └── resume_upload.py
+│   │   │   ├── processing_runs.py
+│   │   │   ├── processing_steps.py
+│   │   │   ├── resume_upload.py
+│   │   │   └── resume_upload_menu.py
 │   │   └── ui/
 │   │       ├── __init__.py
 │   │       ├── delete_resumes.py
 │   │       ├── entry_page.py
+│   │       ├── html_reports.py
 │   │       ├── llm_logs.py
+│   │       ├── log_overview.py
+│   │       ├── logger_menus.py
+│   │       ├── logger_sources.py
+│   │       ├── performance.py
+│   │       ├── processing_runs.py
+│   │       ├── processing_steps.py
 │   │       ├── progress.py
 │   │       ├── resume_upload.py
 │   │       └── selection.py
@@ -157,8 +170,10 @@ cv-brewer/
 │   ├── llm/
 │   └── e2e/
 ├── scripts/
+│   ├── clear-logs.sh
 │   ├── query-test-logs.sh
 │   └── query_test_logs.py
+├── logs/
 ├── docs/
 ├── main.py
 ├── logger_main.py
@@ -190,11 +205,22 @@ cv-brewer/
 |`app/cli/app.py`|Defines the Typer application and no-command main menu callback.|
 |`app/cli/logger_app.py`|Defines the separate logger CLI Typer application.|
 |`app/cli/modules/context.py`|Defines the injected CLI dependencies and resume-listing and deletion capabilities.|
-|`app/cli/modules/logger_context.py`|Defines the injected logger CLI dependencies and log-query capability.|
-|`app/cli/commands/llm_menu.py`|Coordinates the single-item logger CLI menu.|
+|`app/cli/modules/logger_context.py`|Defines the injected logger CLI dependencies and LLM log and processing log query capabilities.|
+|`app/cli/modules/logger_records.py`|Normalizes LLM logs and processing runs for combined log views.|
+|`app/cli/commands/llm_menu.py`|Coordinates the four-option logger CLI menu and routes to the selected log view.|
 |`app/cli/commands/logger_menu.py`|Selects an available log source and prepares its logger CLI dependencies.|
-|`app/cli/commands/llm_logs.py`|Coordinates querying LLM activity logs for display.|
-|`app/cli/ui/llm_logs.py`|Renders LLM activity log records.|
+|`app/cli/commands/llm_logs.py`|Coordinates querying LLM activity logs and generating HTML reports.|
+|`app/cli/commands/resume_upload_menu.py`|Coordinates the `view runs` and `view steps` child menu.|
+|`app/cli/commands/processing_runs.py`|Coordinates processing run queries and HTML reports for `view runs`.|
+|`app/cli/commands/processing_steps.py`|Coordinates run selection, step queries, and HTML reports for `view steps`.|
+|`app/cli/commands/error_logs.py`|Coordinates error queries and HTML reports across LLM logs and processing runs.|
+|`app/cli/commands/all_logs.py`|Coordinates the merged newest-first query and HTML report across LLM logs and processing runs.|
+|`app/cli/ui/html_reports.py`|Builds escaped HTML documents, writes report files, and coordinates browser opening.|
+|`app/cli/ui/llm_logs.py`|Defines LLM activity log report columns and rows.|
+|`app/cli/ui/log_overview.py`|Defines the shared newest-first overview report columns and rows.|
+|`app/cli/ui/logger_menus.py`|Renders the logger and resume-upload menu panels.|
+|`app/cli/ui/processing_runs.py`|Defines processing run report columns and rows.|
+|`app/cli/ui/processing_steps.py`|Renders the run picker and defines processing step report columns and rows.|
 |`app/cli/modules/paths.py`|Defines shared and development startup locations.|
 |`app/cli/commands/application_startup.py`|Coordinates database initialization and folder preparation during startup.|
 |`app/cli/commands/delete_resumes.py`|Coordinates confirmation and deletion of all imported resumes.|
@@ -205,6 +231,7 @@ cv-brewer/
 |`app/cli/ui/`|Contains all CLI UI-related code.|
 |`app/cli/ui/selection.py`|Provides shared menu-selection helpers used by both CLI entry points.|
 |`app/cli/ui/logger_sources.py`|Renders the logger CLI log source selection prompt.|
+|`app/cli/ui/performance.py`|Provides shared CPU and memory performance columns and value formatting for HTML reports.|
 |`app/core/`|Contains the Core Processing Engine component module.|
 |`app/core/README.md`|Provides the Core component overview.|
 |`app/core/docs/`|Contains Core component technical documentation.|
@@ -235,11 +262,13 @@ cv-brewer/
 |`app/llm/adapters/logging/`|Contains the LLM port logging wrapper.|
 |`tests/`|Contains all test code. Non-end-to-end tests are grouped by component and mirror the package structure under `app/`; end-to-end tests reside under `tests/e2e/`.|
 |`tests/data/`|Contains generated test environment data; reset at test session start and ignored by version control.|
-|`scripts/`|Contains test runner and test-inspection scripts.|
+|`scripts/`|Contains test runner, test-inspection, and report-cleanup scripts.|
+|`scripts/clear-logs.sh`|Deletes the generated report directory at `./logs`.|
+|`logs/`|Contains generated HTML log reports grouped by log source; ignored by version control.|
 |`scripts/query-test-logs.sh`|Queries LLM activity logs from the test database.|
 |`scripts/query_test_logs.py`|Reads and prints LLM activity log records from the test database as JSON.|
 |`main.py`|Application composition root that wires startup, services, and CLI dependencies.|
-|`logger_main.py`|Composition root that resolves available log sources and wires startup and log-query capabilities for the logger CLI.|
+|`logger_main.py`|Composition root that resolves available log sources and wires startup, log query capabilities, report output directory, and browser opener for the logger CLI.|
 |`run.sh`|Starts the application with `uv run python main.py`.|
 |`logger.sh`|Starts the logger CLI with `uv run python logger_main.py`.|
 |`docs/`|Contains project-wide documentation.|

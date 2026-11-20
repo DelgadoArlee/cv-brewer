@@ -21,7 +21,8 @@ flowchart TD
 ## 3. Rules
 
 - The system must store each accepted record without changing its values.
-- The system must preserve status values of success, failed, and timeout.
+- The system must preserve status values of `SUCCESS`, `FAILED`, and `TIMEOUT`.
+- The system must preserve an optional processing step reference on each record.
 - The system must report persistence failures to the caller.
 - The system must return stored records without interpreting their contents.
 - The system must not create, update, or delete resume data.

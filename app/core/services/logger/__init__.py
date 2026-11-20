@@ -6,7 +6,11 @@ from core.services.logger.models import (
     LogStatus,
     utc_now,
 )
-from core.services.logger.performance import PerformanceMeasurement
+from core.services.logger.performance import (
+    PerformanceMeasurement,
+    RunPerformanceMonitor,
+    StepMeasurement,
+)
 from core.services.logger.port import LogSink
 from core.services.logger.service import LoggerService
 
@@ -19,5 +23,7 @@ __all__ = [
     "LogSink",
     "LogStatus",
     "PerformanceMeasurement",
+    "RunPerformanceMonitor",
+    "StepMeasurement",
     "utc_now",
 ]

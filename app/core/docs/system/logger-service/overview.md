@@ -7,7 +7,7 @@ Defines the generic logging engine in Core that accepts structured log records, 
 ## 2. Objective
 
 - Define a common log record and status representation.
-- Provide reusable duration and memory measurement.
+- Provide reusable duration, memory, and CPU measurement.
 - Deliver records to every configured sink.
 - Keep destination-specific behavior outside Core.
 
@@ -32,7 +32,9 @@ Defines the generic logging engine in Core that accepts structured log records, 
 - The service must accept a generic log record and forward it unchanged to each configured sink.
 - The service must not import database or LLM adapter implementations.
 - Sinks must be supplied through constructor injection.
-- Performance measurement must capture start time, completion time, duration, and memory before, after, peak, and delta.
+- Performance measurement must capture start time, completion time, duration, memory in megabytes at start, peak, end, and delta, and CPU average, peak, and sample count using `psutil`.
+- Short-running operations may record a sample count of 0 with null CPU values.
+- Delivery failures must be reported through the standard library logger and must not stop the calling workflow.
 - The service must not create records for general application events.
 
 ## 5. Process
@@ -46,6 +48,7 @@ Defines the generic logging engine in Core that accepts structured log records, 
 | Name | Type | Purpose |
 | --- | --- | --- |
 | `LogSink` | Internal interface | Destination contract implemented outside the logging package. |
+| `psutil` | External library | Samples process memory and CPU utilization for performance measurements. |
 
 ## 7. Test Cases
 
@@ -54,8 +57,8 @@ Defines the generic logging engine in Core that accepts structured log records, 
 | LOG-SVC-001 | Emit a record with one sink. | The sink receives the unchanged record. | Delivery rule |
 | LOG-SVC-002 | Emit a record with several sinks. | Every sink receives the unchanged record. | Delivery rule |
 | LOG-SVC-003 | Emit a record with no sinks. | The operation completes without error. | No-destination rule |
-| LOG-SVC-004 | A sink fails during delivery. | The failure is reported to the caller. | Failure rule |
-| LOG-SVC-005 | Measure an activity. | Timing and memory values are captured. | Measurement rule |
+| LOG-SVC-004 | A sink fails during delivery. | The failure is reported through the standard library logger without stopping the calling workflow. | Failure rule |
+| LOG-SVC-005 | Measure an activity. | Timing, memory, and CPU values are captured. | Measurement rule |
 
 ## 8. Architecture Decision Log
 

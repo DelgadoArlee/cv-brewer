@@ -3,9 +3,14 @@ from datetime import datetime, timezone
 
 
 class LogStatus:
-    SUCCESS = "success"
-    FAILED = "failed"
-    TIMEOUT = "timeout"
+    RUNNING = "RUNNING"
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+    VALIDATION_FAILED = "VALIDATION_FAILED"
+    PARTIAL_SUCCESS = "PARTIAL_SUCCESS"
+    SKIPPED = "SKIPPED"
+    CANCELLED = "CANCELLED"
+    TIMEOUT = "TIMEOUT"
 
 
 class LoggerError(Exception):
@@ -27,10 +32,13 @@ class LogPerformance:
     started_at: datetime
     completed_at: datetime | None = None
     duration_ms: float | None = None
-    memory_before_bytes: int | None = None
-    memory_after_bytes: int | None = None
-    memory_peak_bytes: int | None = None
-    memory_delta_bytes: int | None = None
+    start_memory_mb: float | None = None
+    peak_memory_mb: float | None = None
+    end_memory_mb: float | None = None
+    memory_delta_mb: float | None = None
+    cpu_avg_percent: float | None = None
+    cpu_peak_percent: float | None = None
+    sample_count: int = 0
 
 
 @dataclass(frozen=True, slots=True)
@@ -41,3 +49,4 @@ class LogEntry:
     performance: LogPerformance
     error: LogError
     created_at: datetime
+    processing_step_id: str | None = None

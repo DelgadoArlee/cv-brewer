@@ -6,9 +6,10 @@ This document defines the technical organization of the database component withi
 
 ## 2. Objective
 
-- Provide adapter implementations for Core-owned resume repository contracts.
+- Provide adapter implementations for Core-owned repository contracts.
 - Keep database-specific concerns inside adapter implementations.
 - Support SQLite as the default database implementation through SQLAlchemy 2.0 and Alembic.
+- Persist resume, LLM activity, and resume processing execution log records through adapter implementations.
 - Allow future database implementations to be added through compatible adapters without changing application-level data operations.
 - Keep the database component within the single Python distribution used by the application.
 
@@ -19,11 +20,13 @@ This document defines the technical organization of the database component withi
 - The database component package and its internal subpackages.
 - Database Adapter implementation boundaries.
 - Database connections, ORM configuration, queries, transactions, migrations, and error translation within adapters.
+- SQLite schema and persistence-process documentation for resume, LLM activity, and resume processing execution log data.
 - Component technical documentation.
 
 ### Out of Scope
 
 - Application-level resume data operations, record definitions, and repository contracts, which belong to the Core.
+- Application-level processing run and step record construction, which belongs to the Core.
 - Core Processing Engine resume processing and generation workflows.
 - CLI user interaction and file-system management.
 - LLM integration.
@@ -69,7 +72,7 @@ This document defines the technical organization of the database component withi
 
 | System           | Description                                                                                                     | Specification                                                                        |
 | ---------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Database Adapter | Implements Core-owned repository contracts, database-specific operations, connections, ORM use, transactions, migrations, and error translation. | [Database Adapter](/app/database/docs/system/database-adapter/overview.md)                             |
+| Database Adapter | Implements Core-owned repository contracts, database-specific operations, connections, ORM use, transactions, migrations, and error translation for resume, LLM activity, and processing log data. | [Database Adapter](/app/database/docs/system/database-adapter/overview.md)                             |
 
 ## 7. File Structure
 
@@ -88,7 +91,8 @@ app/database/
 │   │   ├── 11-13-26/
 │   │   │   └── adapter-only-boundary.md
 │   │   └── 11-19-26/
-│   │       └── llm-log-persistence.md
+│   │       ├── llm-log-persistence.md
+│   │       └── resume-processing-run-step-persistence.md
 │   ├── sqlite/
 │   │   ├── overview.md
 │   │   └── schemas/
@@ -96,17 +100,20 @@ app/database/
 │   │       ├── resume-certifications.md
 │   │       ├── resume-education.md
 │   │       ├── resume-experience.md
-│   │       ├── resume-processing-history.md
+│   │       ├── resume-processing-runs.md
+│   │       ├── resume-processing-steps.md
 │   │       ├── resume-skills.md
 │   │       └── resumes.md
 │   └── system/
 │       └── database-adapter/
 │           ├── overview.md
 │           └── processes/
-│           ├── delete-all-resumes.md
-│           ├── load-resume.md
-│           ├── persist-llm-log.md
-│           └── persist-resume.md
+│               ├── delete-all-resumes.md
+│               ├── load-resume.md
+│               ├── persist-llm-log.md
+│               ├── persist-resume.md
+│               ├── persist-resume-processing-run.md
+│               └── persist-resume-processing-step.md
 ├── __init__.py
 └── adapters/
     ├── __init__.py
@@ -122,13 +129,21 @@ app/database/
         │   ├── script.py.mako
         │   └── versions/
         │       ├── 20261110_0001_create_resume_tables.py
-        │       └── 20261119_0003_create_llm_logs.py
+        │       ├── 20261119_0003_create_llm_logs.py
+        │       └── 20261120_0004_add_processing_log_tables.py
         ├── llm_log/
         │   ├── __init__.py
         │   ├── repository.py
         │   └── models/
         │       ├── __init__.py
         │       └── llm_log.py
+        ├── processing_log/
+        │   ├── __init__.py
+        │   ├── repository.py
+        │   └── models/
+        │       ├── __init__.py
+        │       ├── resume_processing_run.py
+        │       └── resume_processing_step.py
         └── resume/
             ├── __init__.py
             ├── repository.py
@@ -139,7 +154,6 @@ app/database/
                 ├── resume_certification.py
                 ├── resume_education.py
                 ├── resume_experience.py
-                ├── resume_processing_history.py
                 └── resume_skill.py
 ````
 
@@ -159,9 +173,17 @@ app/database/
 - [Database Adapter System Specification](/app/database/docs/system/database-adapter/overview.md)
 - [SQLite Database Overview](/app/database/docs/sqlite/overview.md)
 - [Persist LLM Log Technical Process](/app/database/docs/system/database-adapter/processes/persist-llm-log.md)
+- [Persist Resume Processing Run Technical Process](/app/database/docs/system/database-adapter/processes/persist-resume-processing-run.md)
+- [Persist Resume Processing Step Technical Process](/app/database/docs/system/database-adapter/processes/persist-resume-processing-step.md)
 - [LLM Logs Table](/app/database/docs/sqlite/schemas/llm-logs.md)
+- [Resume Processing Runs Table](/app/database/docs/sqlite/schemas/resume-processing-runs.md)
+- [Resume Processing Steps Table](/app/database/docs/sqlite/schemas/resume-processing-steps.md)
 - [LLM Activity Log Data Model](/docs/data/llm-activity-log.md)
+- [Resume Processing Run Data Model](/docs/data/resume-processing-run.md)
+- [Resume Processing Step Data Model](/docs/data/resume-processing-step.md)
+- [Error Data Model](/docs/data/error.md)
 - [Persist LLM activity logs in SQLite](/app/database/docs/adr/11-19-26/llm-log-persistence.md)
+- [Persist Resume Processing Runs and Steps in SQLite](/app/database/docs/adr/11-19-26/resume-processing-run-step-persistence.md)
 - [Move the Database Service into Core](/docs/adr/Architecture/2026-11-13/database-service-to-core.md)
 - [Retain Database Adapters as the Database Component Boundary](/app/database/docs/adr/11-13-26/adapter-only-boundary.md)
 - [Use SQLite through SQLAlchemy and Alembic](/docs/adr/Architecture/2026-11-04/database-persistence.md)

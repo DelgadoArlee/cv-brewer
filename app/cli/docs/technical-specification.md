@@ -19,7 +19,11 @@ This document defines the technical organization of the CLI component within CVB
 - Report the current processing stage for each file during resume upload.
 - Support non-interactive flags for automation.
 - Remain part of the single executable used by the application.
-- Provide a separate log-review entry point that selects an available local log database before presenting a single `llm` menu item that lists stored LLM activity logs.
+- Provide a separate log-review entry point that selects an available local log database before presenting `llm`, `resume-upload`, `error`, and `all` HTML report views.
+- Provide a `resume-upload` child menu with `view runs` and `view steps` for generating processing run and processing step HTML reports.
+- Query error records and all records across LLM logs and processing runs, with merged reports capped at the 100 newest records.
+- Write escaped standalone HTML reports under `./logs/<source>/` and open them in the default browser.
+- Display CPU and memory performance metrics in logger HTML reports.
 
 ## 3. Scope
 
@@ -28,14 +32,16 @@ This document defines the technical organization of the CLI component within CVB
 - The CLI component package and its internal subpackages.
 - Application startup orchestration, including injected database initialization and input/output folder preparation.
 - CLI entry page rendering and wait-for-Enter behavior.
-- User interaction, prompts, menus, progress reporting, tables, and error output.
+- User interaction, prompts, menus, progress reporting, main CLI tables, logger HTML report generation, and error output.
 - Input and output folder management and file discovery.
 - Reading file bytes and passing immutable file payloads to the Core.
 - Workflow coordination with the Core for resume upload, generation, and deletion.
 - Saving generated Markdown files in the output folder.
 - Non-interactive flags for automation.
 - Component technical documentation.
-- The separate logger CLI entry point, its available log source selection, its single `llm` menu, and log-query presentation.
+- The separate logger CLI entry point, its available log source selection, its four-option log menu and `resume-upload` child menu, and log-report generation.
+- Read-only HTML reporting of LLM logs, processing runs, and processing steps through injected query capabilities, including duration and CPU/memory performance metrics.
+- Report-file output, browser-opening coordination, and report cleanup scripting coordination.
 
 ### Out of Scope
 
@@ -75,8 +81,16 @@ This document defines the technical organization of the CLI component within CVB
 - The CLI must use Typer for command definitions and Rich for prompts, tables, progress, and error output.
 - Input and output folder locations must follow the operating system conventions documented for the application.
 - The CLI must not be independently deployable and must remain part of the combined CLI/Core executable.
-- The logger CLI must expose only a single `llm` menu item preceded by log source selection and must not include main application commands or resume capabilities.
-- The logger CLI must receive available log sources with preparation factories from the composition root and must not access database implementations directly.
+- The logger CLI must expose exactly `llm`, `resume-upload`, `error`, and `all` after log source selection and must not include main application commands or resume workflows.
+- The logger CLI must expose a `resume-upload` child menu with exactly `view runs` and `view steps`; processing steps must not be exposed outside that path.
+- `error` must query error records from LLM logs and processing runs using the agreed error predicate, and `all` must include both record types in one newest-first HTML report.
+- Every view must return at most 100 rows; query capabilities must enforce the limit and merged views must cap at the 100 newest records.
+- The logger CLI must receive available log sources with preparation factories, both LLM log and processing log query capabilities, the report directory, and a browser-opening capability from the composition root, and must not access database implementations directly.
+- The logger CLI must display stored duration in LLM, processing run, and processing step reports and stored CPU/memory performance values in all HTML reports.
+- The logger CLI must build reports with the Python standard library, escape report values, and add no reporting dependency.
+- The logger CLI must write reports under `./logs/<source>/` using full UTC timestamp filenames that include the log type.
+- The logger CLI must print each generated report path and attempt to open the report in the default browser; browser failure must leave the path visible with a warning.
+- The logger CLI must not modify stored log records or change database schemas.
 
 ## 5. Architectural & Design Approaches
 
@@ -116,6 +130,12 @@ This document defines the technical organization of the CLI component within CVB
 - **Description:** The CLI receives all runtime dependencies from the application composition root instead of creating or locating them internally.
 - **Application:** The application factory accepts an immutable `CLIDependencies` value containing the startup paths, resume processor, and resume-listing and resume-deletion capabilities. Commands read these dependencies from the Typer context, and the CLI contains no global dependency state or fallback construction.
 
+### 5.7. Standalone HTML Log Reports
+
+- **Name:** Standalone HTML log reports.
+- **Description:** Logger views produce self-contained HTML documents instead of terminal tables.
+- **Application:** The CLI uses Python standard library HTML escaping, writes timestamped files under `./logs/<source>/`, prints each path, and delegates browser opening to an injected capability.
+
 ## 6. Systems
 
 | System | Description | Specification |
@@ -141,8 +161,11 @@ app/cli/
 │   │   │   └── development-startup-paths.md
 │   │   ├── 11-14-26/
 │   │   │   └── explicit-cli-dependencies.md
-│   │   └── 11-19-26/
-│   │       └── logger-cli-entry-point.md
+│   │   ├── 11-19-26/
+│   │   │   └── logger-cli-entry-point.md
+│   │   └── 11-20-26/
+│   │       ├── html-log-reports.md
+│   │       └── logger-cli-log-views.md
 │   ├── processes/
 │   │   ├── application-startup.md
 │   │   ├── entry-page.md
@@ -161,24 +184,36 @@ app/cli/
 │   ├── __init__.py
 │   ├── context.py
 │   ├── logger_context.py
+│   ├── logger_records.py
 │   └── paths.py
 ├── commands/
 │   ├── __init__.py
+│   ├── all_logs.py
 │   ├── application_startup.py
 │   ├── delete_resumes.py
 │   ├── entry_page.py
+│   ├── html_reports.py
 │   ├── llm_logs.py
+
 │   ├── llm_menu.py
 │   ├── logger_menu.py
 │   ├── menu.py
 │   ├── options.py
-│   └── resume_upload.py
+│   ├── processing_runs.py
+│   ├── processing_steps.py
+│   ├── resume_upload.py
+│   └── resume_upload_menu.py
 └── ui/
     ├── __init__.py
     ├── delete_resumes.py
     ├── entry_page.py
     ├── llm_logs.py
+    ├── log_overview.py
+    ├── logger_menus.py
     ├── logger_sources.py
+    ├── performance.py
+    ├── processing_runs.py
+    ├── processing_steps.py
     ├── progress.py
     ├── resume_upload.py
     └── selection.py
@@ -188,6 +223,7 @@ app/cli/
 
 - The CLI is included in the combined CLI/Core executable and is not independently deployable.
 - The logger CLI is launched with `./logger.sh` and reviews existing development, test, and end-to-end data paths.
+- Generated reports are written to `./logs/<source>/`; the repository ignores `logs/` and provides a cleanup script that deletes `./logs`.
 - The Python runtime and dependencies are bundled into per-OS executables built with PyInstaller.
 - Builds run on their target operating system because PyInstaller does not cross-compile.
 - The CLI manages access to the local file system within the input and output folders.
@@ -204,6 +240,10 @@ app/cli/
 - [Application Startup Technical Process](/app/cli/docs/processes/application-startup.md)
 - [Logger CLI Process](/docs/system/logger-cli.md)
 - [Logger CLI Technical Process](/app/cli/docs/processes/logger-cli.md)
+- [Render Logger Reports as HTML](/docs/adr/Architecture/2026-11-20/html-log-reports.md)
+- [Render Logger Data as HTML Reports](/app/cli/docs/adr/11-20-26/html-log-reports.md)
+- [Expand Logger CLI Log Views](/docs/adr/Architecture/2026-11-20/logger-cli-log-views.md)
+- [Implement Expanded Logger CLI Log Views](/app/cli/docs/adr/11-20-26/logger-cli-log-views.md)
 - [Separate Logger CLI Entry Point](/app/cli/docs/adr/11-19-26/logger-cli-entry-point.md)
 - [Select the Logger CLI Log Source](/app/cli/docs/adr/11-19-26/logger-log-source-selection.md)
 - [Select the Log Database in the Logger CLI](/docs/adr/Architecture/2026-11-19/logger-log-source-selection.md)

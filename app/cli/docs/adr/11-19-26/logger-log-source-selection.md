@@ -6,11 +6,11 @@
 
 ## Status
 
-Accepted
+Superseded
 
 ## Context
 
-The [separate logger CLI entry point](/app/cli/docs/adr/11-19-26/logger-cli-entry-point.md) injects one ready-made dev log-query capability before the CLI starts. The [log source selection decision](/docs/adr/Architecture/2026-11-19/logger-log-source-selection.md) requires the logger CLI to choose among the available `dev`, `e2e`, and `test` databases while keeping database access outside the CLI component.
+The [separate logger CLI entry point](/app/cli/docs/adr/11-19-26/logger-cli-entry-point.md) injects log query capabilities before the CLI starts. The [log source selection decision](/docs/adr/Architecture/2026-11-19/logger-log-source-selection.md) requires the logger CLI to choose among the available `dev`, `e2e`, and `test` databases while keeping database access outside the CLI component. This ADR is superseded by the [expanded logger CLI log views decision](/app/cli/docs/adr/11-20-26/logger-cli-log-views.md), which replaces the menu clause below while retaining source selection.
 
 ## Decision
 
@@ -20,7 +20,7 @@ The [separate logger CLI entry point](/app/cli/docs/adr/11-19-26/logger-cli-entr
 - Add a shared source-selection presentation module under `app/cli/ui/` and a coordinating module under `app/cli/commands/`.
 - Add an optional default index to the shared `select_option` helper so the source prompt can default to the first available source without changing the main CLI.
 - Skip the source prompt when one source is available, report a startup failure for the selected source, and stop when none are available.
-- Proceed to the existing single-item `llm` menu after the selected source is prepared.
+- Proceed to the log menu defined by the [expanded logger CLI log views decision](/app/cli/docs/adr/11-20-26/logger-cli-log-views.md) after the selected source is prepared.
 
 ## Consequences
 

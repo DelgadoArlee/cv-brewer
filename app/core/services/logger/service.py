@@ -1,7 +1,10 @@
+import logging
 from collections.abc import Sequence
 
-from core.services.logger.models import LoggerError, LogEntry
+from core.services.logger.models import LogEntry
 from core.services.logger.port import LogSink
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class LoggerService:
@@ -16,7 +19,10 @@ class LoggerService:
             except Exception as exc:
                 failures.append(exc)
         if failures:
-            raise LoggerError(
-                f"Failed to write log entry to {len(failures)} of "
-                f"{len(self._sinks)} sink(s)."
-            ) from failures[0]
+            _LOGGER.error(
+                "Failed to write log entry %s to %d of %d sink(s).",
+                entry.id,
+                len(failures),
+                len(self._sinks),
+                exc_info=failures[0],
+            )

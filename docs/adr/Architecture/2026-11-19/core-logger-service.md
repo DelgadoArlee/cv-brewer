@@ -14,7 +14,7 @@ architecture
 
 ## Context
 
-CVBrewer has no logging service. Individual workflows record their own processing history, but there is no reusable way to record structured activity information and route it to one or more destinations. A new log-query CLI needs a stable source of structured log records, and future logging needs should not require rebuilding each logger from scratch.
+CVBrewer has no logging service. Individual workflows record their own activity information, but there is no reusable way to record structured activity information and route it to one or more destinations. A new log-query CLI needs a stable source of structured log records, and future logging needs should not require rebuilding each logger from scratch.
 
 ## Decision
 

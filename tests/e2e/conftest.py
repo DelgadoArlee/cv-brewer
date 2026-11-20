@@ -12,7 +12,12 @@ from cli.commands.application_startup import initialize_application
 from core.pipeline import ResumeProcessor
 from core.services.logger import LoggerService
 from core.services.llm.logger import LLMLogger
-from database import create_llm_log_service, create_resume_service, initialize_database
+from database import (
+    create_llm_log_service,
+    create_processing_log_service,
+    create_resume_service,
+    initialize_database,
+)
 from llm import create_llm_service
 from tests.fixtures.environment import E2E_DATA_PATH
 
@@ -44,7 +49,8 @@ def e2e_application(e2e_startup_paths: StartupPaths) -> SimpleNamespace:
         pytest.fail("The E2E tests require at least one model installed in Ollama.")
 
     resume_service = create_resume_service(paths.database)
-    processor = ResumeProcessor(resume_service, llm_service)
+    processing_log_service = create_processing_log_service(paths.database)
+    processor = ResumeProcessor(resume_service, llm_service, processing_log_service)
     dependencies = CLIDependencies(
         paths,
         processor,
@@ -56,6 +62,7 @@ def e2e_application(e2e_startup_paths: StartupPaths) -> SimpleNamespace:
         processor=processor,
         resume_service=resume_service,
         llm_log_querier=llm_log_repository,
+        processing_log_querier=processing_log_service,
         dependencies=dependencies,
     )
 
@@ -68,6 +75,7 @@ def e2e_cli(e2e_application: SimpleNamespace) -> Iterator[SimpleNamespace]:
         processor=e2e_application.processor,
         resume_service=e2e_application.resume_service,
         llm_log_querier=e2e_application.llm_log_querier,
+        processing_log_querier=e2e_application.processing_log_querier,
         dependencies=e2e_application.dependencies,
         app=create_app(e2e_application.dependencies),
     )

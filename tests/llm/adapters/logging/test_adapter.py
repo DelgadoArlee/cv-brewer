@@ -42,13 +42,21 @@ class _FakeLogger(LLMLogger):
     def __init__(self) -> None:
         self.calls: list[dict[str, Any]] = []
 
-    def record_generation(self, request, performance, result=None, error=None):
+    def record_generation(
+        self,
+        request,
+        performance,
+        result=None,
+        error=None,
+        processing_step_id=None,
+    ):
         self.calls.append(
             {
                 "request": request,
                 "performance": performance,
                 "result": result,
                 "error": error,
+                "processing_step_id": processing_step_id,
             }
         )
 
@@ -98,3 +106,18 @@ def test_non_generation_operations_are_delegated_without_logging() -> None:
     assert wrapper.check_availability() is True
     assert wrapper.list_models() == [ModelInfo(name="llama3.1")]
     assert logger.calls == []
+
+
+def test_processing_step_id_is_attached_then_cleared() -> None:
+    logger = _FakeLogger()
+    wrapper = LoggingLLMPort(_FakePort(), logger)
+
+    wrapper.set_processing_step_id("step-1")
+    wrapper.generate_structured(_request())
+    wrapper.set_processing_step_id(None)
+    wrapper.generate_structured(_request())
+
+    assert [call["processing_step_id"] for call in logger.calls] == [
+        "step-1",
+        None,
+    ]

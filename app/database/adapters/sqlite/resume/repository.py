@@ -7,7 +7,6 @@ from database.adapters.sqlite.resume.models import (
     ResumeCertification,
     ResumeEducation,
     ResumeExperience,
-    ResumeProcessingHistory,
     ResumeSkill,
 )
 from core.services.resume import (
@@ -16,7 +15,6 @@ from core.services.resume import (
     Experience,
     ParsedResumeData,
     PersonalInfo,
-    ProcessingHistoryEntry,
     ResumeMetadata,
     ResumeRecord,
     ResumeRepository,
@@ -69,19 +67,6 @@ def _to_skill_model(position_order: int, skill: str) -> ResumeSkill:
     return ResumeSkill(position_order=position_order, skill=skill)
 
 
-def _to_processing_history_model(
-    position_order: int,
-    entry: ProcessingHistoryEntry,
-) -> ResumeProcessingHistory:
-    return ResumeProcessingHistory(
-        position_order=position_order,
-        step=entry.step,
-        timestamp=entry.timestamp,
-        status=entry.status,
-        error_message=entry.error_message,
-    )
-
-
 def _to_resume_model(record: ResumeRecord) -> Resume:
     return Resume(
         resume_id=record.resume_id,
@@ -128,10 +113,6 @@ def _to_resume_model(record: ResumeRecord) -> Resume:
             _to_skill_model(index, skill)
             for index, skill in enumerate(record.parsed_data.skills)
         ],
-        processing_history=[
-            _to_processing_history_model(index, entry)
-            for index, entry in enumerate(record.processing_history)
-        ],
     )
 
 
@@ -161,17 +142,6 @@ def _to_certification(model: ResumeCertification) -> Certification:
         issuer=model.issuer,
         issue_date=model.issue_date,
         expiry_date=model.expiry_date,
-    )
-
-
-def _to_processing_history(
-    model: ResumeProcessingHistory,
-) -> ProcessingHistoryEntry:
-    return ProcessingHistoryEntry(
-        step=model.step,
-        timestamp=model.timestamp,
-        status=model.status,
-        error_message=model.error_message,
     )
 
 
@@ -212,9 +182,6 @@ def _to_record(model: Resume) -> ResumeRecord:
             content_extraction_success=model.content_extraction_success,
             schema_validation_passed=model.schema_validation_passed,
         ),
-        processing_history=[
-            _to_processing_history(entry) for entry in model.processing_history
-        ],
         created_at=model.created_at,
         deleted_at=model.deleted_at,
     )

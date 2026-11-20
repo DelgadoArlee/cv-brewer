@@ -1,7 +1,15 @@
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import JSON, CheckConstraint, DateTime, Float, Integer, Text
+from sqlalchemy import (
+    JSON,
+    CheckConstraint,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    Text,
+)
 from sqlalchemy.orm import Mapped, mapped_column
 
 from database.adapters.sqlite.resume.models.base import Base
@@ -11,7 +19,7 @@ class LLMLog(Base):
     __tablename__ = "llm_logs"
     __table_args__ = (
         CheckConstraint(
-            "status IN ('success', 'failed', 'timeout')",
+            "status IN ('SUCCESS', 'FAILED', 'TIMEOUT')",
             name="ck_llm_logs_status",
         ),
     )
@@ -20,6 +28,15 @@ class LLMLog(Base):
     provider: Mapped[str] = mapped_column(Text, nullable=False)
     model: Mapped[str] = mapped_column(Text, nullable=False)
     operation: Mapped[str] = mapped_column(Text, nullable=False)
+    processing_step_id: Mapped[str | None] = mapped_column(
+        Text,
+        ForeignKey(
+            "resume_processing_steps.step_id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
     status: Mapped[str] = mapped_column(Text, nullable=False)
     system_prompt: Mapped[str | None] = mapped_column(Text, nullable=True)
     prompt: Mapped[str] = mapped_column(Text, nullable=False)
@@ -32,10 +49,13 @@ class LLMLog(Base):
     started_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     duration_ms: Mapped[float | None] = mapped_column(Float, nullable=True)
-    memory_before_bytes: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    memory_after_bytes: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    memory_peak_bytes: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    memory_delta_bytes: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    start_memory_mb: Mapped[float | None] = mapped_column(Float, nullable=True)
+    peak_memory_mb: Mapped[float | None] = mapped_column(Float, nullable=True)
+    end_memory_mb: Mapped[float | None] = mapped_column(Float, nullable=True)
+    memory_delta_mb: Mapped[float | None] = mapped_column(Float, nullable=True)
+    cpu_avg_percent: Mapped[float | None] = mapped_column(Float, nullable=True)
+    cpu_peak_percent: Mapped[float | None] = mapped_column(Float, nullable=True)
+    sample_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     error_type: Mapped[str | None] = mapped_column(Text, nullable=True)
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(

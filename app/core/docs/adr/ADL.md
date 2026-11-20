@@ -4,6 +4,7 @@ This log indexes the component-level Architecture Decision Records (ADRs) for th
 
 | Date | Decision | Status | High-Level ADR |
 | --- | --- | --- | --- |
+| 2026-11-19 | [Record resume processing runs and steps in Core](/app/core/docs/adr/11-19-26/resume-processing-run-logging.md) — Construct and finalize resume processing run and step records in Core with embedded error data and identifier references delivered through Core service boundaries. | Accepted | [Resume Processing Run and Step Logging](/docs/adr/Architecture/2026-11-19/resume-processing-run-logging.md) |
 | 2026-11-19 | [Establish the logger service package](/app/core/docs/adr/11-19-26/logger-service-package.md) — Place generic logging under `app/core/services/logger/` and LLM-specific log records, repository, and logger under `app/core/services/llm/`. | Accepted | [Core-owned Logger Service](/docs/adr/Architecture/2026-11-19/core-logger-service.md) |
 | 2026-11-14 | [Establish the LLM service package](/app/core/docs/adr/11-14-26/llm-service-package.md) — Place all LLM-specific records, the `LLMPort` contract, and service operations under `app/core/services/llm/`. | Accepted | [LLM Service in Core](/docs/adr/Architecture/2026-11-14/llm-service-to-core.md) |
 | 2026-11-14 | [Organize processing and validation code by service packages](/app/core/docs/adr/11-14-26/processing-and-validation-service-packages.md) — Place processing and validation functions under the owning service package, with only validation models and schemas under `validation/`. | Accepted | — |

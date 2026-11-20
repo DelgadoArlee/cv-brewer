@@ -2,7 +2,9 @@
 
 ## 1. Description
 
-This document defines the data model for user-uploaded resumes in the CVBrewer system. The model describes the structure and relationships of resume-related data stored in the database, including original file references, extracted metadata, parsed content, validation status, and processing history. This data model supports the resume processing workflow from upload through storage and retrieval for generation workflows.
+This document defines the data model for user-uploaded resumes in the CVBrewer system. The model describes the structure and relationships of resume-related data stored in the database, including original file references, extracted metadata, parsed content, and validation status. This data model supports the resume processing workflow from upload through storage and retrieval for generation workflows.
+
+Resume processing execution is recorded separately in the [Resume Processing Run Data Model](/docs/data/resume-processing-run.md) and [Resume Processing Step Data Model](/docs/data/resume-processing-step.md). This model does not include a per-resume processing history field.
 
 ## 2. JSON Model
 
@@ -63,14 +65,6 @@ This document defines the data model for user-uploaded resumes in the CVBrewer s
     "content_extraction_success": "boolean",
     "schema_validation_passed": "boolean"
   },
-  "processing_history": [
-    {
-      "step": "string",
-      "timestamp": "datetime",
-      "status": "string",
-      "error_message": null
-    }
-  ],
   "created_at": "datetime",
   "deleted_at": "datetime"
 }
@@ -87,7 +81,6 @@ This document defines the data model for user-uploaded resumes in the CVBrewer s
 | metadata           | object   | Yes      | Extracted metadata from the PDF file                |
 | parsed_data        | object   | Yes      | Structured resume data extracted from PDF           |
 | validation_status  | object   | Yes      | Results of all validation checks                    |
-| processing_history | array    | Yes      | Log of processing steps and outcomes                |
 | created_at         | datetime | Yes      | Timestamp when resume was uploaded                  |
 | deleted_at         | datetime | No      | Timestamp when user manually deletes the resume record |
 
@@ -163,15 +156,6 @@ This document defines the data model for user-uploaded resumes in the CVBrewer s
 | content_extraction_success | boolean | Yes | Whether text extraction succeeded |
 | schema_validation_passed | boolean | Yes | Whether parsed data passes schema validation |
 
-### Processing History Object
-
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| step | string | Yes | Name of processing step |
-| timestamp | datetime | Yes | When the step was executed |
-| status | string | Yes | Success/failure/processing status |
-| error_message | string | No | Error details if failed |
-
 ## 4. Validation
 
 - **resume_id**: Must be a unique UUID or auto-generated identifier
@@ -191,4 +175,7 @@ This document defines the data model for user-uploaded resumes in the CVBrewer s
 ## 5. References
 
 - [Data Model Format Rules](/docs/rules/data.md)
+- [Resume Processing Run Data Model](/docs/data/resume-processing-run.md)
+- [Resume Processing Step Data Model](/docs/data/resume-processing-step.md)
+- [Error Data Model](/docs/data/error.md)
 - [Resume Processing Feature Overview](/docs/features/resume-generation.md)

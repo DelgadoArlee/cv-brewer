@@ -1,6 +1,7 @@
 from collections.abc import Mapping
 from functools import partial
 from pathlib import Path
+import webbrowser
 
 from rich.console import Console
 
@@ -14,7 +15,11 @@ from cli.modules.logger_context import (
 )
 from cli.modules.paths import StartupPaths, development_startup_paths, startup_paths
 from core.services.llm.log_port import LLMLogRepository
-from database import create_llm_log_service, initialize_database
+from database import (
+    create_llm_log_service,
+    create_processing_log_service,
+    initialize_database,
+)
 
 _REPOSITORY_ROOT = Path(__file__).resolve().parent
 _ENVIRONMENT_DATA_DIRS: Mapping[LoggerEnvironment, Path] = {
@@ -24,10 +29,21 @@ _ENVIRONMENT_DATA_DIRS: Mapping[LoggerEnvironment, Path] = {
 }
 
 
-def build_dependencies(paths: StartupPaths) -> LoggerCLIDependencies:
+def build_dependencies(
+    paths: StartupPaths,
+    source: LoggerEnvironment,
+) -> LoggerCLIDependencies:
     prepared_paths = initialize_application(paths, initialize_database)
     log_repository: LLMLogRepository = create_llm_log_service(prepared_paths.database)
-    return LoggerCLIDependencies(prepared_paths, log_repository)
+    processing_log_service = create_processing_log_service(prepared_paths.database)
+    return LoggerCLIDependencies(
+        prepared_paths,
+        log_repository,
+        processing_log_service,
+        source,
+        _REPOSITORY_ROOT / "logs",
+        webbrowser.open,
+    )
 
 
 def available_log_sources() -> LoggerSources:
@@ -35,7 +51,7 @@ def available_log_sources() -> LoggerSources:
     for environment, data_dir in _ENVIRONMENT_DATA_DIRS.items():
         paths = startup_paths(data_dir)
         if paths.database.is_file():
-            sources[environment] = partial(build_dependencies, paths)
+            sources[environment] = partial(build_dependencies, paths, environment)
     return sources
 
 

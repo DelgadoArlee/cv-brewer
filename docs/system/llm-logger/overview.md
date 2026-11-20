@@ -9,6 +9,7 @@ The LLM Logger records LLM generation calls so their requests, results, token us
 - Record only LLM generation activities.
 - Capture the model, provider, prompt content, response content, and finish reason.
 - Capture token usage, duration, and memory use for each call.
+- Capture the processing step reference when a call is made during a processing step.
 - Distinguish successful, failed, and timed-out calls.
 - Persist each log record so it can be queried later.
 
@@ -37,7 +38,7 @@ See the [Record LLM Call Process](/docs/system/llm-logger/processes/record-llm-c
 
 ## 5. Data Management
 
-The system uses the [LLM Activity Log Data Model](/docs/data/llm-activity-log.md).
+The system uses the [LLM Activity Log Data Model](/docs/data/llm-activity-log.md). A log may reference a processing step; one step can have many LLM logs, and one LLM log can reference zero or one step.
 
 ## 6. Error Handling
 
@@ -48,5 +49,5 @@ The system uses the [LLM Activity Log Data Model](/docs/data/llm-activity-log.md
 ## 7. References
 
 - [LLM Activity Logging Decision](/docs/adr/Architecture/2026-11-19/llm-activity-logging.md)
-- [LLM Logger Technical System Specification](../../app/core/docs/system/llm-logger/overview.md)
+- [LLM Logger Technical System Specification](/app/core/docs/system/llm-logger/overview.md)
 - [Logger Service System Overview](/docs/system/logger-service/overview.md)

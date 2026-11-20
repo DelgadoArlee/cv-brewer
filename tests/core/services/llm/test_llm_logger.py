@@ -36,10 +36,13 @@ def _performance() -> LogPerformance:
         started_at=datetime(2026, 11, 19, 10, 0),
         completed_at=datetime(2026, 11, 19, 10, 0, 1),
         duration_ms=1000.0,
-        memory_before_bytes=100,
-        memory_after_bytes=200,
-        memory_peak_bytes=250,
-        memory_delta_bytes=100,
+        start_memory_mb=100.0,
+        peak_memory_mb=250.0,
+        end_memory_mb=200.0,
+        memory_delta_mb=100.0,
+        cpu_avg_percent=12.5,
+        cpu_peak_percent=20.0,
+        sample_count=2,
     )
 
 
@@ -60,9 +63,15 @@ def test_record_generation_captures_success_details() -> None:
     sink = _RecordingSink()
     logger = LLMLogger("ollama", LoggerService([sink]))
 
-    record = logger.record_generation(_request(), _performance(), result=_result())
+    record = logger.record_generation(
+        _request(),
+        _performance(),
+        result=_result(),
+        processing_step_id="step-1",
+    )
 
-    assert record.status == "success"
+    assert record.status == "SUCCESS"
+    assert record.processing_step_id == "step-1"
     assert record.provider == "ollama"
     assert record.model == "llama3.1"
     assert record.request.system_prompt == "Extract resume data."
@@ -88,7 +97,7 @@ def test_record_generation_maps_timeout_errors() -> None:
 
     record = logger.record_generation(_request(), _performance(), error=error)
 
-    assert record.status == "timeout"
+    assert record.status == "TIMEOUT"
     assert record.error.type == "LLMTimeoutError"
     assert record.error.message == "timed out"
     assert record.response.content is None
@@ -105,5 +114,5 @@ def test_record_generation_maps_other_errors() -> None:
         error=RuntimeError("generation failed"),
     )
 
-    assert record.status == "failed"
+    assert record.status == "FAILED"
     assert record.error.type == "RuntimeError"

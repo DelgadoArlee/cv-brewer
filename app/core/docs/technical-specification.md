@@ -114,7 +114,8 @@ app/core/
 │   │   ├── ADL.md
 │   │   ├── 11-12-26/
 │   │   │   ├── core-package-structure.md
-│   │   │   └── resume-processing-foundation.md
+│   │   │   ├── resume-processing-foundation.md
+│   │   │   └── stage-progress-reporting.md
 │   │   ├── 11-13-26/
 │   │   │   ├── processing-service-packages.md
 │   │   │   └── resume-service-package.md
@@ -122,7 +123,8 @@ app/core/
 │   │   │   ├── llm-service-package.md
 │   │   │   └── processing-and-validation-service-packages.md
 │   │   └── 11-19-26/
-│   │       └── logger-service-package.md
+│   │       ├── logger-service-package.md
+│   │       └── resume-processing-run-logging.md
 │   └── system/
 │       ├── database-service/
 │       │   ├── overview.md
@@ -185,6 +187,11 @@ app/core/
 │   ├── parsing/
 │   │   ├── __init__.py
 │   │   └── service.py
+│   ├── processing_log/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── port.py
+│   │   └── service.py
 │   ├── pdf/
 │   │   ├── __init__.py
 │   │   └── service.py
@@ -229,6 +236,7 @@ app/core/
 - [Establish the LLM service package](/app/core/docs/adr/11-14-26/llm-service-package.md)
 - [Organize processing modules as services](/app/core/docs/adr/11-13-26/processing-service-packages.md)
 - [Organize processing and validation code by service packages](/app/core/docs/adr/11-14-26/processing-and-validation-service-packages.md)
+- [Record resume processing runs and steps in Core](/app/core/docs/adr/11-19-26/resume-processing-run-logging.md)
 - [Use an LLM Service abstraction with pluggable LLM adapters](/docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)
 - [Resume Generation System Overview](/docs/system/resume-generation/overview.md)
 - [Use Python and uv for the CVBrewer implementation](/docs/adr/Architecture/2026-11-04/python-runtime-and-tooling.md)

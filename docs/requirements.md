@@ -74,6 +74,8 @@ The system shall distinguish between:
 - **Generated resume data:** Structured output produced by the Core and validated against the Generated Resume JSON schema.
 - **Generated resume documents:** Rendered Markdown files saved in the output folder.
 - **LLM activity logs:** Structured records of LLM generation calls stored locally for review.
+- **Resume processing execution logs:** Structured run and step records of resume processing executions, including embedded error data, stored locally for review.
+- **HTML log review reports:** Generated HTML files that present stored LLM and resume processing execution logs for review in a web browser.
 
 
 ## 5. Deployment Requirements

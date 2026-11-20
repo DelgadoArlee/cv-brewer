@@ -14,9 +14,6 @@ if TYPE_CHECKING:
     )
     from database.adapters.sqlite.resume.models.resume_education import ResumeEducation
     from database.adapters.sqlite.resume.models.resume_experience import ResumeExperience
-    from database.adapters.sqlite.resume.models.resume_processing_history import (
-        ResumeProcessingHistory,
-    )
     from database.adapters.sqlite.resume.models.resume_skill import ResumeSkill
 
 
@@ -88,9 +85,4 @@ class Resume(Base):
         back_populates="resume",
         cascade="all, delete-orphan",
         order_by="ResumeSkill.position_order",
-    )
-    processing_history: Mapped[list[ResumeProcessingHistory]] = relationship(
-        back_populates="resume",
-        cascade="all, delete-orphan",
-        order_by="ResumeProcessingHistory.position_order",
     )

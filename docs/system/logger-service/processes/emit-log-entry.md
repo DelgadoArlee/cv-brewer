@@ -14,8 +14,8 @@ flowchart TD
     C -->|Yes| E[Deliver record to each destination]
     E --> F{Delivery succeeded?}
     F -->|Yes| G([Complete])
-    F -->|No| H[Report delivery failure]
-    H --> I([Stop])
+    F -->|No| H[Log delivery failure]
+    H --> I([Complete])
 ````
 
 ## 3. Rules
@@ -23,7 +23,8 @@ flowchart TD
 - The system must deliver each accepted log record to every configured destination.
 - The system must not change the contents of the log record during delivery.
 - The system must complete successfully when no destinations are configured.
-- The system must report a delivery failure to the caller.
+- The system must report delivery failures through standard logging.
+- The system must continue with the remaining destinations and must not interrupt the originating activity when logging fails.
 - The system must not create log records for application activities on its own.
 
 ## 4. Constraints

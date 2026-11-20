@@ -14,6 +14,8 @@ Defines the Core Processing Engine system that turns uploaded PDF resume bytes i
 - Produce structured resume data using deterministic extraction followed by LLM enhancement.
 - Validate structured resume data against the Resume JSON Schema.
 - Store valid resume records through the Database Service.
+- Record a processing run and associated processing step logs for each processed file.
+- Capture embedded error data and performance information in processing logs.
 - Return a final outcome for each processed file without allowing one failure to stop other files.
 - Optionally notify callers of the current processing stage while a file is processed.
 
@@ -29,7 +31,9 @@ Defines the Core Processing Engine system that turns uploaded PDF resume bytes i
 - PDF text extraction.
 - Deterministic resume parsing and LLM enhancement.
 - Resume JSON Schema validation and conversion to Core resume service records.
-- Per-file processing outcomes and processing history.
+- Per-file processing outcomes and processing run/step records.
+- Construction and finalization of processing run and step log records for each processed file.
+- Delivery of processing run and step log records through Core service boundaries for persistence.
 
 ### Out of Scope
 
@@ -46,7 +50,7 @@ Defines the Core Processing Engine system that turns uploaded PDF resume bytes i
 - The system must operate on file bytes supplied by the caller and must not access the file system.
 - File signature verification must run before metadata extraction, deduplication, PDF validation, and content extraction.
 - The content fingerprint must be the SHA-256 hash of the raw file bytes.
-- Duplicate fingerprints must skip processing and storage.
+- Duplicate fingerprints must skip processing and storage of a new parsed resume record.
 - Encrypted or password-protected PDFs must be rejected.
 - PDFs with invalid structure or no pages must be rejected.
 - PDFs with no non-whitespace extracted text must be rejected.
@@ -56,7 +60,16 @@ Defines the Core Processing Engine system that turns uploaded PDF resume bytes i
 - Parsed data must pass Resume JSON Schema validation before storage.
 - The system must not store partial or invalid resume records.
 - Each file must produce an independent outcome.
-- Stage notifications, when requested, must use the processing stage keys recorded in processing history.
+- A processing run record must be created for each processed file and finalized with status, result, timing, summary, performance, referenced resume identifiers, and embedded error data as applicable.
+- Processing step records must be associated with their owning processing run in a one-to-many relationship and must include step identity, order, attempt, status, timing, input/output summaries, duration, memory and CPU performance measurements, metadata, and embedded error data as applicable.
+- A processing run may reference `resume_id` and/or `matched_resume_id` as identifier references without a database relationship to resume records.
+- `input.source_step_id` remains an identifier reference without a database relationship.
+- A processing run may be recorded for stored, duplicate, rejected, or failed outcomes, including outcomes where no stored parsed resume is produced.
+- Processing run and step status values must be `RUNNING`, `SUCCESS`, `FAILED`, `VALIDATION_FAILED`, `PARTIAL_SUCCESS`, `SKIPPED`, `CANCELLED`, or `TIMEOUT`.
+- A duplicate run is finalized with status `SUCCESS` and result `duplicate`; downstream steps are recorded as `SKIPPED`.
+- Embedded processing error data includes `raw` details with traceback text.
+- Log and persistence failures must be reported through the standard library logger and must not stop resume processing.
+- Stage notifications, when requested, must use the eight processing step names: `file_type_validation`, `metadata_extraction`, `deduplication`, `pdf_validation`, `content_extraction`, `parsing`, `schema_validation`, and `storage`.
 - The system must not import SQLAlchemy, SQLite, `httpx`, or Ollama-specific modules.
 - The system must not fabricate resume information beyond the supplied document.
 
@@ -97,6 +110,8 @@ Defines the Core Processing Engine system that turns uploaded PDF resume bytes i
 | RP-SYS-007 | An LLM payload that fails Resume JSON Schema validation. | A resume is processed. | The file fails with a schema-invalid outcome and is not stored. |
 | RP-SYS-008 | A valid resume and a failing Database Service. | The resume is processed. | The file fails with a storage failure outcome. |
 | RP-SYS-009 | Multiple files where one file fails. | All files are processed. | Remaining files continue processing independently. |
+| RP-SYS-010 | A stored resume with the same fingerprint. | The duplicate file is processed. | The run is finalized with status `SUCCESS` and result `duplicate`, and downstream steps are `SKIPPED`. |
+| RP-SYS-011 | A persistence or log sink failure. | A file is processed. | The failure is reported through the standard library logger and processing continues. |
 
 ## 8. Diagrams
 
@@ -127,10 +142,14 @@ flowchart TD
 | [Organize processing modules as services](/app/core/docs/adr/11-13-26/processing-service-packages.md) | Place each processing module under its own service package. |
 | [Organize Core packages by responsibility](/app/core/docs/adr/11-12-26/core-package-structure.md) | Separate pipeline processes, modules, validation, and models into dedicated packages and keep shared errors at the Core package root. |
 | [Establish the resume-processing foundation](/app/core/docs/adr/11-12-26/resume-processing-foundation.md) | Use raw-byte fingerprints, first-available model selection, always-on LLM enhancement, basic deterministic parsing, and a schema derived from the user resume data model. |
+| [Record resume processing runs and steps in Core](/app/core/docs/adr/11-19-26/resume-processing-run-logging.md) | Construct and finalize resume processing run and step records in Core with embedded error data and identifier references. |
 
 ## 10. Data
 
 - [User Resume Data Model](/docs/data/user-resume.md) — Defines the resume data contract.
+- [Resume Processing Run Data Model](/docs/data/resume-processing-run.md) — Defines processing run execution records.
+- [Resume Processing Step Data Model](/docs/data/resume-processing-step.md) — Defines processing step execution records.
+- [Error Data Model](/docs/data/error.md) — Defines embedded error data for run and step records.
 - [Resume JSON Schema](/app/core/services/resume/validation/schemas/resume.json) — Defines the parsed resume data contract used for validation and structured LLM output.
 
 ## 11. References
@@ -140,6 +159,11 @@ flowchart TD
 - [Core Component Technical Specification](/app/core/docs/technical-specification.md)
 - [Database Service Technical System Specification](/app/core/docs/system/database-service/overview.md)
 - [User Resume Data Model](/docs/data/user-resume.md)
+- [Resume Processing Run Data Model](/docs/data/resume-processing-run.md)
+- [Resume Processing Step Data Model](/docs/data/resume-processing-step.md)
+- [Error Data Model](/docs/data/error.md)
+- [Add Resume Processing Run and Step Logging](/docs/adr/Architecture/2026-11-19/resume-processing-run-logging.md)
+- [Record resume processing runs and steps in Core](/app/core/docs/adr/11-19-26/resume-processing-run-logging.md)
 - [Resume Persistence ADR](/app/database/docs/adr/11-10-26/resume-persistence.md)
 - [Use an LLM Service abstraction with pluggable LLM adapters](/docs/adr/Architecture/2026-11-11/llm-service-abstraction.md)
 - [Use pypdf and pdfplumber for PDF processing](/docs/adr/Architecture/2026-11-04/pdf-processing.md)

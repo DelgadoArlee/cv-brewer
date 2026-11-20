@@ -3,9 +3,29 @@ from alembic import context
 from database.adapters.sqlite.config import SqliteConfig
 from database.adapters.sqlite.engine import create_sqlite_engine
 from database.adapters.sqlite.llm_log.models import LLMLog
+from database.adapters.sqlite.processing_log.models import (
+    ResumeProcessingRun,
+    ResumeProcessingStep,
+)
+from database.adapters.sqlite.resume.models.base import Base
+from database.adapters.sqlite.resume.models.resume import Resume
+from database.adapters.sqlite.resume.models.resume_certification import ResumeCertification
+from database.adapters.sqlite.resume.models.resume_education import ResumeEducation
+from database.adapters.sqlite.resume.models.resume_experience import ResumeExperience
+from database.adapters.sqlite.resume.models.resume_skill import ResumeSkill
 
 config = context.config
-target_metadata = LLMLog.metadata
+_ = (
+    LLMLog,
+    Resume,
+    ResumeCertification,
+    ResumeEducation,
+    ResumeExperience,
+    ResumeProcessingRun,
+    ResumeProcessingStep,
+    ResumeSkill,
+)
+target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:

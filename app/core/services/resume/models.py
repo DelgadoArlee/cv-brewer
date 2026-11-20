@@ -68,20 +68,11 @@ class ValidationStatus:
 
 
 @dataclass(frozen=True, slots=True)
-class ProcessingHistoryEntry:
-    step: str
-    timestamp: datetime
-    status: str
-    error_message: str | None = None
-
-
-@dataclass(frozen=True, slots=True)
 class NewResume:
     original_file_path: str
     metadata: ResumeMetadata
     parsed_data: ParsedResumeData
     validation_status: ValidationStatus
-    processing_history: list[ProcessingHistoryEntry] = field(default_factory=list)
     resume_id: str | None = None
     created_at: datetime | None = None
     deleted_at: datetime | None = None
@@ -94,6 +85,5 @@ class ResumeRecord:
     metadata: ResumeMetadata
     parsed_data: ParsedResumeData
     validation_status: ValidationStatus
-    processing_history: list[ProcessingHistoryEntry]
     created_at: datetime
     deleted_at: datetime | None = None

@@ -40,6 +40,7 @@ See the [Emit Log Entry Process](/docs/system/logger-service/processes/emit-log-
 - The Logger Service must not depend on a specific destination implementation.
 - The Logger Service must not interpret the contents of a log record beyond delivery.
 - Destinations must be supplied to the service by the application composition root.
+- Logging failures must be reported through standard logging and must not interrupt the originating activity.
 
 ## 6. References
 

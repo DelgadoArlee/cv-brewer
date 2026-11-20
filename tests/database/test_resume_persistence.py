@@ -21,7 +21,6 @@ from core.services.resume import (
     NewResume,
     ParsedResumeData,
     PersonalInfo,
-    ProcessingHistoryEntry,
     ResumeMetadata,
     ResumeService,
     ValidationStatus,
@@ -33,7 +32,6 @@ _RESUME_TABLES = {
     "resume_education",
     "resume_certifications",
     "resume_skills",
-    "resume_processing_history",
 }
 
 
@@ -107,13 +105,6 @@ def _new_resume(
             content_extraction_success=True,
             schema_validation_passed=True,
         ),
-        processing_history=[
-            ProcessingHistoryEntry(
-                step="parse",
-                timestamp=datetime(2026, 1, 1, 9, 5, 0),
-                status="success",
-            )
-        ],
     )
 
 

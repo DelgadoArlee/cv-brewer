@@ -12,9 +12,9 @@ flowchart TD
     B --> C[Start measurement]
     C --> D[Delegate generation call]
     D --> E{Call succeeded?}
-    E -->|Yes| F[Build success record with response and usage]
-    E -->|Timeout| G[Build timeout record with error details]
-    E -->|Failed| H[Build failed record with error details]
+    E -->|Yes| F[Build SUCCESS record with response and usage]
+    E -->|Timeout| G[Build TIMEOUT record with error details]
+    E -->|Failed| H[Build FAILED record with error details]
     F --> I[Deliver record to Logger Service]
     G --> I
     H --> I
@@ -27,7 +27,8 @@ flowchart TD
 - The system must record the provider, model, system prompt, prompt, and generation parameters.
 - The system must record response content, finish reason, and token usage when the call succeeds.
 - The system must record error type and message when the call fails or times out.
-- A timeout must be classified as a timeout; all other failures must be classified as failed.
+- A timeout must be classified as `TIMEOUT`; all other failures must be classified as `FAILED`.
+- The system must preserve the processing step reference when one is supplied for the call.
 - The system must not modify the request or the result of the observed call.
 - The system must propagate the original result or error to the caller.
 

@@ -80,6 +80,7 @@ class LLMLogger:
         performance: LogPerformance,
         result: GenerationResult | None = None,
         error: Exception | None = None,
+        processing_step_id: str | None = None,
     ) -> LogEntry:
         record = build_llm_log_record(
             provider=self._provider,
@@ -90,6 +91,7 @@ class LLMLogger:
             performance=performance,
             status=_status(error),
             error=_error_details(error),
+            processing_step_id=processing_step_id,
         )
         self._logger.emit(record)
         return record

@@ -39,11 +39,13 @@ class LLMUsageLog:
 
 @dataclass(frozen=True, slots=True)
 class LLMLogRecord(LogEntry):
-    provider: str
-    model: str
-    request: LLMRequestLog
-    response: LLMResponseLog
-    usage: LLMUsageLog
+    provider: str = ""
+    model: str = ""
+    request: LLMRequestLog = field(
+        default_factory=lambda: LLMRequestLog(system_prompt=None, prompt="")
+    )
+    response: LLMResponseLog = field(default_factory=LLMResponseLog)
+    usage: LLMUsageLog = field(default_factory=LLMUsageLog)
 
 
 def new_log_id() -> str:
@@ -59,6 +61,7 @@ def build_llm_log_record(
     performance: LogPerformance,
     status: str,
     error: LogError | None = None,
+    processing_step_id: str | None = None,
 ) -> LLMLogRecord:
     return LLMLogRecord(
         id=new_log_id(),
@@ -72,6 +75,7 @@ def build_llm_log_record(
         performance=performance,
         error=error or LogError(),
         created_at=utc_now(),
+        processing_step_id=processing_step_id,
     )
 
 

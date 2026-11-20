@@ -18,3 +18,6 @@ class LLMPort(ABC):
         request: StructuredGenerationRequest,
     ) -> GenerationResult:
         raise NotImplementedError
+
+    def set_processing_step_id(self, step_id: str | None) -> None:
+        return None

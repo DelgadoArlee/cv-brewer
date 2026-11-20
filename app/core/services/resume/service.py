@@ -118,7 +118,6 @@ def _build_resume_record(record: NewResume) -> ResumeRecord:
         metadata=record.metadata,
         parsed_data=record.parsed_data,
         validation_status=record.validation_status,
-        processing_history=record.processing_history,
         created_at=record.created_at
         or datetime.now(timezone.utc).replace(tzinfo=None),
         deleted_at=record.deleted_at,

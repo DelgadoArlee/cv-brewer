@@ -46,7 +46,6 @@ Indexes:
 - One `resumes` record has zero or more records in `resume_education`.
 - One `resumes` record has zero or more records in `resume_certifications`.
 - One `resumes` record has zero or more records in `resume_skills`.
-- One `resumes` record has zero or more records in `resume_processing_history`.
 
 ## 5. Validation
 

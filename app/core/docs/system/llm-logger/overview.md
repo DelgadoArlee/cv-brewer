@@ -30,7 +30,8 @@ Defines the LLM-specific logging implementation in Core that builds activity log
 - Only `generate_structured` calls may produce records.
 - The provider and model must be supplied by the caller.
 - Generation parameters must be recorded as null.
-- A timeout error must produce the `timeout` status; any other error must produce `failed`.
+- A successful call must produce the `SUCCESS` status; a timeout error must produce `TIMEOUT`; any other error must produce `FAILED`.
+- A log record may carry an optional `processing_step_id` supplied by the caller.
 - The logger must not alter the observed call's request, response, or exception.
 
 ## 5. Process
@@ -51,9 +52,9 @@ Defines the LLM-specific logging implementation in Core that builds activity log
 
 | Test Case ID | Scenario | Expected Result | Related Rule |
 | --- | --- | --- | --- |
-| LLM-LOG-001 | A successful generation call. | A success record with response, usage, and performance data is emitted. | Success rule |
-| LLM-LOG-002 | A timed-out generation call. | A timeout record with error details is emitted. | Timeout rule |
-| LLM-LOG-003 | A failed generation call. | A failed record with error details is emitted. | Failure rule |
+| LLM-LOG-001 | A successful generation call. | A `SUCCESS` record with response, usage, and performance data is emitted. | Success rule |
+| LLM-LOG-002 | A timed-out generation call. | A `TIMEOUT` record with error details is emitted. | Timeout rule |
+| LLM-LOG-003 | A failed generation call. | A `FAILED` record with error details is emitted. | Failure rule |
 | LLM-LOG-004 | A generation call with system and user messages. | Prompts are split into system prompt and prompt. | Request rule |
 | LLM-LOG-005 | Generation parameters. | All parameter fields are null. | Parameter rule |
 

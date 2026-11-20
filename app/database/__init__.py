@@ -1,9 +1,11 @@
 from pathlib import Path
 
+from core.services.processing_log import ProcessingLogService
 from core.services.resume import ResumeService
 from database.adapters.sqlite import (
     SqliteConfig,
     SqliteLLMLogRepository,
+    SqliteProcessingLogRepository,
     SqliteResumeRepository,
     create_session_factory,
     create_sqlite_engine,
@@ -37,4 +39,20 @@ def create_llm_log_service(
     return SqliteLLMLogRepository(session_factory)
 
 
-__all__ = ["create_llm_log_service", "create_resume_service", "initialize_database"]
+def create_processing_log_service(
+    database_path: Path | str,
+    *,
+    echo: bool = False,
+) -> ProcessingLogService:
+    config = SqliteConfig.from_path(database_path, echo=echo)
+    engine = create_sqlite_engine(config)
+    session_factory = create_session_factory(engine)
+    return ProcessingLogService(SqliteProcessingLogRepository(session_factory))
+
+
+__all__ = [
+    "create_llm_log_service",
+    "create_processing_log_service",
+    "create_resume_service",
+    "initialize_database",
+]

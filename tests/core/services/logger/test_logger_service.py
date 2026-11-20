@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 import pytest
@@ -5,7 +6,6 @@ from core.services.logger import (
     LogEntry,
     LogError,
     LogPerformance,
-    LoggerError,
     LoggerService,
     LogSink,
     PerformanceMeasurement,
@@ -27,7 +27,7 @@ def _entry() -> LogEntry:
     return LogEntry(
         id="log-1",
         operation="generate_structured",
-        status="success",
+        status="SUCCESS",
         performance=LogPerformance(started_at=datetime(2026, 11, 19, 10, 0)),
         error=LogError(),
         created_at=datetime(2026, 11, 19, 10, 0, 1),
@@ -56,17 +56,20 @@ def test_emit_succeeds_without_sinks() -> None:
     LoggerService([]).emit(_entry())
 
 
-def test_emit_reports_failure_after_trying_every_sink() -> None:
+def test_emit_reports_failure_after_trying_every_sink(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     first = _RecordingSink(RuntimeError("first failed"))
     second = _RecordingSink()
 
-    with pytest.raises(LoggerError):
+    with caplog.at_level(logging.ERROR):
         LoggerService([first, second]).emit(_entry())
 
     assert second.entries[0].id == "log-1"
+    assert "Failed to write log entry log-1" in caplog.text
 
 
-def test_performance_measurement_captures_timing_and_memory() -> None:
+def test_performance_measurement_captures_timing_memory_and_cpu() -> None:
     measurement = PerformanceMeasurement.start()
 
     performance = measurement.finish()
@@ -74,7 +77,8 @@ def test_performance_measurement_captures_timing_and_memory() -> None:
     assert performance.completed_at is not None
     assert performance.duration_ms is not None
     assert performance.duration_ms >= 0
-    assert performance.memory_before_bytes is not None
-    assert performance.memory_after_bytes is not None
-    assert performance.memory_peak_bytes is not None
-    assert performance.memory_delta_bytes is not None
+    assert performance.start_memory_mb is not None
+    assert performance.end_memory_mb is not None
+    assert performance.peak_memory_mb is not None
+    assert performance.memory_delta_mb is not None
+    assert performance.sample_count >= 0

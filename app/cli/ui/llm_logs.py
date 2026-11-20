@@ -1,13 +1,12 @@
-from rich.console import Console
-from rich.table import Table
-
+from cli.ui.html_reports import ReportTable
+from cli.ui.performance import PERFORMANCE_COLUMNS, performance_values
+from core.services.logger import LogStatus
 from core.services.llm.log_models import LLMLogRecord
 
-
 _LABELS = {
-    "success": ("Success", "green"),
-    "failed": ("Failed", "red"),
-    "timeout": ("Timeout", "yellow"),
+    LogStatus.SUCCESS: "Success",
+    LogStatus.FAILED: "Failed",
+    LogStatus.TIMEOUT: "Timeout",
 }
 
 
@@ -31,33 +30,28 @@ def _error(record: LLMLogRecord) -> str:
     return f"{error_type}: {message}" if message else error_type
 
 
-def render_llm_logs(
-    console: Console,
-    records: list[LLMLogRecord],
-) -> None:
-    if not records:
-        console.print("[yellow]No LLM activity logs found.[/yellow]")
-        return
-
-    table = Table(title="LLM Activity Logs", width=max(console.width, 160))
-    table.add_column("ID", style="cyan", no_wrap=True)
-    table.add_column("Created", style="bold")
-    table.add_column("Status")
-    table.add_column("Provider")
-    table.add_column("Model")
-    table.add_column("Done Reason")
-    table.add_column("Input Tokens")
-    table.add_column("Output Tokens")
-    table.add_column("Total Tokens")
-    table.add_column("Duration (s)")
-    table.add_column("Error")
-
-    for record in records:
-        label, color = _LABELS.get(record.status, ("Unknown", "white"))
-        table.add_row(
+def build_llm_logs_report(records: list[LLMLogRecord]) -> ReportTable:
+    columns = (
+        "ID",
+        "Created",
+        "Status",
+        "Step ID",
+        "Provider",
+        "Model",
+        "Done Reason",
+        "Input Tokens",
+        "Output Tokens",
+        "Total Tokens",
+        "Duration (s)",
+        *PERFORMANCE_COLUMNS,
+        "Error",
+    )
+    rows = tuple(
+        (
             record.id,
             record.created_at.isoformat(sep=" "),
-            label,
+            _LABELS.get(record.status, "Unknown"),
+            _optional_text(record.processing_step_id),
             record.provider,
             record.model,
             _optional_text(record.response.finish_reason),
@@ -65,7 +59,9 @@ def render_llm_logs(
             _token_count(record.usage.output_tokens),
             _token_count(record.usage.total_tokens),
             _duration(record.performance.duration_ms),
+            *performance_values(record.performance),
             _error(record),
         )
-
-    console.print(table, crop=False)
+        for record in records
+    )
+    return ReportTable("LLM Activity Logs", columns, rows)

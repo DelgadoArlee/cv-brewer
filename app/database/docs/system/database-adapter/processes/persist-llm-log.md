@@ -21,6 +21,7 @@ The process does not build log records or display them.
 
 - All database operations must use an adapter session scope.
 - Records must be stored without changing their values.
+- `processing_step_id` must be stored as an indexed nullable foreign key to `resume_processing_steps.step_id` with `ON DELETE SET NULL`.
 - Database failures must be translated to adapter errors.
 - No resume data may be created, updated, or deleted.
 
@@ -74,6 +75,7 @@ Process level.
 | PERSIST-LOG-001 | A complete log record. | The record is saved. | The record is retrievable unchanged. |
 | PERSIST-LOG-002 | No saved records. | Logs are listed. | An empty list is returned. |
 | PERSIST-LOG-003 | Several saved records. | Logs are listed. | All records are returned. |
+| PERSIST-LOG-004 | A log record with a `processing_step_id` reference. | The record is saved. | The step reference is preserved and deleting the step sets the reference to null. |
 
 ### 8.3 Test Coverage
 

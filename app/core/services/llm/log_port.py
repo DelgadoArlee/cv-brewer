@@ -11,3 +11,11 @@ class LLMLogRepository(ABC):
     @abstractmethod
     def list_all(self) -> list[LLMLogRecord]:
         raise NotImplementedError
+
+    @abstractmethod
+    def list_recent(self, limit: int) -> list[LLMLogRecord]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def list_errors(self, limit: int) -> list[LLMLogRecord]:
+        raise NotImplementedError

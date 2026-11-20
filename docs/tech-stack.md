@@ -12,13 +12,14 @@ This document does not replace the ADRs, requirements, architecture, or system d
 | ------------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
 | Language            | Python 3.12                                             | Implementation language for the CLI and Core                 |
 | Tooling             | `uv`                                                    | Dependency management, environments, and lockfiles           |
-| CLI                 | Typer + Rich                                            | Commands, interactive menu, prompts, progress, and tables    |
+| CLI                 | Typer + Rich                                            | Commands, interactive menu, prompts, progress, and error output |
 | PDF validation      | `pypdf`                                                 | Signature, encryption, structure, and metadata checks        |
 | PDF text extraction | `pdfplumber` / `pdfminer.six`                           | Readable-content checks and text extraction                  |
 | Schema validation   | JSON Schema 2020-12 + Pydantic v2 + `jsonschema`        | Data contracts, runtime models, and deterministic validation |
 | Persistence         | SQLite + SQLAlchemy 2.0 + Alembic                       | Embedded database, adapter boundary, and migrations          |
 | LLM integration     | LLM Service → LLM Adapter → User's chosen LLM service    | Application-level LLM operations and communication with the user's selected external LLM service through pluggable adapters |
 | Rendering           | Jinja2 → Markdown                                       | Generated resume output for the MVP                          |
+| Log reports         | Python standard library `html`                          | Escaped standalone HTML reports for logger CLI views        |
 | Packaging           | PyInstaller                                             | Per-OS single executables                                    |
 | Quality             | pytest, ruff, mypy, pre-commit                          | Testing, linting, formatting, and type checking              |
 | Platforms           | Windows and macOS required; Linux optional              | Supported operating systems                                  |
@@ -79,7 +80,8 @@ This document does not replace the ADRs, requirements, architecture, or system d
 | Use Typer and Rich for a hybrid CLI                | [CLI interface](/docs/adr/Architecture/2026-11-04/cli-interface.md)                             |
 | Own a reusable Logger Service in Core              | [Core-owned Logger Service](/docs/adr/Architecture/2026-11-19/core-logger-service.md)           |
 | Log LLM activities to the database                 | [LLM activity logging](/docs/adr/Architecture/2026-11-19/llm-activity-logging.md)               |
-| Provide a separate Logger CLI entry point          | [Logger CLI entry point](/docs/adr/Architecture/2026-11-19/logger-cli-entry-point.md)           |
+| Provide a separate Logger CLI entry point          | [Logger CLI entry point](/docs/adr/Architecture/2026-11-19/logger-cli-entry-point.md) — superseded by the expanded log views decision |
+| Expand the logger CLI log views                    | [Logger CLI log views](/docs/adr/Architecture/2026-11-20/logger-cli-log-views.md)               |
 | Core owns file-type and PDF validation             | [Validation responsibilities](/docs/adr/Architecture/2026-11-04/validation-responsibilities.md) |
 
 ## 8. References

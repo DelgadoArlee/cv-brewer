@@ -1,3 +1,5 @@
+from collections.abc import Iterator
+from contextlib import contextmanager
 from typing import Any
 
 from core.services.llm.models import (
@@ -25,6 +27,14 @@ class LLMService:
 
     def list_models(self) -> list[ModelInfo]:
         return self._port.list_models()
+
+    @contextmanager
+    def processing_step(self, step_id: str | None) -> Iterator[None]:
+        self._port.set_processing_step_id(step_id)
+        try:
+            yield
+        finally:
+            self._port.set_processing_step_id(None)
 
     def generate_structured(self, request: StructuredGenerationRequest) -> dict[str, Any]:
         _validate_generation_request(request)

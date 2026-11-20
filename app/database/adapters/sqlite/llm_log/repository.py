@@ -1,7 +1,7 @@
 from dataclasses import asdict
 from typing import Any
 
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.orm import Session, sessionmaker
 
 from core.services.logger import LogEntry, LogError, LogPerformance, LogSink
@@ -35,6 +35,7 @@ def _to_model(record: LLMLogRecord) -> LLMLog:
         provider=record.provider,
         model=record.model,
         operation=record.operation,
+        processing_step_id=record.processing_step_id,
         status=record.status,
         system_prompt=record.request.system_prompt,
         prompt=record.request.prompt,
@@ -47,10 +48,13 @@ def _to_model(record: LLMLogRecord) -> LLMLog:
         started_at=record.performance.started_at,
         completed_at=record.performance.completed_at,
         duration_ms=record.performance.duration_ms,
-        memory_before_bytes=record.performance.memory_before_bytes,
-        memory_after_bytes=record.performance.memory_after_bytes,
-        memory_peak_bytes=record.performance.memory_peak_bytes,
-        memory_delta_bytes=record.performance.memory_delta_bytes,
+        start_memory_mb=record.performance.start_memory_mb,
+        peak_memory_mb=record.performance.peak_memory_mb,
+        end_memory_mb=record.performance.end_memory_mb,
+        memory_delta_mb=record.performance.memory_delta_mb,
+        cpu_avg_percent=record.performance.cpu_avg_percent,
+        cpu_peak_percent=record.performance.cpu_peak_percent,
+        sample_count=record.performance.sample_count,
         error_type=record.error.type,
         error_message=record.error.message,
         created_at=record.created_at,
@@ -66,13 +70,17 @@ def _to_record(model: LLMLog) -> LLMLogRecord:
             started_at=model.started_at,
             completed_at=model.completed_at,
             duration_ms=model.duration_ms,
-            memory_before_bytes=model.memory_before_bytes,
-            memory_after_bytes=model.memory_after_bytes,
-            memory_peak_bytes=model.memory_peak_bytes,
-            memory_delta_bytes=model.memory_delta_bytes,
+            start_memory_mb=model.start_memory_mb,
+            peak_memory_mb=model.peak_memory_mb,
+            end_memory_mb=model.end_memory_mb,
+            memory_delta_mb=model.memory_delta_mb,
+            cpu_avg_percent=model.cpu_avg_percent,
+            cpu_peak_percent=model.cpu_peak_percent,
+            sample_count=model.sample_count,
         ),
         error=LogError(type=model.error_type, message=model.error_message),
         created_at=model.created_at,
+        processing_step_id=model.processing_step_id,
         provider=model.provider,
         model=model.model,
         request=LLMRequestLog(
@@ -108,5 +116,32 @@ class SqliteLLMLogRepository(LLMLogRepository, LogSink):
     def list_all(self) -> list[LLMLogRecord]:
         with session_scope(self._session_factory) as session:
             statement = select(LLMLog).order_by(LLMLog.created_at)
+            models = session.scalars(statement).all()
+            return [_to_record(model) for model in models]
+
+    def list_recent(self, limit: int) -> list[LLMLogRecord]:
+        with session_scope(self._session_factory) as session:
+            statement = (
+                select(LLMLog)
+                .order_by(LLMLog.created_at.desc(), LLMLog.id.desc())
+                .limit(limit)
+            )
+            models = session.scalars(statement).all()
+            return [_to_record(model) for model in models]
+
+    def list_errors(self, limit: int) -> list[LLMLogRecord]:
+        with session_scope(self._session_factory) as session:
+            statement = (
+                select(LLMLog)
+                .where(
+                    or_(
+                        LLMLog.status.in_(("FAILED", "TIMEOUT")),
+                        LLMLog.error_type.is_not(None),
+                        LLMLog.error_message.is_not(None),
+                    )
+                )
+                .order_by(LLMLog.created_at.desc(), LLMLog.id.desc())
+                .limit(limit)
+            )
             models = session.scalars(statement).all()
             return [_to_record(model) for model in models]

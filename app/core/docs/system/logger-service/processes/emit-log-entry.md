@@ -20,7 +20,7 @@ The process does not build records or implement destinations.
 
 - Records must be passed to sinks without modification.
 - All configured sinks must receive the record even if another sink fails.
-- A sink failure must be reported after delivery is attempted.
+- A sink failure must be reported through the standard library logger after delivery is attempted and must not stop the calling workflow.
 
 ## 5. Workflow
 
@@ -48,7 +48,7 @@ flowchart TD
 2. Iterate over configured sinks.
 3. Deliver the unchanged record to each sink.
 4. Record any delivery failure and continue with remaining sinks.
-5. Report an error when any sink failed; otherwise complete.
+5. Log any sink failure through the standard library logger; otherwise complete.
 
 ## 6. Modules
 
@@ -69,7 +69,7 @@ Process level.
 | LOG-001 | One sink configured. | A record is emitted. | The sink receives the unchanged record. |
 | LOG-002 | Several sinks configured. | A record is emitted. | Every sink receives the record. |
 | LOG-003 | No sinks configured. | A record is emitted. | The operation completes without error. |
-| LOG-004 | A sink raises an error. | A record is emitted. | Remaining sinks are attempted and the error is reported. |
+| LOG-004 | A sink raises an error. | A record is emitted. | Remaining sinks are attempted and the failure is logged through the standard library logger. |
 
 ### 7.3 Test Coverage
 

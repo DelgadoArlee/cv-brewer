@@ -1,10 +1,8 @@
 from collections.abc import Callable
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 from typing import TypeAlias
-
-from core.services.resume import ProcessingHistoryEntry
 
 
 class ResumeProcessingStatus(Enum):
@@ -34,7 +32,7 @@ class ResumeProcessingOutcome:
     message: str
     resume_id: str | None = None
     duplicate_resume_id: str | None = None
-    processing_history: tuple[ProcessingHistoryEntry, ...] = field(default_factory=tuple)
+    run_id: str | None = None
 
 
 StageCallback: TypeAlias = Callable[[str], None]

@@ -23,7 +23,8 @@ The process does not perform generation or persist records itself.
 - The process must split system and user messages into `system_prompt` and `prompt`.
 - The process must leave all generation parameters null.
 - The process must set response content, finish reason, and token usage from the generation result.
-- The process must set the timeout status for timeout errors and failed status for all other errors.
+- The process must set `SUCCESS` for successful calls, `TIMEOUT` for timeout errors, and `FAILED` for all other errors.
+- The process must preserve an optional `processing_step_id` when supplied.
 - The process must re-raise any exception after logging.
 
 ## 5. Workflow
@@ -34,9 +35,9 @@ The process does not perform generation or persist records itself.
 flowchart TD
     A([Start]) --> B[Receive request and measurement]
     B --> C{Generation result available?}
-    C -->|Yes| D[Build success record]
-    C -->|Timeout error| E[Build timeout record]
-    C -->|Other error| F[Build failed record]
+    C -->|Yes| D[Build SUCCESS record]
+    C -->|Timeout error| E[Build TIMEOUT record]
+    C -->|Other error| F[Build FAILED record]
     D --> G[Emit record]
     E --> G
     F --> G
@@ -74,9 +75,9 @@ Process level.
 
 | Scenario ID | Given | When | Then |
 | --- | --- | --- | --- |
-| REC-001 | A successful generation call. | The call completes. | A success record is emitted and the result is returned. |
-| REC-002 | A timeout error. | The call fails. | A timeout record is emitted and the error is re-raised. |
-| REC-003 | A non-timeout error. | The call fails. | A failed record is emitted and the error is re-raised. |
+| REC-001 | A successful generation call. | The call completes. | A `SUCCESS` record is emitted and the result is returned. |
+| REC-002 | A timeout error. | The call fails. | A `TIMEOUT` record is emitted and the error is re-raised. |
+| REC-003 | A non-timeout error. | The call fails. | A `FAILED` record is emitted and the error is re-raised. |
 | REC-004 | System and user messages. | A record is built. | Prompts are split correctly and parameters are null. |
 
 ### 8.3 Test Coverage
